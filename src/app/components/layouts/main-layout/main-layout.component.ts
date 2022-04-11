@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainLayoutComponent implements OnInit {
 
-  constructor() { }
+  loginStatus:boolean
+  constructor(private AuthService:AuthService) {
+    this.loginStatus = this.AuthService.loginStatus;
+    console.log(this.loginStatus);
+   }
 
   ngOnInit(): void {
+    this.AuthService.isUserLoggedSubject().subscribe(status=>{
+      this.loginStatus = status
+    })
   }
 
 }

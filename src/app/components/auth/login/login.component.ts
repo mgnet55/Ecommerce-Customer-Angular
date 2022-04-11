@@ -33,13 +33,16 @@ export class LoginComponent implements OnInit {
   login(){
     this.AuthService.login(this.loginFormGroup.value).subscribe(ele=>{
       if(ele){
-        let userToken = ele.token;
+        let userToken = ele.data.token;
         localStorage.setItem('userToken',userToken);
         this.router.navigate(['products']);
       }
     })
+  }
 
-
+  logout(){
+    this.AuthService.logout();
+    localStorage.removeItem('userToken');
   }
 
 }
