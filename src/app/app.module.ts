@@ -8,10 +8,10 @@ import { HeaderComponent } from './components/layouts/header/header.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { MainLayoutComponent } from './components/layouts/main-layout/main-layout.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +21,8 @@ import { RegisterComponent } from './components/auth/register/register.component
     FooterComponent,
     LoginComponent,
     MainLayoutComponent,
-    NotFoundComponent,
-    RegisterComponent
+    RegisterComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
