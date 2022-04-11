@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       if(ele){
         let userToken = ele.data.token;
         localStorage.setItem('userToken',userToken);
-        this.router.navigate(['products']);
+        this.router.navigate(['home',ele.data.name]);
       }
     })
   }

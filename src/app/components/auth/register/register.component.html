@@ -1,0 +1,100 @@
+<div class="container">
+  <form [formGroup]="RegisterationForm" class="m-3">
+    <div class="mb-3">
+      <label for="fName" class="form-label">FullName</label>
+      <input type="text" formControlName="fullName" class="form-control" id="fName" name="userFname" [class.is-invalid]="fullName?.invalid" [class.is-valid]="fullName?.valid">
+      <div class="alert alert-warning" [hidden]="fullName?.valid || fullName?.untouched">
+        <small *ngIf="fullName?.errors?.['required']">
+          Full Name is required
+        </small>
+        <small *ngIf="fullName?.errors?.['pattern']">
+          Full name must be 3 letters at least, <b>{{fullName?.errors?.['pattern'].actualValue}}</b> dosn't match.
+        </small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" formControlName="email" class="form-control" id="email" name="email">
+      <div class="alert alert-warning" [hidden]="email?.valid || email?.untouched">
+        <small *ngIf="email?.errors?.['required']">
+          Email is required
+        </small>
+        <small *ngIf="email?.errors?.['existEmail']">
+          Entered Email is used before, <b>{{email?.errors?.['existEmail'].value}}</b> can't be used
+        </small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="phoneNo" class="form-label">Phone Number</label>
+      <input type="text" formControlName="phoneNo" class="form-control" id="phoneNo" name="phoneNo">
+      <div class="alert alert-warning" [hidden]="phoneNo?.untouched">
+        <small *ngIf="phoneNo?.errors?.['required']">
+          Email is required
+        </small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="governate" class="form-label">Governate</label>
+      <input type="text" formControlName="governate" class="form-control" id="governate" name="governate">
+      <div class="alert alert-warning" [hidden]="governate?.valid || governate?.untouched">
+        <small *ngIf="governate?.errors?.['required']">
+          Governate is required
+        </small>
+      </div>
+    </div>
+      <div class="mb-3">
+        <label for="city" class="form-label">City</label>
+        <input type="text" formControlName="city" class="form-control" id="city" name="city">
+        <div class="alert alert-warning" [hidden]="city?.valid || city?.untouched">
+          <small *ngIf="city?.errors?.['required']">
+            City is required
+          </small>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="street" class="form-label">Street</label>
+        <input type="text" formControlName="street" class="form-control" id="street" name="street">
+        <div class="alert alert-warning" [hidden]="street?.valid || street?.untouched">
+          <small *ngIf="password?.errors?.['required']">
+            Street is required
+          </small>
+        </div>
+      </div>
+
+    <div class="mb-3">
+      <label for="uPass" class="form-label">Password</label>
+      <input type="password" formControlName="password" class="form-control" id="uPass" name="userPass">
+      <div class="alert alert-warning" [hidden]="password?.valid || password?.untouched">
+        <small *ngIf="password?.errors?.['required']">
+          Password is required
+        </small>
+        <small *ngIf="password?.errors?.['minlength']">
+          Password must be 8 letters at least.
+        </small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="uCPass" class="form-label">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" class="form-control" id="uCPass" name="usercpass">
+        <div class="alert alert-warning" *ngIf="confirmPassword?.errors?.['required'] && confirmPassword?.touched">
+          Confirm Password is required
+        </div>
+        <div small class="alert alert-warning" *ngIf="RegisterationForm?.errors?.['UnmatchedPassword']">
+          Confirm password must match password.
+        </div>
+    </div>
+
+
+    <button [disabled]="RegisterationForm.invalid" type="submit" class="btn btn-dark">Submit</button>
+  </form>
+    <br>
+  <div>
+      {{RegisterationForm.value | json}}
+  </div>
+    <br>
+    <br>
+</div>
