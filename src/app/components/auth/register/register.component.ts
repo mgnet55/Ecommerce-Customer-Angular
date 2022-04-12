@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
       // Errors Handling---------------
 
       get name() {
-        return this.RegisterationForm.get('fullName');
+        return this.RegisterationForm.get('name');
       }
 
       get email() {
