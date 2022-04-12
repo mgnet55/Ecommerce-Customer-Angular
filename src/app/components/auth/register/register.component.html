@@ -1,14 +1,14 @@
 <div class="container">
-  <form [formGroup]="RegisterationForm" class="m-3">
+  <form [formGroup]="RegisterationForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="registerUser()">
     <div class="mb-3">
-      <label for="fName" class="form-label">FullName</label>
-      <input type="text" formControlName="fullName" class="form-control" id="fName" name="userFname" [class.is-invalid]="fullName?.invalid" [class.is-valid]="fullName?.valid">
-      <div class="alert alert-warning" [hidden]="fullName?.valid || fullName?.untouched">
-        <small *ngIf="fullName?.errors?.['required']">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" formControlName="name" class="form-control" id="name" name="name" [class.is-invalid]="name?.invalid" [class.is-valid]="name?.valid">
+      <div class="alert alert-warning" [hidden]="name?.valid || name?.untouched">
+        <small *ngIf="name?.errors?.['required']">
           Full Name is required
         </small>
-        <small *ngIf="fullName?.errors?.['pattern']">
-          Full name must be 3 letters at least, <b>{{fullName?.errors?.['pattern'].actualValue}}</b> dosn't match.
+        <small *ngIf="name?.errors?.['pattern']">
+          Full name must be 3 letters at least, <b>{{name?.errors?.['pattern'].actualValue}}</b> dosn't match.
         </small>
       </div>
     </div>
@@ -27,23 +27,30 @@
     </div>
 
     <div class="mb-3">
-      <label for="phoneNo" class="form-label">Phone Number</label>
-      <input type="text" formControlName="phoneNo" class="form-control" id="phoneNo" name="phoneNo">
-      <div class="alert alert-warning" [hidden]="phoneNo?.untouched">
-        <small *ngIf="phoneNo?.errors?.['required']">
-          Email is required
+      <label for="phone" class="form-label">Phone Number</label>
+      <input type="text" formControlName="phone" class="form-control" id="phone" name="phone">
+      <div class="alert alert-warning" [hidden]="phone?.untouched">
+        <small *ngIf="phone?.errors?.['required']">
+          Phone Number is required.
         </small>
       </div>
     </div>
+
     <div class="mb-3">
-      <label for="governate" class="form-label">Governate</label>
-      <input type="text" formControlName="governate" class="form-control" id="governate" name="governate">
-      <div class="alert alert-warning" [hidden]="governate?.valid || governate?.untouched">
-        <small *ngIf="governate?.errors?.['required']">
-          Governate is required
-        </small>
-      </div>
-    </div>
+      <label for="file">Profile Image</label>
+      <input
+          formControlName="file"
+          id="file"
+          type="file"
+          class="form-control"
+          accept="image/x-png,image/jpg,image/jpeg"
+          (change)="onFileChange($event)">
+          <div class="alert alert-warning" [hidden]="file?.valid || file?.untouched">
+            <small *ngIf="file?.errors?.['required']">
+              Profile Image is required
+            </small>
+          </div>
+  </div>
       <div class="mb-3">
         <label for="city" class="form-label">City</label>
         <input type="text" formControlName="city" class="form-control" id="city" name="city">
@@ -55,11 +62,11 @@
       </div>
 
       <div class="mb-3">
-        <label for="street" class="form-label">Street</label>
-        <input type="text" formControlName="street" class="form-control" id="street" name="street">
-        <div class="alert alert-warning" [hidden]="street?.valid || street?.untouched">
-          <small *ngIf="password?.errors?.['required']">
-            Street is required
+        <label for="address" class="form-label">Address</label>
+        <input type="text" formControlName="address" class="form-control" id="address" name="address">
+        <div class="alert alert-warning" [hidden]="address?.valid || address?.untouched">
+          <small *ngIf="address?.errors?.['required']">
+            address is required
           </small>
         </div>
       </div>
@@ -88,8 +95,9 @@
         </div>
     </div>
 
+    <button
 
-    <button [disabled]="RegisterationForm.invalid" type="submit" class="btn btn-dark">Submit</button>
+    type="submit" class="btn btn-dark">Submit</button>
   </form>
     <br>
   <div>

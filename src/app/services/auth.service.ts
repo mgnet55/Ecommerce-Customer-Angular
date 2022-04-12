@@ -23,7 +23,6 @@ export class AuthService {
   login(data:object):Observable<any>{
     this.isLoggedSubject.next(true);
     return this.httpClient.post(`${environment.apiURL}/login`,JSON.stringify(data),this.httpOptions)
-
    }
 
    logout(){
@@ -40,5 +39,7 @@ export class AuthService {
 
   }
 
-
+  register(data:object):Observable<any>{
+    return this.httpClient.post(`${environment.apiURL}/register`,data,this.httpOptions)
+   }
 }

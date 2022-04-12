@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -7,17 +10,21 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+  selectedFile : File | null = null;
   RegisterationForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private authService:AuthService) {
 
     this.RegisterationForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
+      name: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
       email: ['', [Validators.required]],
-      phoneNo: ['', [Validators.required]],
-      governate: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      file: ['', [Validators.required]],
+      fileSource: ['', [Validators.required]],
       city: ['',[Validators.required]],
-      street: ['',[Validators.required]],
+      address: ['',[Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
     },
@@ -31,7 +38,7 @@ export class RegisterComponent implements OnInit {
 
       // Errors Handling---------------
 
-      get fullName() {
+      get name() {
         return this.RegisterationForm.get('fullName');
       }
 
@@ -39,20 +46,20 @@ export class RegisterComponent implements OnInit {
         return this.RegisterationForm.get('email');
       }
 
-      get phoneNo() {
-        return this.RegisterationForm.get('phoneNo');
+      get phone() {
+        return this.RegisterationForm.get('phone');
       }
 
-      get governate() {
-        return this.RegisterationForm.get('governate');
+      get file() {
+        return this.RegisterationForm.get('avatar');
       }
 
       get city() {
         return this.RegisterationForm.get('city');
       }
 
-      get street() {
-        return this.RegisterationForm.get('street');
+      get address() {
+        return this.RegisterationForm.get('address');
       }
 
       get password() {
@@ -83,5 +90,41 @@ export class RegisterComponent implements OnInit {
         }
       }
 
+
+      onFileChange(event:any) {
+        if (event.target.files.length > 0) {
+          this.selectedFile = <File>event.target.files[0];
+          console.log(this.selectedFile);
+        }
+      }
+
+      registerUser(){
+         const formData = new FormData();
+        formData.append('avatar', this.selectedFile?this.selectedFile:'',this.selectedFile?.name);
+        formData.append('name', this.RegisterationForm.get('name')?.value);
+        formData.append('email', this.RegisterationForm.get('email')?.value);
+        formData.append('phone', this.RegisterationForm.get('phone')?.value);
+        formData.append('city_id', this.RegisterationForm.get('city_id')?.value);
+        formData.append('address', this.RegisterationForm.get('address')?.value);
+        formData.append('password', this.RegisterationForm.get('password')?.value);
+        formData.append('password_confirmation', this.RegisterationForm.get('confirm_password')?.value);
+
+         console.log(formData.getAll);
+         let userModel = {
+          name: this.RegisterationForm.value.name,
+          email: this.RegisterationForm.value.email,
+          phone: this.RegisterationForm.value.phone,
+          avatar: formData,
+          city_id: this.RegisterationForm.value.city,
+          address: this.RegisterationForm.value.address,
+          password: this.RegisterationForm.value.password,
+          confirm_password: this.RegisterationForm.value.password,
+         }
+         console.log(formData)
+
+        this.authService.register(userModel).subscribe({
+
+        })
+      }
 
 }

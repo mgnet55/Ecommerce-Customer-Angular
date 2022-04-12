@@ -1,9 +1,9 @@
 export interface User {
-  fullName: string;
-  email: string;
-  phoneNo: string;
-  governate: string;
-  city: string;
-  street: string
-  password: string;
+  name: string,
+  email: string,
+  phone: string,
+  avatar: string,
+  city_id: string,
+  address: string,
+  password: string
 }
