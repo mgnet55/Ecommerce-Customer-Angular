@@ -1,3 +1,4 @@
+import { ProductsComponent } from './components/products/products.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -7,18 +8,21 @@ import { MainLayoutComponent } from './components/layouts/main-layout/main-layou
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 const routes: Routes = [
-  {path: '' , component: MainLayoutComponent, children:[
-    {path: '', redirectTo: 'home', pathMatch: 'full'},
-    {path:'home', component: HomeComponent},
-    {path:'home/:username', component: HomeComponent},
-    {
-      path: 'user',
-      loadChildren: () => import('src/app/modules/user/user.module').then(m => m.UserModule)
-    },
-  ]},
-  {path:'login', component:LoginComponent},
-   {path: 'register', component: RegisterComponent},
-  {path: '**',component:NotFoundComponent}
+  {
+    path: '', component: MainLayoutComponent, children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'home/:username', component: HomeComponent },
+      {
+        path: 'user',
+        loadChildren: () => import('src/app/modules/user/user.module').then(m => m.UserModule)
+      },
+    ]
+  },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 
