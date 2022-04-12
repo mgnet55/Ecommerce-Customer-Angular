@@ -40,6 +40,6 @@ export class AuthService {
   }
 
   register(data:object):Observable<any>{
-    return this.httpClient.post(`${environment.apiURL}/register`,data,this.httpOptions)
+    return this.httpClient.post(`${environment.apiURL}/register`,JSON.stringify(data),this.httpOptions)
    }
 }

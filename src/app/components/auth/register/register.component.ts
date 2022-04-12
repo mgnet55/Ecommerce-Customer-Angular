@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -15,14 +15,14 @@ export class RegisterComponent implements OnInit {
   RegisterationForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private authService:AuthService) {
+              private authService:AuthService,
+              private Router:Router) {
 
     this.RegisterationForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
       email: ['', [Validators.required]],
       phone: ['', [Validators.required]],
-      file: ['', [Validators.required]],
-      fileSource: ['', [Validators.required]],
+      // file: ['', [Validators.required]],
       city: ['',[Validators.required]],
       address: ['',[Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -99,32 +99,30 @@ export class RegisterComponent implements OnInit {
       }
 
       registerUser(){
-         const formData = new FormData();
-        formData.append('avatar', this.selectedFile?this.selectedFile:'',this.selectedFile?.name);
-        formData.append('name', this.RegisterationForm.get('name')?.value);
-        formData.append('email', this.RegisterationForm.get('email')?.value);
-        formData.append('phone', this.RegisterationForm.get('phone')?.value);
-        formData.append('city_id', this.RegisterationForm.get('city_id')?.value);
-        formData.append('address', this.RegisterationForm.get('address')?.value);
-        formData.append('password', this.RegisterationForm.get('password')?.value);
-        formData.append('password_confirmation', this.RegisterationForm.get('confirm_password')?.value);
 
-         console.log(formData.getAll);
-         let userModel = {
+        let userModel = {
           name: this.RegisterationForm.value.name,
           email: this.RegisterationForm.value.email,
           phone: this.RegisterationForm.value.phone,
-          avatar: formData,
           city_id: this.RegisterationForm.value.city,
           address: this.RegisterationForm.value.address,
           password: this.RegisterationForm.value.password,
           confirm_password: this.RegisterationForm.value.password,
          }
-         console.log(formData)
 
-        this.authService.register(userModel).subscribe({
 
+         console.log(JSON.stringify(userModel));
+
+        this.authService.register(userModel).subscribe(res=>{
+          if(res){
+            let userToken = res.data.token;
+            localStorage.setItem('userToken',userToken);
+            this.Router.navigate(['home',res.data.name]);
+          }
         })
       }
+
+
+
 
 }

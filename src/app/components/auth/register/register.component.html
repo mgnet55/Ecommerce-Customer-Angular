@@ -1,5 +1,5 @@
-<div class="container">
-  <form [formGroup]="RegisterationForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="registerUser()">
+<div class="container" style="display:flex;flex-direction: column; align-items: center;">
+  <form [formGroup]="RegisterationForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="registerUser()" style="width:70%">
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
       <input type="text" formControlName="name" class="form-control" id="name" name="name" [class.is-invalid]="name?.invalid" [class.is-valid]="name?.valid">
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label for="file">Profile Image</label>
       <input
           formControlName="file"
@@ -50,7 +50,7 @@
               Profile Image is required
             </small>
           </div>
-  </div>
+  </div> -->
       <div class="mb-3">
         <label for="city" class="form-label">City</label>
         <input type="text" formControlName="city" class="form-control" id="city" name="city">
