@@ -4,6 +4,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 
+
 const routes: Routes =[
   {path:'', redirectTo: 'profile', pathMatch:'full'},
   {path:'profile', component: UserProfileComponent, canActivate: [AuthGuard]},

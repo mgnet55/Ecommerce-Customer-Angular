@@ -1,56 +1,62 @@
-<div class="container" style="display:flex;flex-direction: column; align-items: center;">
-  <form [formGroup]="RegisterationForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="registerUser()" style="width:70%">
-    <div class="mb-3">
-      <label for="name" class="form-label">Name</label>
-      <input type="text" formControlName="name" class="form-control" id="name" name="name" [class.is-invalid]="name?.invalid" [class.is-valid]="name?.valid">
-      <div class="alert alert-warning" [hidden]="name?.valid || name?.untouched">
-        <small *ngIf="name?.errors?.['required']">
-          Full Name is required
-        </small>
-        <small *ngIf="name?.errors?.['pattern']">
-          Full name must be 3 letters at least, <b>{{name?.errors?.['pattern'].actualValue}}</b> dosn't match.
-        </small>
-      </div>
-    </div>
+<div class="register-banner">
+  <div class="container" style="display:flex;flex-direction: column; align-items: center;">
+    <form [formGroup]="RegisterationForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="registerUser()"
+      style="width:700px" class="loginForm">
 
-    <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input type="email" formControlName="email" class="form-control" id="email" name="email">
-      <div class="alert alert-warning" [hidden]="email?.valid || email?.untouched">
-        <small *ngIf="email?.errors?.['required']">
-          Email is required
-        </small>
-        <small *ngIf="email?.errors?.['existEmail']">
-          Entered Email is used before, <b>{{email?.errors?.['existEmail'].value}}</b> can't be used
-        </small>
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <label for="phone" class="form-label">Phone Number</label>
-      <input type="text" formControlName="phone" class="form-control" id="phone" name="phone">
-      <div class="alert alert-warning" [hidden]="phone?.untouched">
-        <small *ngIf="phone?.errors?.['required']">
-          Phone Number is required.
-        </small>
-      </div>
-    </div>
-
-    <!-- <div class="mb-3">
-      <label for="file">Profile Image</label>
-      <input
-          formControlName="file"
-          id="file"
-          type="file"
-          class="form-control"
-          accept="image/x-png,image/jpg,image/jpeg"
-          (change)="onFileChange($event)">
-          <div class="alert alert-warning" [hidden]="file?.valid || file?.untouched">
-            <small *ngIf="file?.errors?.['required']">
-              Profile Image is required
+      <div class="form-row">
+        <div class="col">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" formControlName="name" class="form-control" id="name" name="name"
+            [class.is-invalid]="name?.invalid" [class.is-valid]="name?.valid">
+          <div class="alert alert-warning" [hidden]="name?.valid || name?.untouched">
+            <small *ngIf="name?.errors?.['required']">
+              Full Name is required
+            </small>
+            <small *ngIf="name?.errors?.['pattern']">
+              Full name must be 3 letters at least, <b>{{name?.errors?.['pattern'].actualValue}}</b> dosn't match.
             </small>
           </div>
-  </div> -->
+        </div>
+
+        <div class="col">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" formControlName="email" class="form-control" id="email" name="email" required>
+          <div class="alert alert-warning" [hidden]="email?.valid || email?.untouched">
+            <small *ngIf="email?.errors?.['required']">
+              Email is required
+            </small>
+            <small *ngIf="email?.errors?.['existEmail']">
+              Entered Email is used before, <b>{{email?.errors?.['existEmail'].value}}</b> can't be used
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input type="text" formControlName="phone" class="form-control" id="phone" name="phone">
+        <div class="alert alert-warning" [hidden]="phone?.untouched">
+          <small *ngIf="phone?.errors?.['required']">
+            Phone Number is required.
+          </small>
+        </div>
+      </div>
+
+      <!-- <div class="mb-3">
+        <label for="file">Profile Image</label>
+        <input
+            formControlName="file"
+            id="file"
+            type="file"
+            class="form-control"
+            accept="image/x-png,image/jpg,image/jpeg"
+            (change)="onFileChange($event)">
+            <div class="alert alert-warning" [hidden]="file?.valid || file?.untouched">
+              <small *ngIf="file?.errors?.['required']">
+                Profile Image is required
+              </small>
+            </div>
+    </div> -->
       <div class="mb-3">
         <label for="city" class="form-label">City</label>
         <input type="text" formControlName="city" class="form-control" id="city" name="city">
@@ -71,38 +77,40 @@
         </div>
       </div>
 
-    <div class="mb-3">
-      <label for="uPass" class="form-label">Password</label>
-      <input type="password" formControlName="password" class="form-control" id="uPass" name="userPass">
-      <div class="alert alert-warning" [hidden]="password?.valid || password?.untouched">
-        <small *ngIf="password?.errors?.['required']">
-          Password is required
-        </small>
-        <small *ngIf="password?.errors?.['minlength']">
-          Password must be 8 letters at least.
-        </small>
+      <div class="form-row">
+        <div class="col">
+          <label for="uPass" class="form-label">Password</label>
+          <input type="password" formControlName="password" class="form-control" id="uPass" name="userPass">
+          <div class="alert alert-warning" [hidden]="password?.valid || password?.untouched">
+            <small *ngIf="password?.errors?.['required']">
+              Password is required
+            </small>
+            <small *ngIf="password?.errors?.['minlength']">
+              Password must be 8 letters at least.
+            </small>
+          </div>
+        </div>
+
+        <div class="col">
+          <label for="uCPass" class="form-label">Confirm Password</label>
+          <input type="password" formControlName="confirmPassword" class="form-control" id="uCPass" name="usercpass">
+          <div class="alert alert-warning" *ngIf="confirmPassword?.errors?.['required'] && confirmPassword?.touched">
+            Confirm Password is required
+          </div>
+          <div small class="alert alert-warning" *ngIf="RegisterationForm?.errors?.['UnmatchedPassword']">
+            Confirm password must match password.
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="mb-3">
-      <label for="uCPass" class="form-label">Confirm Password</label>
-      <input type="password" formControlName="confirmPassword" class="form-control" id="uCPass" name="usercpass">
-        <div class="alert alert-warning" *ngIf="confirmPassword?.errors?.['required'] && confirmPassword?.touched">
-          Confirm Password is required
-        </div>
-        <div small class="alert alert-warning" *ngIf="RegisterationForm?.errors?.['UnmatchedPassword']">
-          Confirm password must match password.
-        </div>
-    </div>
-
-    <button
-
-    type="submit" class="btn btn-dark">Submit</button>
-  </form>
+      <br>
+      <button [disabled]="RegisterationForm.invalid" type="submit" class="btn btn-dark">Submit</button>
+    </form>
     <br>
-  <div>
+    <!-- <div>
       {{RegisterationForm.value | json}}
+    </div> -->
+    <br>
+    <br>
   </div>
-    <br>
-    <br>
+
 </div>
