@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ProductComponent } from './components/product/product.component';
+import { ProductsComponent } from './components/products/products.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
     LoginComponent,
     MainLayoutComponent,
     RegisterComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ProductComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
