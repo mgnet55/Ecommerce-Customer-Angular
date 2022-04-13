@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductsComponent } from './components/products/products.component';
+import { CartComponent } from './components/cart/cart.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -33,6 +34,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     NotFoundComponent,
     ProductComponent,
     ProductsComponent,
+    CartComponent
     CarouselComponent,
     DropdownComponent
   ],
