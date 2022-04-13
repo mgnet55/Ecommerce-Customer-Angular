@@ -3,7 +3,7 @@ export interface VmCardProduct {
   name:string
   price:number
   discount:number
-  imageUrl:string
+  image:string
   category_name:string
   //category_id:number
   available:number

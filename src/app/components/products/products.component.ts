@@ -8,7 +8,7 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  searchBy: string | undefined;
+  searchBy: string ='';
   products: VmCardProduct[] = [];
   constructor(private productsService:ProductsService) {
 
