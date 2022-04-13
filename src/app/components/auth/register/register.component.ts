@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
+import { City } from 'src/app/models/city';
+import { Governate } from 'src/app/models/governate';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,11 +11,13 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit{
 
   selectedFile : File | null = null;
   RegisterationForm: FormGroup;
-
+  governates : Governate[] = [];
+  cities : City[]= [];
+  governateID: number = 0;
   constructor(private fb: FormBuilder,
               private authService:AuthService,
               private Router:Router) {
@@ -24,6 +28,7 @@ export class RegisterComponent implements OnInit {
       phone: ['', [Validators.required]],
       // file: ['', [Validators.required]],
       city: ['',[Validators.required]],
+      governate: ['',[Validators.required]],
       address: ['',[Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
@@ -34,7 +39,28 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      this.authService.governates().subscribe(res=>{
+        console.log(res);
+        this.governates = res;
+        console.log(this.governateID);
+
+      })
+
   }
+
+   onChange(event:any)
+   {
+
+    //  this.governateID = event.target.value
+     console.log(this.governateID);
+
+     this.authService.cities(+this.governateID).subscribe(res=>{
+      console.log(res);
+      this.cities = res;
+      // console.log(this.cities)
+    })
+
+   }
 
       // Errors Handling---------------
 
@@ -50,9 +76,9 @@ export class RegisterComponent implements OnInit {
         return this.RegisterationForm.get('phone');
       }
 
-      get file() {
-        return this.RegisterationForm.get('avatar');
-      }
+      // get file() {
+      //   return this.RegisterationForm.get('avatar');
+      // }
 
       get city() {
         return this.RegisterationForm.get('city');
@@ -72,11 +98,6 @@ export class RegisterComponent implements OnInit {
 
       // Custom Validations-------------------
 
-      // existEmailValidtion() : ValidatorFn{
-      //   return (control:AbstractControl):ValidationErrors | null=>{
-
-      //   }
-      // }
 
       passwordMatch(): ValidatorFn {
         return (frmGroup: AbstractControl): ValidationErrors | null => {
@@ -107,9 +128,9 @@ export class RegisterComponent implements OnInit {
           city_id: this.RegisterationForm.value.city,
           address: this.RegisterationForm.value.address,
           password: this.RegisterationForm.value.password,
-          confirm_password: this.RegisterationForm.value.password,
+          password_confirmation: this.RegisterationForm.value.password,
          }
-         
+
          console.log(JSON.stringify(userModel));
 
         this.authService.register(userModel).subscribe(res=>{

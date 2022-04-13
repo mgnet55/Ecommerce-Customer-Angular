@@ -1,10 +1,15 @@
-<div class="register-banner">
+
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assets/images/pexels-artem-beliaikin-1078973.jpg');">
+  <h2 class="ltext-105 cl0 txt-center">
+    Register
+  </h2>
+</section>
   <div class="container" style="display:flex;flex-direction: column; align-items: center;">
     <form [formGroup]="RegisterationForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="registerUser()"
       style="width:700px" class="loginForm">
 
-      <div class="form-row">
-        <div class="col">
+
+        <div class="mb-3">
           <label for="name" class="form-label">Name</label>
           <input type="text" formControlName="name" class="form-control" id="name" name="name"
             [class.is-invalid]="name?.invalid" [class.is-valid]="name?.valid">
@@ -18,9 +23,9 @@
           </div>
         </div>
 
-        <div class="col">
+        <div class="mb-3">
           <label for="email" class="form-label">Email</label>
-          <input type="email" formControlName="email" class="form-control" id="email" name="email" required>
+          <input type="email" formControlName="email" class="form-control"  id="email" name="email" required>
           <div class="alert alert-warning" [hidden]="email?.valid || email?.untouched">
             <small *ngIf="email?.errors?.['required']">
               Email is required
@@ -30,12 +35,12 @@
             </small>
           </div>
         </div>
-      </div>
+
 
       <div class="mb-3">
         <label for="phone" class="form-label">Phone Number</label>
         <input type="text" formControlName="phone" class="form-control" id="phone" name="phone">
-        <div class="alert alert-warning" [hidden]="phone?.untouched">
+        <div class="alert alert-warning" [hidden]="phone?.untouched || phone?.valid">
           <small *ngIf="phone?.errors?.['required']">
             Phone Number is required.
           </small>
@@ -57,16 +62,35 @@
               </small>
             </div>
     </div> -->
-      <div class="mb-3">
-        <label for="city" class="form-label">City</label>
-        <input type="text" formControlName="city" class="form-control" id="city" name="city">
+
+      <!--  -->
+
+      <div class="form-row">
+        <div class="col">
+          <label for="cat" class="form-label">Governate</label>
+          <select class="form-control" formControlName="governate" name="governate" id="governate" [(ngModel)]="governateID" (change)="onChange($event)">
+              <option *ngFor="let governate of governates" [value]="governate.id">
+                  {{governate.name}}
+              </option>
+          </select>
+      </div>
+
+      <div class="col">
+        <label for="cat" class="form-label">City</label>
+        <select class="form-control" formControlName="city" name="city" id="city">
+            <option *ngFor="let city of cities" [value]="city.id">
+                {{city.name}}
+            </option>
+        </select>
         <div class="alert alert-warning" [hidden]="city?.valid || city?.untouched">
           <small *ngIf="city?.errors?.['required']">
             City is required
           </small>
         </div>
       </div>
+      </div>
 
+      <!--  -->
       <div class="mb-3">
         <label for="address" class="form-label">Address</label>
         <input type="text" formControlName="address" class="form-control" id="address" name="address">
@@ -76,7 +100,6 @@
           </small>
         </div>
       </div>
-
       <div class="form-row">
         <div class="col">
           <label for="uPass" class="form-label">Password</label>
@@ -103,7 +126,10 @@
         </div>
       </div>
       <br>
-      <button [disabled]="RegisterationForm.invalid" type="submit" class="btn btn-dark">Submit</button>
+
+      <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" [disabled]="RegisterationForm.invalid" type="submit">
+        Submit
+      </button>
     </form>
     <br>
     <!-- <div>
@@ -113,4 +139,3 @@
     <br>
   </div>
 
-</div>

@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { City } from '../models/city';
+import { Governate } from '../models/governate';
 @Injectable({
   providedIn: 'root'
 })
@@ -45,5 +47,13 @@ export class AuthService {
 
    myProfile():Observable<any>{
     return this.httpClient.get(`${environment.apiURL}/myProfile`,this.httpOptions)
+   }
+
+   cities(cityID:number):Observable<City[]>{
+    return this.httpClient.get<City[]>(`${environment.apiURL}/governorate/${cityID}`,this.httpOptions)
+   }
+
+   governates():Observable<Governate[]>{
+    return this.httpClient.get<Governate[]>(`${environment.apiURL}/governorate`,this.httpOptions)
    }
 }

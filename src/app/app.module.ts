@@ -17,6 +17,9 @@ import { ProductsComponent } from './components/products/products.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     NotFoundComponent,
     ProductComponent,
     ProductsComponent,
-    CarouselComponent
+    CarouselComponent,
+    DropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,9 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     ReactiveFormsModule,
     HttpClientModule,
     TooltipModule.forRoot(),
-    CarouselModule.forRoot()
+    CarouselModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
