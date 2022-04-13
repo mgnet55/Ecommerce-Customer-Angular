@@ -114,11 +114,19 @@ export class RegisterComponent implements OnInit {
          console.log(JSON.stringify(userModel));
 
         this.authService.register(userModel).subscribe(res=>{
-          if(res){
-            let userToken = res.data.token;
-            localStorage.setItem('userToken',userToken);
-            this.Router.navigate(['home',res.data.name]);
-          }
+
+            if (res.success == true){
+              return console.log(res.data.token);
+
+            }else if(res.success==false){
+               console.log(res.message);
+            }
+            // let userToken = res.data.token;
+            // localStorage.setItem('userToken',userToken);
+            // this.Router.navigate(['home',res.data.name]);
+
+
+          // console.log(res);
         })
       }
 
