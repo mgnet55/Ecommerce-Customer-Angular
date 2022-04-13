@@ -109,8 +109,7 @@ export class RegisterComponent implements OnInit {
           password: this.RegisterationForm.value.password,
           confirm_password: this.RegisterationForm.value.password,
          }
-
-
+         
          console.log(JSON.stringify(userModel));
 
         this.authService.register(userModel).subscribe(res=>{
@@ -119,7 +118,7 @@ export class RegisterComponent implements OnInit {
               return console.log(res.data.token);
 
             }else if(res.success==false){
-               console.log(res.message);
+              console.table(res.message);
             }
             // let userToken = res.data.token;
             // localStorage.setItem('userToken',userToken);
