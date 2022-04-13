@@ -7,14 +7,19 @@ import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  searchBy: string | undefined;
+  searchBy: string = "";
   products: VmCardProduct[];
   constructor() {
     this.products = [
-      {id: 1,name: 'test1',price: 50,discount: 0,imageUrl: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-      {id: 2,name: 'test2',price: 50,discount: 0,imageUrl: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-      {id: 3,name: 'test3',price: 50,discount: 0,imageUrl: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-      {id: 4,name: 'test4',price: 50,discount: 0,imageUrl: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
+      {id: 1,name: 'test1',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
+      {id: 2,name: 'test2',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
+      {id: 3,name: 'test3',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
+      {id: 4,name: 'test4',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
+
+      {id: 5,name: 'test1',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
+      {id: 6,name: 'test2',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
+      {id: 7,name: 'test3',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
+      {id: 8,name: 'test4',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
     ]
   }
 
