@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-home',
@@ -10,20 +11,20 @@ import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
 export class HomeComponent implements OnInit {
 
   username:string | null= '';
-  products: VmCardProduct[];
-  constructor(private activatedRoute:ActivatedRoute) {
-    this.products = [
-      {id: 1,name: 'test1',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-      {id: 2,name: 'test2',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-      {id: 3,name: 'test3',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-      {id: 4,name: 'test4',price: 50,discount: 0,image: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-    ]
+  products: VmCardProduct[] = [];
+  constructor(private activatedRoute:ActivatedRoute,
+              private productsService:ProductsService) {
+
   }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap)=>{
       this.username = (paramMap.get('username'))? this.activatedRoute.snapshot.paramMap.get('username'): '';
 
+      })
+
+      this.productsService.getAllProducts().subscribe(prods=>{
+        this.products = prods.data.data
       })
   }
 

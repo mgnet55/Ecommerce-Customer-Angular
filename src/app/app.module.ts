@@ -14,6 +14,9 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductsComponent } from './components/products/products.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [
@@ -26,14 +29,17 @@ import { ProductsComponent } from './components/products/products.component';
     RegisterComponent,
     NotFoundComponent,
     ProductComponent,
-    ProductsComponent
+    ProductsComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TooltipModule.forRoot(),
+    CarouselModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

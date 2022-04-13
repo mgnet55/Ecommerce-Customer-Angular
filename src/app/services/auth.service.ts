@@ -12,7 +12,7 @@ export class AuthService {
   constructor(private httpClient:HttpClient
   ) {
     this.httpOptions =  {headers: new HttpHeaders({
-      'Content-Type': 'application/json','Accept':' */*'
+      'Content-Type': 'application/json','Accept':'application/json'
       ,'Authorization': `Bearer ${localStorage.getItem('userToken')}`
       })};
 

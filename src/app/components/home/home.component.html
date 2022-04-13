@@ -1,46 +1,36 @@
-<div class="container text-center">
-  <br>
-  <br>
-  <br>
-  <h2>Welcome {{username}}!</h2>
-   <br>
-    <br>
-  <div class="row isotope-grid" style="position: relative; height: 2451.1px;">
-    
-    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women" *ngFor="let product of products">
-      <!-- Block2 -->
-      <div class="block2">
-        <div class="block2-pic hov-img0">
-          <img src="assets/images/product-02.jpg" alt="IMG-PRODUCT">
-
-          <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-            Quick View
-          </a>
-        </div>
-
-        <div class="block2-txt flex-w flex-t p-t-14">
-          <div class="block2-txt-child1 flex-col-l ">
-            <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-              Esprit Ruffle Shirt
-            </a>
-
-            <span class="stext-105 cl3">
-              $16.64
-            </span>
-          </div>
-
-          <div class="block2-txt-child2 flex-r p-t-3">
-            <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-              <img class="icon-heart1 dis-block trans-04" src="assets/images/icons/icon-heart-01.png" alt="ICON">
-              <img class="icon-heart2 dis-block trans-04 ab-t-l" src="assets/images/icons/icon-heart-02.png" alt="ICON">
-            </a>
-          </div>
-        </div>
-      </div>
+<carousel style="max-height: 30vh;">
+  <slide style="position: relative;">
+    <h2 style="position: absolute; left: 20%; top: 30%;">Women Collections 2022</h2>
+    <div class="flex-c-m flex-w w-full" style="position: absolute; left: -20%; top: 40%;">
+      <a href="#" class="flex-c-m stext-101 cl5 size-103 bg1 bor1 hov-btn1 trans-04">
+        Load More
+      </a>
     </div>
-
+    <img src="assets/images/slide-01.jpg" alt="first slide" style="display: block; width: 100%;">
+  </slide>
+  <slide style="position: relative;">
+    <h1 style="position: absolute; left: 20%; top: 30%;font-family: 'Dancing Script', cursive;font-size: 5rem;">New Arrivals</h1>
+    <h5 style="position: absolute; left: 20%; top: 45%;">This Summer is Exclusive!</h5>
+    <img src="assets/images/slide-03.jpg" alt="second slide" style="display: block; width: 100%;">
+  </slide>
+  <slide style="position: relative;">
+    <h1 style="position: absolute; left: 10%; top: 30%;font-family: 'Dancing Script', cursive;font-size: 5rem;">incredible Prices!</h1>
+    <img src="assets/images/slide-02.jpg" alt="third slide" style="display: block; width: 100%;">
+  </slide>
+  <slide>
+    <div class="flex-c-m flex-w w-full" style="position: absolute; left: -20%; top: 40%;">
+      <a href="#" class="flex-c-m stext-101 text-light cl5 size-103 bg3 bor1 hov-btn1 trans-04">
+        Load More
+      </a>
+    </div>
+    <img src="assets/images/slide-04.jpg" alt="third slide" style="display: block; width: 100%;">
+  </slide>
+</carousel>
+ <br>
+<div class="container text-center">
+  <div class="row isotope-grid" style="position: relative;">
+    <app-product class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item" *ngFor="let product of products" [product]="product"></app-product>
   </div>
-
 
       <!-- Load more -->
       <div class="flex-c-m flex-w w-full p-t-45">
@@ -196,7 +186,6 @@
               </div>
             </div>
           </div>
-
 
 
 
