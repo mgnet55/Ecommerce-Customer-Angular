@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,9 +12,12 @@ export class LoginComponent implements OnInit {
 
   loginStatus : boolean = false
   loginFormGroup:FormGroup
+
+  errorMessage: number | string | null = 0
   constructor(private AuthService:AuthService,
               private fb:FormBuilder,
               private router:Router,
+              private activatedRoute:ActivatedRoute
               ){
 
     this.loginFormGroup = this.fb.group({
@@ -28,16 +31,23 @@ export class LoginComponent implements OnInit {
       this.loginStatus = status;
       console.log(this.loginStatus)
     });
+
+    this.activatedRoute.paramMap.subscribe((paramMap)=>{
+      this.errorMessage = (paramMap.get('error'))?this.activatedRoute.snapshot.paramMap.get('error'):0;
+      })
   }
 
   login(){
-    this.AuthService.login(this.loginFormGroup.value).subscribe(ele=>{
-      if(ele){
-        let userToken = ele.data.token;
+    this.AuthService.login(this.loginFormGroup.value).subscribe(
+         data =>{
+        console.log(data)
+        let userToken = data.data.token;
         localStorage.setItem('userToken',userToken);
-        this.router.navigate(['home',ele.data.name]);
-      }
-    })
+        this.router.navigate(['home',data.data.name]);
+      },
+      error =>{
+        this.router.navigate(['login','Invalid Email or Password']);
+      });
   }
 
   logout(){

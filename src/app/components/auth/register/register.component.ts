@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { City } from 'src/app/models/city';
 import { Governate } from 'src/app/models/governate';
 import { User } from 'src/app/models/user';
@@ -18,9 +18,11 @@ export class RegisterComponent implements OnInit{
   governates : Governate[] = [];
   cities : City[]= [];
   governateID: number = 0;
+  errorMessage: number | string | null = 0
   constructor(private fb: FormBuilder,
               private authService:AuthService,
-              private Router:Router) {
+              private router:Router,
+              private activatedRoute:ActivatedRoute) {
 
     this.RegisterationForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
@@ -45,6 +47,10 @@ export class RegisterComponent implements OnInit{
         console.log(this.governateID);
 
       })
+
+      this.activatedRoute.paramMap.subscribe((paramMap)=>{
+        this.errorMessage = (paramMap.get('error'))?this.activatedRoute.snapshot.paramMap.get('error'):0;
+        })
 
   }
 
@@ -133,21 +139,16 @@ export class RegisterComponent implements OnInit{
 
          console.log(JSON.stringify(userModel));
 
-        this.authService.register(userModel).subscribe(res=>{
-
-            if (res.success == true){
-              return console.log(res.data.token);
-
-            }else if(res.success==false){
-              console.table(res.message);
-            }
-            // let userToken = res.data.token;
-            // localStorage.setItem('userToken',userToken);
-            // this.Router.navigate(['home',res.data.name]);
-
-
-          // console.log(res);
-        })
+        this.authService.register(userModel).subscribe(
+          data =>{
+            console.log(data)
+            let userToken = data.data.token;
+            localStorage.setItem('userToken',userToken);
+            this.router.navigate(['home',data.data.name]);
+          },
+          error =>{
+            this.router.navigate(['register',error.error['message']]);
+          });
       }
 
 

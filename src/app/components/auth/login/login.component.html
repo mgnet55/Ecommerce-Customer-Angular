@@ -1,5 +1,9 @@
 <div class="login-banner">
   <div class="container" style="margin-top: 0;display: flex; justify-content: center; align-items: center; flex-direction: column;">
+
+    <div *ngIf="errorMessage" class="alert alert-success" role="alert">
+      {{errorMessage}}!
+  </div>
     <form method="POST" [formGroup]="loginFormGroup" (ngSubmit)="login()" style="width: 600px;" class="loginForm">
       <h1>Login</h1>
       <br>

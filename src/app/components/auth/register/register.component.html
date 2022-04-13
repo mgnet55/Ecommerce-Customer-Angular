@@ -5,6 +5,10 @@
   </h2>
 </section>
   <div class="container" style="display:flex;flex-direction: column; align-items: center;">
+    <br>
+    <div *ngIf="errorMessage" class="alert alert-success" role="alert">
+      {{errorMessage}}!
+  </div>
     <form [formGroup]="RegisterationForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="registerUser()"
       style="width:700px" class="loginForm">
 

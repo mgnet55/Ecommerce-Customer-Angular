@@ -34,7 +34,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     NotFoundComponent,
     ProductComponent,
     ProductsComponent,
-    CartComponent
+    CartComponent,
     CarouselComponent,
     DropdownComponent
   ],
