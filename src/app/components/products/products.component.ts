@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -7,17 +8,21 @@ import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  searchBy: string | undefined;
-  products?: VmCardProduct[];
-  constructor() { }
+  searchBy: string ='';
+  products: VmCardProduct[] = [];
+  constructor(private productsService:ProductsService) {
+
+  }
 
   ngOnInit(): void {
-    this.products = [
-      {id: 1,name: 'test1',price: 50,discount: 0,imageUrl: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-      {id: 2,name: 'test2',price: 50,discount: 0,imageUrl: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-      {id: 3,name: 'test3',price: 50,discount: 0,imageUrl: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-      {id: 4,name: 'test4',price: 50,discount: 0,imageUrl: 'https://dummyimage.com/400x400/000/fff&text=user_avatar',category_name: 'cat1',available: 10},
-    ]
+
+    this.productsService.getAllProducts().subscribe(ele=>{
+      this.products = ele.data.data
+
+      console.log(this.products);
+    })
+
+
     if (!this.searchBy) {
       //get all this.products
     } else {

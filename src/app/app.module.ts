@@ -15,6 +15,12 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductsComponent } from './components/products/products.component';
 import { CartComponent } from './components/cart/cart.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -29,13 +35,19 @@ import { CartComponent } from './components/cart/cart.component';
     ProductComponent,
     ProductsComponent,
     CartComponent
+    CarouselComponent,
+    DropdownComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TooltipModule.forRoot(),
+    CarouselModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

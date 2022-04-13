@@ -24,15 +24,11 @@
             </li>
 
             <li>
-              <a href="product.html">Shop</a>
+              <a routerLink="/products">Shop</a>
             </li>
 
             <li class="label1" data-label1="hot">
               <a href="shoping-cart.html">Features</a>
-            </li>
-
-            <li>
-              <a href="blog.html">Blog</a>
             </li>
 
             <li>
@@ -42,11 +38,27 @@
             <li>
               <a href="contact.html">Contact</a>
             </li>
+            <li>
+              <div class="btn-group" dropdown>
+                <a id="button-disabled-item" dropdownToggle type="button" class="dropdown-toggle"
+                        aria-controls="dropdown-disabled-item">
+                  My Account<span class="caret"></span>
+              </a>
+                <ul id="dropdown-disabled-item" *dropdownMenu class="dropdown-menu"
+                    role="menu" aria-labelledby="button-disabled-item">
+                  <li class="disabled" role="menuitem"><a class="dropdown-item" href="#">Account Mangement</a></li>
+                  <li role="menuitem"><a class="dropdown-item" routerLink="/user/profile">My Profile</a>
+                  </li>
+                  <li role="menuitem"><a class="dropdown-item" href="#">My Orders</a></li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </div>
 
         <!-- Icon header -->
         <div class="wrap-icon-header flex-w flex-r-m">
+
           <div
             class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search"
           >
@@ -151,7 +163,7 @@
       </li>
 
       <li>
-        <a href="product.html">Shop</a>
+        <a routerLink="/products">Shop</a>
       </li>
 
       <li>
@@ -161,15 +173,14 @@
       </li>
 
       <li>
-        <a href="blog.html">Blog</a>
-      </li>
-
-      <li>
         <a href="about.html">About</a>
       </li>
 
       <li>
         <a href="contact.html">Contact</a>
+      </li>
+      <li>
+        <a href="user/profile">My Account</a>
       </li>
     </ul>
   </div>
@@ -189,6 +200,7 @@
         </button>
         <input class="plh3" type="text" name="search" placeholder="Search..." />
       </form>
+
     </div>
   </div>
 </header>

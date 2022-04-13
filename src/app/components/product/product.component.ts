@@ -11,6 +11,7 @@ export class ProductComponent implements OnInit {
   @Input()
   product!: VmCardProduct;
 
+  apiUrl = 'http://localhost:8000';
   constructor() {
   }
 

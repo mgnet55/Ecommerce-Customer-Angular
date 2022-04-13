@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
+import { City } from 'src/app/models/city';
+import { Governate } from 'src/app/models/governate';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,21 +11,24 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit{
 
   selectedFile : File | null = null;
   RegisterationForm: FormGroup;
-
+  governates : Governate[] = [];
+  cities : City[]= [];
+  governateID: number = 0;
   constructor(private fb: FormBuilder,
-              private authService:AuthService) {
+              private authService:AuthService,
+              private Router:Router) {
 
     this.RegisterationForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('[A-Za-z]{3,}')]],
       email: ['', [Validators.required]],
       phone: ['', [Validators.required]],
-      file: ['', [Validators.required]],
-      fileSource: ['', [Validators.required]],
+      // file: ['', [Validators.required]],
       city: ['',[Validators.required]],
+      governate: ['',[Validators.required]],
       address: ['',[Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
@@ -34,12 +39,33 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      this.authService.governates().subscribe(res=>{
+        console.log(res);
+        this.governates = res;
+        console.log(this.governateID);
+
+      })
+
   }
+
+   onChange(event:any)
+   {
+
+    //  this.governateID = event.target.value
+     console.log(this.governateID);
+
+     this.authService.cities(+this.governateID).subscribe(res=>{
+      console.log(res);
+      this.cities = res;
+      // console.log(this.cities)
+    })
+
+   }
 
       // Errors Handling---------------
 
       get name() {
-        return this.RegisterationForm.get('fullName');
+        return this.RegisterationForm.get('name');
       }
 
       get email() {
@@ -50,9 +76,9 @@ export class RegisterComponent implements OnInit {
         return this.RegisterationForm.get('phone');
       }
 
-      get file() {
-        return this.RegisterationForm.get('avatar');
-      }
+      // get file() {
+      //   return this.RegisterationForm.get('avatar');
+      // }
 
       get city() {
         return this.RegisterationForm.get('city');
@@ -72,11 +98,6 @@ export class RegisterComponent implements OnInit {
 
       // Custom Validations-------------------
 
-      // existEmailValidtion() : ValidatorFn{
-      //   return (control:AbstractControl):ValidationErrors | null=>{
-
-      //   }
-      // }
 
       passwordMatch(): ValidatorFn {
         return (frmGroup: AbstractControl): ValidationErrors | null => {
@@ -99,32 +120,37 @@ export class RegisterComponent implements OnInit {
       }
 
       registerUser(){
-         const formData = new FormData();
-        formData.append('avatar', this.selectedFile?this.selectedFile:'',this.selectedFile?.name);
-        formData.append('name', this.RegisterationForm.get('name')?.value);
-        formData.append('email', this.RegisterationForm.get('email')?.value);
-        formData.append('phone', this.RegisterationForm.get('phone')?.value);
-        formData.append('city_id', this.RegisterationForm.get('city_id')?.value);
-        formData.append('address', this.RegisterationForm.get('address')?.value);
-        formData.append('password', this.RegisterationForm.get('password')?.value);
-        formData.append('password_confirmation', this.RegisterationForm.get('confirm_password')?.value);
 
-         console.log(formData.getAll);
-         let userModel = {
+        let userModel = {
           name: this.RegisterationForm.value.name,
           email: this.RegisterationForm.value.email,
           phone: this.RegisterationForm.value.phone,
-          avatar: formData,
           city_id: this.RegisterationForm.value.city,
           address: this.RegisterationForm.value.address,
           password: this.RegisterationForm.value.password,
-          confirm_password: this.RegisterationForm.value.password,
+          password_confirmation: this.RegisterationForm.value.password,
          }
-         console.log(formData)
 
-        this.authService.register(userModel).subscribe({
+         console.log(JSON.stringify(userModel));
 
+        this.authService.register(userModel).subscribe(res=>{
+
+            if (res.success == true){
+              return console.log(res.data.token);
+
+            }else if(res.success==false){
+              console.table(res.message);
+            }
+            // let userToken = res.data.token;
+            // localStorage.setItem('userToken',userToken);
+            // this.Router.navigate(['home',res.data.name]);
+
+
+          // console.log(res);
         })
       }
+
+
+
 
 }
