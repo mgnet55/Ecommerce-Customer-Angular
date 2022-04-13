@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { HomeComponent } from './components/home/home.component';
 import { MainLayoutComponent } from './components/layouts/main-layout/main-layout.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'products', component: ProductsComponent },
+      { path: 'cart', component: CartComponent },
       { path: 'home/:username', component: HomeComponent },
       {
         path: 'user',
