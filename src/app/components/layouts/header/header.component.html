@@ -15,22 +15,11 @@
         <div class="menu-desktop">
           <ul class="main-menu">
             <li class="active-menu">
-              <a href="index.html">Home</a>
-              <ul class="sub-menu">
-                <li><a href="index.html">Homepage 1</a></li>
-                <li><a href="home-02.html">Homepage 2</a></li>
-                <li><a href="home-03.html">Homepage 3</a></li>
-              </ul>
+              <a href="index.html" class="a-none">Home</a>
             </li>
-
             <li>
               <a routerLink="/products">Shop</a>
             </li>
-
-            <li class="label1" data-label1="hot">
-              <a href="shoping-cart.html">Features</a>
-            </li>
-
             <li>
               <a href="about.html">About</a>
             </li>
@@ -38,9 +27,9 @@
             <li>
               <a href="contact.html">Contact</a>
             </li>
-            <li>
+            <li [hidden]="loginStatus == false">
               <div class="btn-group" dropdown>
-                <a id="button-disabled-item" dropdownToggle type="button" class="dropdown-toggle"
+                <a id="button-disabled-item" dropdownToggle type="button" class="dropdown-toggle cl2 hov-cl1 trans-04 p-l-22 p-r-11"
                         aria-controls="dropdown-disabled-item">
                   My Account<span class="caret"></span>
               </a>
@@ -67,20 +56,24 @@
 
           <div style="color: black;"
             class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-           
+
           >
           <a routerLink="/cart" > <i class="zmdi zmdi-shopping-cart"></i> {{cartItems}}</a>
-         
-           
+
+
           </div>
 
-          <a
-            href="#"
+          <a href="#"
             class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-            data-notify="0"
-          >
+            data-notify="0">
             <i class="zmdi zmdi-favorite-outline"></i>
           </a>
+          <a routerLink="/login"
+          class="cl2 hov-cl1 trans-04 p-l-22 p-r-11" style="font-size: 1.2rem;" [hidden]="loginStatus == true">Login</a>
+          <button (click)="logout()"
+          class="cl2 hov-cl1 trans-04 p-l-22 p-r-11" style="font-size: 1.2rem;" [hidden]="loginStatus == false">Logout</button>
+          <a routerLink="/register"
+          class="cl2 hov-cl1 trans-04 p-l-22 p-r-11" style="font-size: 1.2rem;" [hidden]="loginStatus == true">Register</a>
         </div>
       </nav>
     </div>
