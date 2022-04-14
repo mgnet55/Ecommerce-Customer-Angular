@@ -20,12 +20,12 @@ const routes: Routes = [
         path: 'user',
         loadChildren: () => import('src/app/modules/user/user.module').then(m => m.UserModule)
       },
+      { path: 'login', component: LoginComponent },
+      { path: 'login/:error', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'register/:error', component: RegisterComponent },
     ]
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'login/:error', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'register/:error', component: RegisterComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

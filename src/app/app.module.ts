@@ -21,6 +21,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { AccountManagementComponent } from './components/account-management/account-management.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     ProductsComponent,
     CartComponent,
     CarouselComponent,
-    DropdownComponent
+    DropdownComponent,
+    ProductDetailsComponent,
+    AccountManagementComponent
   ],
   imports: [
     BrowserModule,
