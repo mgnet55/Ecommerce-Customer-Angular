@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product',
@@ -10,8 +11,8 @@ export class ProductComponent implements OnInit {
 
   @Input()
   product!: VmCardProduct;
+  imagesURL:string = environment.images
 
-  apiUrl = 'http://localhost:8000';
   constructor() {
   }
 
