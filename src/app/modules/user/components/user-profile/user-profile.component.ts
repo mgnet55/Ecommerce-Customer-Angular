@@ -27,7 +27,7 @@ export class UserProfileComponent implements OnInit {
        }
        this.profileData.push(userModel);
     },error=>{
-         this.Router.navigate(['/login','You Should Login'])
+        //  this.Router.navigate(['/login','You Should Login'])
     })
   }
 

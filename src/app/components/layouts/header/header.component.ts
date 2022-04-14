@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -11,7 +12,8 @@ export class HeaderComponent implements OnInit {
   cartItems:any;
   loginStatus:boolean
   constructor(private cartSevice:CartService,
-              private AuthService:AuthService) {
+              private AuthService:AuthService,
+              private Router:Router) {
                 this.loginStatus = this.AuthService.loginStatus;
                 console.log(this.loginStatus);
                }
@@ -29,6 +31,7 @@ export class HeaderComponent implements OnInit {
   logout(){
     this.AuthService.logout();
     localStorage.removeItem('userToken');
+    this.Router.navigate(['home']);
   }
 
 }

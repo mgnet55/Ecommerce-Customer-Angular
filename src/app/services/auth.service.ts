@@ -56,4 +56,8 @@ export class AuthService {
    governates():Observable<Governate[]>{
     return this.httpClient.get<Governate[]>(`${environment.apiURL}/governorate`,this.httpOptions)
    }
+
+   editProfile(data:object):Observable<any>{
+    return this.httpClient.post(`${environment.apiURL}/editprofile`,JSON.stringify(data),this.httpOptions)
+   }
 }

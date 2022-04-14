@@ -3,22 +3,29 @@ import { CommonModule } from '@angular/common';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const routes: Routes =[
   {path:'', redirectTo: 'profile', pathMatch:'full'},
   {path:'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
-  // {path: 'EditProfile', component:EditUserProfileComponent, canActivate: [AuthGuard]}
+   {path: 'edit', component:EditProfileComponent, canActivate: [AuthGuard]}
 ]
 
 
 @NgModule({
   declarations: [
-    UserProfileComponent
+    UserProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ]
 })
 export class UserModule { }
