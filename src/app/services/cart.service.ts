@@ -42,9 +42,9 @@ export class CartService {
   {
     return this.http.post('http://localhost:8000/api/cart/info',data,this.httpOptions)
   }
-  addItemToCart(id:number)
+  addItemToCart(id:number,data:any)
   {
-    let value=this.http.post(`http://localhost:8000/api/cart/${id}`,this.httpOptions)
+    let value=this.http.post(`http://localhost:8000/api/cart/${id}`,data,this.httpOptions)
     value.subscribe(data=>{
       this.getCartItemsNumber().subscribe((data:any)=>{
         this.itemsNumber.next(data)
