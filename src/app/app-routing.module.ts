@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MainLayoutComponent } from './components/layouts/main-layout/main-layout.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { CartComponent } from './components/cart/cart.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,8 @@ const routes: Routes = [
       { path: 'login/:error', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'register/:error', component: RegisterComponent },
+      { path: 'product/:ID', component: ProductDetailsComponent },
+
     ]
   },
   { path: '**', component: NotFoundComponent }

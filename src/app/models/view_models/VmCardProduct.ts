@@ -6,6 +6,7 @@ export interface VmCardProduct {
   image:string
   category_name:string
   //category_id:number
+  description:string
   available:number
 
 }
