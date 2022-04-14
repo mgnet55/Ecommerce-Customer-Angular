@@ -19,8 +19,18 @@ export class ProductsService {
 
    }
 
-   getAllProducts():Observable<any>{
-    return this.httpClient.get(`${environment.apiURL}/products`,this.httpOptions)
+   getAllProducts(page:number=1):Observable<any>{
+    return this.httpClient.get(`${environment.apiURL}/products?page=${page}`,this.httpOptions)
+   }
+
+   getProductsByCategory(id:number,page:number=1):Observable<any>{
+    return this.httpClient.get(`${environment.apiURL}/products/category/${id}&page=${page}`,this.httpOptions)
+
+   }
+
+   serachProducts(query:string,page:number=1):Observable<any>{
+    return this.httpClient.get(`${environment.apiURL}/products?search=${query}&page=${page}`,this.httpOptions)
+
    }
 
    prgodubtByID(ID:number):Observable<any>{
