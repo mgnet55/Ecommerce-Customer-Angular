@@ -17,7 +17,7 @@ export class EditProfileComponent implements OnInit {
   governates : Governate[] = [];
   cities : City[]= [];
   governateID: number = 0;
-  userID: number | null = 0;
+  errorMessage: number | string | null = 0
   updatedUsr : User = {} as User;
   constructor(private fb: FormBuilder,
               private authService:AuthService,
@@ -58,10 +58,13 @@ export class EditProfileComponent implements OnInit {
           });
 
           console.log(this.EditUsrForm.value)
-   })
+        })
 
       })
 
+      this.activatedRoute.paramMap.subscribe((paramMap)=>{
+        this.errorMessage = (paramMap.get('error'))?this.activatedRoute.snapshot.paramMap.get('error'):0;
+        })
 
   }
 
@@ -147,13 +150,12 @@ export class EditProfileComponent implements OnInit {
 
         this.authService.editProfile(userModel).subscribe(
           data =>{
-            console.log(data)
-            let userToken = data.data.token;
-            localStorage.setItem('userToken',userToken);
-            this.router.navigate(['home',data.data.name]);
+            // console.log(data)
+            this.router.navigate(['user/profile']);
           },
           error =>{
             this.router.navigate(['user/edit',error.error['message']]);
+            // console.log(error.error);
           });
       }
 

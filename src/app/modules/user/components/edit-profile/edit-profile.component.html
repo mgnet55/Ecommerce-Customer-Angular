@@ -5,10 +5,12 @@
 </section>
   <div class="container" style="display:flex;flex-direction: column; align-items: center;">
     <br>
+    <div *ngIf="errorMessage" class="alert alert-success" role="alert">
+      {{errorMessage}}!
+     </div>
+     <br>
     <form [formGroup]="EditUsrForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="updateUser()"
       style="width:700px" class="loginForm">
-
-
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
           <input type="text" formControlName="name" class="form-control" id="name" name="name"

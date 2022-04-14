@@ -8,7 +8,7 @@
     <br>
     <div *ngIf="errorMessage" class="alert alert-success" role="alert">
       {{errorMessage}}!
-  </div>
+     </div>
     <form [formGroup]="RegisterationForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="registerUser()"
       style="width:700px" class="loginForm">
 
@@ -21,7 +21,7 @@
             <small *ngIf="name?.errors?.['required']">
               Full Name is required
             </small>
-           
+
           </div>
         </div>
 

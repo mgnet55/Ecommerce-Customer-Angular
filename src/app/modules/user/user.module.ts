@@ -11,7 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 const routes: Routes =[
   {path:'', redirectTo: 'profile', pathMatch:'full'},
   {path:'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
-   {path: 'edit', component:EditProfileComponent, canActivate: [AuthGuard]}
+   {path: 'edit', component:EditProfileComponent, canActivate: [AuthGuard]},
+   {path: 'edit/:error', component:EditProfileComponent, canActivate: [AuthGuard]}
 ]
 
 
