@@ -5,7 +5,7 @@ export interface VmCardProduct {
   discount:number
   image:string
   category_name:string
-  //category_id:number
+  category_id:number
   description:string
   available:number
 

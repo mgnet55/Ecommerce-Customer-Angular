@@ -38,6 +38,7 @@ export class ProductsComponent implements OnInit {
       this.products = response.data.data
       this.currentPage = response.data.current_page
       this.lastPage = response.data.last_page
+    
     })
   }
 
@@ -66,7 +67,5 @@ export class ProductsComponent implements OnInit {
     }
     else this.getAllProducts();
   }
-
-
 
 }

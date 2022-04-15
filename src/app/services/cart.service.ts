@@ -10,11 +10,11 @@ export class CartService {
   private httpOptions = {};
   private itemsNumber:BehaviorSubject<number>
   private inialvalueItems:number=0
-  constructor(private http:HttpClient) { 
+  constructor(private http:HttpClient) {
     this.itemsNumber= new BehaviorSubject<number>(this.inialvalueItems);
     this.httpOptions =  {headers: new HttpHeaders({
-      'Content-Type': 'application/json','Accept':' */*'
-      ,'Authorization': 'Bearer 1|yKNMrcR0HIvXxrsHEjIqIAaHmt0DjXj9BkxcViW9'
+      'Content-Type': 'application/json','Accept':'application/json'
+      ,'Authorization': `Bearer ${localStorage.getItem('userToken')}`
       })};
   }
 
@@ -24,7 +24,7 @@ export class CartService {
   }
   updateCartItems(data:UpdateCart[])
   {
-    
+
     let value=this.http.put(`http://localhost:8000/api/cart`,data,this.httpOptions)
     value.subscribe(data=>{
       this.getCartItemsNumber().subscribe((data:any)=>{
@@ -42,14 +42,16 @@ export class CartService {
   {
     return this.http.post('http://localhost:8000/api/cart/info',data,this.httpOptions)
   }
-  addItemToCart(id:number)
+  addItemToCart(id:number,quantity:any)
   {
-    let value=this.http.post(`http://localhost:8000/api/cart/${id}`,this.httpOptions)
+    
+    let value=this.http.post(`http://localhost:8000/api/cart/${id}`,quantity,this.httpOptions)
     value.subscribe(data=>{
       this.getCartItemsNumber().subscribe((data:any)=>{
         this.itemsNumber.next(data)
         console.log(data)
       })
+
     })
     return value;
   }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { City } from 'src/app/models/city';
+import { Governate } from 'src/app/models/governate';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { Checkout } from 'src/app/vm/checkout';
@@ -17,27 +20,60 @@ export class CartComponent implements OnInit {
   paymentHandler: any = null;
 
   success: boolean = false
-  
+
   failure:boolean = false
 
+// governate ------------------------
+  governates : Governate[] = [];
+  cities : City[]= [];
+  governateID: number = 0;
+  // -------------------------
   constructor(private cartService:CartService,
-              private checkout:CheckoutService) { }
+              private checkout:CheckoutService,
+              private authService:AuthService) { }
 
   ngOnInit(): void {
+
     this.cartService.getCart().subscribe(
       (data:any)=>{this.cart=data.cart;
               this.totalPrice=data.totalPrice
             }
     )
     this.invokeStripe()
+
+    // Governates ------------------
+
+    this.authService.governates().subscribe(res=>{
+      console.log(res);
+      this.governates = res;
+      console.log(this.governateID);
+
+    })
+
   }
+
+
+// City selection Function ----------------
+onChange(event:any)
+{
+ //  this.governateID = event.target.value
+  console.log(this.governateID);
+
+  this.authService.cities(+this.governateID).subscribe(res=>{
+   console.log(res);
+   this.cities = res;
+   // console.log(this.cities)
+ })
+}
+// -----------------------------------------------
+
   updateItems(id:number,quantity:any)
   {
     let flag=0
     this.updateItem.forEach(item=>{
       if(item.id==id)
       {
-      
+
         item.quantity=quantity.value
         flag=1
       }
@@ -55,10 +91,10 @@ export class CartComponent implements OnInit {
               this.totalPrice=data.totalPrice}
       )
     })
-    
-    
+
+
   }
-  
+
   removeItem(id:number)
   {
     this.cartService.deleteItemFromCart(id).subscribe(
@@ -67,10 +103,10 @@ export class CartComponent implements OnInit {
             this.totalPrice=data.totalPrice}
     )}
     )
-    
-    
+
+
   }
-  
+
 
   makePayment(amount: number) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
