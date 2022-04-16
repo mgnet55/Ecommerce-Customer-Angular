@@ -22,7 +22,7 @@ export class ProductDetailsComponent implements OnInit {
       this.prodID = (paramMap.get('ID'))?Number(this.activatedRoute.snapshot.paramMap.get('ID')):0;
 
       console.log(this.prodID)
-      this.productService.prgodubtByID(this.prodID).subscribe(
+      this.productService.prodBtByID(this.prodID).subscribe(
 
         res=> this.products[0] = res.data
         );

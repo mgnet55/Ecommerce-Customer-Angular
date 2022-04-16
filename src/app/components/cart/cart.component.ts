@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { City } from 'src/app/models/city';
+import { Governate } from 'src/app/models/governate';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { Checkout } from 'src/app/vm/checkout';
@@ -16,11 +19,20 @@ export class CartComponent implements OnInit {
   updateItem:UpdateCart[]=[]
   paymentHandler: any = null;
   success: boolean = false
-  failure:boolean = false
-  constructor(private cartService:CartService,
-              private checkout:CheckoutService) { }
 
-  ngOnInit(): void {
+  failure:boolean = false
+
+// governate ------------------------
+  governates : Governate[] = [];
+  cities : City[]= [];
+  governateID: number = 0;
+  // -------------------------
+
+  constructor(private cartService:CartService,
+              private checkout:CheckoutService,
+              private authService:AuthService) { }
+
+  ngOnInit(): void 
     console.log('lll')
     this.cartService.getCart().subscribe(
       (data:any)=>{this.cart=data.data.cart;
@@ -32,7 +44,33 @@ export class CartComponent implements OnInit {
             }
     )
     this.invokeStripe()
+
+    // Governates ------------------
+
+    this.authService.governates().subscribe(res=>{
+      console.log(res);
+      this.governates = res;
+      console.log(this.governateID);
+
+    })
+
   }
+
+
+// City selection Function ----------------
+onChange(event:any)
+{
+ //  this.governateID = event.target.value
+  console.log(this.governateID);
+
+  this.authService.cities(+this.governateID).subscribe(res=>{
+   console.log(res);
+   this.cities = res;
+   // console.log(this.cities)
+ })
+}
+// -----------------------------------------------
+
   updateItems(id:number,quantity:any)
   {
     let flag=0
@@ -52,10 +90,9 @@ export class CartComponent implements OnInit {
   {
     this.cartService.updateCartItems(this.updateItem).subscribe(
         (data:any)=>{this.cart=data.data.cart;
-              this.totalPrice=data.data.totalPrice}
-      )
-    
-  }
+              this.totalPrice=data.data.totalPrice})
+}
+
   removeItem(id:number)
   {
     this.cartService.deleteItemFromCart(id).subscribe(
@@ -64,8 +101,8 @@ export class CartComponent implements OnInit {
         console.log(data)
         this.totalPrice=data.data.totalPrice
       }
-    )
-  }
+    )}
+
   makePayment(amount: number) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_51Klg7rF1z6T6MzALDH7c25SCyL57wz4XXDDukwbaJ4rlhgJdlxfJRd87MSWCch2xnYf6yyRE6jtnLGVnvNmU7LGr00HvzaiQdT',

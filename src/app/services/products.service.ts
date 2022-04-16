@@ -18,7 +18,6 @@ export class ProductsService {
 
 
    }
-
    getAllProducts(page:number=1):Observable<any>{
     return this.httpClient.get(`${environment.apiURL}/products?page=${page}`,this.httpOptions)
    }
@@ -33,11 +32,8 @@ export class ProductsService {
 
    }
 
-   prgodubtByID(ID:number):Observable<any>{
+   prodBtByID(ID:number):Observable<any>{
     return this.httpClient.get(`${environment.apiURL}/products/${ID}`,this.httpOptions)
 
    }
-
-
-
 }
