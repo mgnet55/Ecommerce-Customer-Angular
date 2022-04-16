@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class UserProfileComponent implements OnInit {
 
   profileData:User[] = []
-
+ user : User = {} as User;
   constructor(private authService:AuthService,
               private Router:Router) { }
 
@@ -19,11 +19,14 @@ export class UserProfileComponent implements OnInit {
 
     this.authService.myProfile().subscribe(res=>{
       console.log(res.data);
+      this.user = res.data;
       let userModel = {
         name: res.data.name,
         email: res.data.email,
         phone: res.data.phone,
         address: res.data.address,
+        city:res.data.city.name,
+        governate:res.data.city.governate.name
        }
        this.profileData.push(userModel);
     },error=>{
