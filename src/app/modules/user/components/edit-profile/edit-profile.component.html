@@ -1,7 +1,6 @@
-
-<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assets/images/pexels-artem-beliaikin-1078973.jpg');">
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assets/images/bg-01.jpg');">
   <h2 class="ltext-105 cl0 txt-center">
-    Register
+    Profile
   </h2>
 </section>
   <div class="container" style="display:flex;flex-direction: column; align-items: center;">
@@ -9,10 +8,9 @@
     <div *ngIf="errorMessage" class="alert alert-success" role="alert">
       {{errorMessage}}!
      </div>
-    <form [formGroup]="RegisterationForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="registerUser()"
+     <br>
+    <form [formGroup]="EditUsrForm" class="m-3" enctype="multipart/form-data" (ngSubmit)="updateUser()"
       style="width:700px" class="loginForm">
-
-
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
           <input type="text" formControlName="name" class="form-control" id="name" name="name"
@@ -21,7 +19,6 @@
             <small *ngIf="name?.errors?.['required']">
               Full Name is required
             </small>
-
           </div>
         </div>
 
@@ -102,7 +99,7 @@
           </small>
         </div>
       </div>
-      <div class="form-row">
+      <!-- <div class="form-row">
         <div class="col">
           <label for="uPass" class="form-label">Password</label>
           <input type="password" formControlName="password" class="form-control" id="uPass" name="userPass">
@@ -122,14 +119,14 @@
           <div class="alert alert-warning" *ngIf="confirmPassword?.errors?.['required'] && confirmPassword?.touched">
             Confirm Password is required
           </div>
-          <div small class="alert alert-warning" *ngIf="RegisterationForm?.errors?.['UnmatchedPassword']">
+          <div small class="alert alert-warning" *ngIf="EditUsrForm?.errors?.['UnmatchedPassword']">
             Confirm password must match password.
           </div>
         </div>
-      </div>
+      </div> -->
       <br>
 
-      <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" [disabled]="RegisterationForm.invalid" type="submit">
+      <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer" [disabled]="EditUsrForm.invalid" type="submit">
         Submit
       </button>
     </form>
@@ -140,4 +137,3 @@
     <br>
     <br>
   </div>
-

@@ -20,11 +20,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramMap)=>{
       this.username = (paramMap.get('username'))? this.activatedRoute.snapshot.paramMap.get('username'): '';
-
       })
 
       this.productsService.getAllProducts().subscribe(prods=>{
         this.products = prods.data.data
+        console.log(prods);
       })
   }
 

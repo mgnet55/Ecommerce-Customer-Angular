@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { City } from 'src/app/models/city';
@@ -7,24 +7,24 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.css']
 })
-export class RegisterComponent implements OnInit{
+export class EditProfileComponent implements OnInit {
 
-  selectedFile : File | null = null;
-  RegisterationForm: FormGroup;
+  EditUsrForm: FormGroup;
   governates : Governate[] = [];
   cities : City[]= [];
   governateID: number = 0;
   errorMessage: number | string | null = 0
+  updatedUsr : User = {} as User;
   constructor(private fb: FormBuilder,
               private authService:AuthService,
               private router:Router,
               private activatedRoute:ActivatedRoute) {
 
-    this.RegisterationForm = this.fb.group({
+    this.EditUsrForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required]],
       phone: ['', [Validators.required]],
@@ -32,8 +32,8 @@ export class RegisterComponent implements OnInit{
       city: ['',[Validators.required]],
       governate: ['',[Validators.required]],
       address: ['',[Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]],
+      // password: ['', [Validators.required, Validators.minLength(8)]],
+      // confirmPassword: ['', [Validators.required]],
     },
     {validators: this.passwordMatch()}
     );
@@ -45,6 +45,20 @@ export class RegisterComponent implements OnInit{
         console.log(res);
         this.governates = res;
         console.log(this.governateID);
+
+        this.authService.myProfile().subscribe((ele)=>{
+
+          this.EditUsrForm.setValue({
+           name: ele.data.name,
+           email:ele.data.email,
+           phone: ele.data.phone,
+           city:ele.data.city_id,
+           governate:2,
+           address:ele.data.address,
+          });
+
+          console.log(this.EditUsrForm.value)
+        })
 
       })
 
@@ -71,15 +85,15 @@ export class RegisterComponent implements OnInit{
       // Errors Handling---------------
 
       get name() {
-        return this.RegisterationForm.get('name');
+        return this.EditUsrForm.get('name');
       }
 
       get email() {
-        return this.RegisterationForm.get('email');
+        return this.EditUsrForm.get('email');
       }
 
       get phone() {
-        return this.RegisterationForm.get('phone');
+        return this.EditUsrForm.get('phone');
       }
 
       // get file() {
@@ -87,19 +101,19 @@ export class RegisterComponent implements OnInit{
       // }
 
       get city() {
-        return this.RegisterationForm.get('city');
+        return this.EditUsrForm.get('city');
       }
 
       get address() {
-        return this.RegisterationForm.get('address');
+        return this.EditUsrForm.get('address');
       }
 
       get password() {
-        return this.RegisterationForm.get('password');
+        return this.EditUsrForm.get('password');
       }
 
       get confirmPassword() {
-        return this.RegisterationForm.get('confirmPassword');
+        return this.EditUsrForm.get('confirmPassword');
       }
 
       // Custom Validations-------------------
@@ -118,40 +132,31 @@ export class RegisterComponent implements OnInit{
       }
 
 
-      onFileChange(event:any) {
-        if (event.target.files.length > 0) {
-          this.selectedFile = <File>event.target.files[0];
-          console.log(this.selectedFile);
-        }
-      }
 
-      registerUser(){
+
+      updateUser(){
 
         let userModel = {
-          name: this.RegisterationForm.value.name,
-          email: this.RegisterationForm.value.email,
-          phone: this.RegisterationForm.value.phone,
-          city_id: this.RegisterationForm.value.city,
-          address: this.RegisterationForm.value.address,
-          password: this.RegisterationForm.value.password,
-          password_confirmation: this.RegisterationForm.value.password,
+          name: this.EditUsrForm.value.name,
+          email: this.EditUsrForm.value.email,
+          phone: this.EditUsrForm.value.phone,
+          city_id: this.EditUsrForm.value.city,
+          address: this.EditUsrForm.value.address,
+          // password: this.EditUsrForm.value.password,
+          // password_confirmation: this.EditUsrForm.value.password,
          }
 
          console.log(JSON.stringify(userModel));
 
-        this.authService.register(userModel).subscribe(
+        this.authService.editProfile(userModel).subscribe(
           data =>{
-            console.log(data)
-            let userToken = data.data.token;
-            localStorage.setItem('userToken',userToken);
-            this.router.navigate(['home',data.data.name]);
+            // console.log(data)
+            this.router.navigate(['user/profile']);
           },
           error =>{
-            this.router.navigate(['register',error.error['message']]);
+            this.router.navigate(['user/edit',error.error['message']]);
+            // console.log(error.error);
           });
       }
-
-
-
 
 }

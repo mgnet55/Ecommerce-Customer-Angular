@@ -33,4 +33,11 @@ export class ProductsService {
 
    }
 
+   prgodubtByID(ID:number):Observable<any>{
+    return this.httpClient.get(`${environment.apiURL}/products/${ID}`,this.httpOptions)
+
+   }
+
+
+
 }

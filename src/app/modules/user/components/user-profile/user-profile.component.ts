@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,14 +12,13 @@ export class UserProfileComponent implements OnInit {
 
   profileData:User[] = []
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,
+              private Router:Router) { }
 
   ngOnInit(): void {
 
     this.authService.myProfile().subscribe(res=>{
       console.log(res.data);
-
-
       let userModel = {
         name: res.data.name,
         email: res.data.email,
@@ -26,6 +26,8 @@ export class UserProfileComponent implements OnInit {
         address: res.data.address,
        }
        this.profileData.push(userModel);
+    },error=>{
+        //  this.Router.navigate(['/login','You Should Login'])
     })
   }
 
