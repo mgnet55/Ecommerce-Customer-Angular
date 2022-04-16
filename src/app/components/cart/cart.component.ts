@@ -32,7 +32,7 @@ export class CartComponent implements OnInit {
               private checkout:CheckoutService,
               private authService:AuthService) { }
 
-  ngOnInit(): void 
+  ngOnInit(): void {
     console.log('lll')
     this.cartService.getCart().subscribe(
       (data:any)=>{this.cart=data.data.cart;
