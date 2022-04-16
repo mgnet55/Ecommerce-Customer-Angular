@@ -26,12 +26,9 @@ export class CartService {
   {
     
     let value=this.http.put(`http://localhost:8000/api/cart`,data,this.httpOptions)
-    value.subscribe(data=>{
-      this.getCartItemsNumber().subscribe((data:any)=>{
-        console.log(data)
-        this.itemsNumber.next(data)
+    value.subscribe((data:any)=>{
+        this.itemsNumber.next(data.data.totalQuantity)
       })
-    })
     return value;
   }
   getCartInfo()
@@ -45,22 +42,16 @@ export class CartService {
   addItemToCart(id:number,data:any)
   {
     let value=this.http.post(`http://localhost:8000/api/cart/${id}`,data,this.httpOptions)
-    value.subscribe(data=>{
-      this.getCartItemsNumber().subscribe((data:any)=>{
-        this.itemsNumber.next(data)
-        console.log(data)
-      })
+    value.subscribe((data:any)=>{
+        this.itemsNumber.next(data.data.totalQuantity)
     })
     return value;
   }
   deleteItemFromCart(id:number)
   {
     let value=this.http.delete(`http://localhost:8000/api/cart/${id}`,this.httpOptions)
-    value.subscribe(data=>{
-      console.log('delete')
-      this.getCartItemsNumber().subscribe((data:any)=>{
-        this.itemsNumber.next(data)
-      })
+    value.subscribe((data:any)=>{  
+        this.itemsNumber.next(data.data.totalQuantity)
     })
     return value;
   }
