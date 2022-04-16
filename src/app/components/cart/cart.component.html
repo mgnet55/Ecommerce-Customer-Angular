@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85" *ngIf="cart">
+	<form class="bg0 p-t-75 p-b-85" *ngIf="items">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -27,7 +27,7 @@
 									<th class="column-5">Total</th>
 								</tr>
 
-								<tr *ngFor="let item of cart" class="table_row">
+								<tr *ngFor="let item of items" class="table_row">
                                     
 									<td class="column-1">
 										<div class="how-itemcart1">
@@ -156,7 +156,7 @@
 							</div>
 						</div>
 
-						<button (click)="makePayment(totalPrice)" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+						<button *ngIf="cart.city_id&&cart.street" (click)="makePayment(totalPrice)" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Proceed to Checkout
 						</button>
 					</div>
