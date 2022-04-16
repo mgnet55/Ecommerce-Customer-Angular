@@ -14,11 +14,10 @@ import { UpdateCart } from 'src/app/vm/update-cart';
 })
 export class CartComponent implements OnInit {
   cart:any
+  items:any
   totalPrice=0
   updateItem:UpdateCart[]=[]
-
   paymentHandler: any = null;
-
   success: boolean = false
 
   failure:boolean = false
@@ -28,15 +27,20 @@ export class CartComponent implements OnInit {
   cities : City[]= [];
   governateID: number = 0;
   // -------------------------
+
   constructor(private cartService:CartService,
               private checkout:CheckoutService,
               private authService:AuthService) { }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void 
+    console.log('lll')
     this.cartService.getCart().subscribe(
-      (data:any)=>{this.cart=data.cart;
-              this.totalPrice=data.totalPrice
+      (data:any)=>{this.cart=data.data.cart;
+                  this.items=data.data.items
+              this.totalPrice=data.data.totalPrice
+            },
+            err=>{
+              console.log(err)
             }
     )
     this.invokeStripe()
@@ -73,7 +77,6 @@ onChange(event:any)
     this.updateItem.forEach(item=>{
       if(item.id==id)
       {
-
         item.quantity=quantity.value
         flag=1
       }
@@ -85,28 +88,20 @@ onChange(event:any)
   }
   updateCart()
   {
-    this.cartService.updateCartItems(this.updateItem).subscribe(d=>{
-      this.cartService.getCart().subscribe(
-        (data:any)=>{this.cart=data.cart;
-              this.totalPrice=data.totalPrice}
-      )
-    })
-
-
-  }
+    this.cartService.updateCartItems(this.updateItem).subscribe(
+        (data:any)=>{this.cart=data.data.cart;
+              this.totalPrice=data.data.totalPrice})
+}
 
   removeItem(id:number)
   {
     this.cartService.deleteItemFromCart(id).subscribe(
-    data=>{this.cartService.getCart().subscribe(
-      (data:any)=>{this.cart=data.cart
-            this.totalPrice=data.totalPrice}
+      (data:any)=>{
+        this.cart=data.data.cart;
+        console.log(data)
+        this.totalPrice=data.data.totalPrice
+      }
     )}
-    )
-
-
-  }
-
 
   makePayment(amount: number) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
@@ -117,7 +112,6 @@ onChange(event:any)
         paymentstripe(token);
       },
     });
-
     const paymentstripe = (token: Checkout) => {
       this.checkout.checkout(token).subscribe((data: any) => {
         console.log(data,'l');
@@ -130,14 +124,12 @@ onChange(event:any)
       },
       err=>console.log('faild'));
     };
-
     paymentHandler.open({
       name: 'على الله الحكايه',
       description: 'اوعى تدخل رقم الفيزا احنا اصلا حرميه وبنحاول نغفلك',
       amount:amount*100
     });
   }
-
   invokeStripe() {
     if (!window.document.getElementById('stripe-script')) {
       const script = window.document.createElement('script');
@@ -156,6 +148,4 @@ onChange(event:any)
       window.document.body.appendChild(script);
     }
   }
-
-
 }
