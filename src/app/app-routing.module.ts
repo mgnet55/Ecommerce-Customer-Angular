@@ -8,6 +8,7 @@ import { MainLayoutComponent } from './components/layouts/main-layout/main-layou
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'products', component: ProductsComponent },
-      { path: 'cart', component: CartComponent },
+      { path: 'cart', component: CartComponent,canActivate:[AuthGuard]},
       { path: 'home/:username', component: HomeComponent },
       {
         path: 'user',

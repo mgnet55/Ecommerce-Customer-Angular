@@ -10,26 +10,18 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class HeaderComponent implements OnInit {
   cartItems:any;
-  loginStatus:boolean
+
   constructor(private cartSevice:CartService,
-              private AuthService:AuthService,
+              public AuthService:AuthService,
               private Router:Router) {
-                this.loginStatus = this.AuthService.loginStatus;
-                console.log(this.loginStatus);
+               
                }
 
   ngOnInit(): void {
-    this.cartSevice.getItemsNumber().subscribe(
-      data=>this.cartItems=data
-    )
-
-    this.AuthService.isUserLoggedSubject().subscribe(status=>{
-      this.loginStatus = status
-    })
+    
   }
 
   logout(){
-    this.AuthService.logout();
     localStorage.removeItem('userToken');
     this.Router.navigate(['home']);
   }

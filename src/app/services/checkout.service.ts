@@ -11,6 +11,6 @@ export class CheckoutService {
 
   checkout(data:Checkout)
   {
-    return this.http.post('http://localhost:8000/api/checkout',data,{headers:{"Authorization":'Bearer 1|yKNMrcR0HIvXxrsHEjIqIAaHmt0DjXj9BkxcViW9'}})
+    return this.http.post('http://localhost:8000/api/checkout',data)
   }
 }

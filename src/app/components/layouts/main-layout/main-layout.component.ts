@@ -15,9 +15,9 @@ export class MainLayoutComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.AuthService.isUserLoggedSubject().subscribe(status=>{
-      this.loginStatus = status
-    })
+    // this.AuthService.isUserLoggedSubject().subscribe(status=>{
+    //   this.loginStatus = status
+    // })
   }
 
 }
