@@ -5,6 +5,7 @@ import { City } from 'src/app/models/city';
 import { Governate } from 'src/app/models/governate';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import {FileUploader} from "ng2-file-upload";
 
 @Component({
   selector: 'app-register',
@@ -12,8 +13,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit{
-
-  selectedFile : File | null = null;
+  public  uploader : FileUploader = new FileUploader({});
+  formData : FormData = new FormData()
+  selectedFile :string | null= null;
   RegisterationForm: FormGroup;
   governates : Governate[] = [];
   cities : City[]= [];
@@ -28,7 +30,6 @@ export class RegisterComponent implements OnInit{
       name: ['', [Validators.required]],
       email: ['', [Validators.required]],
       phone: ['', [Validators.required]],
-      // file: ['', [Validators.required]],
       city: ['',[Validators.required]],
       governate: ['',[Validators.required]],
       address: ['',[Validators.required]],
@@ -56,8 +57,6 @@ export class RegisterComponent implements OnInit{
 
    onChange(event:any)
    {
-
-    //  this.governateID = event.target.value
      console.log(this.governateID);
 
      this.authService.cities(+this.governateID).subscribe(res=>{
@@ -67,7 +66,6 @@ export class RegisterComponent implements OnInit{
     })
 
    }
-
       // Errors Handling---------------
 
       get name() {
@@ -81,11 +79,6 @@ export class RegisterComponent implements OnInit{
       get phone() {
         return this.RegisterationForm.get('phone');
       }
-
-      // get file() {
-      //   return this.RegisterationForm.get('avatar');
-      // }
-
       get city() {
         return this.RegisterationForm.get('city');
       }
@@ -117,13 +110,15 @@ export class RegisterComponent implements OnInit{
         }
       }
 
-
-      onFileChange(event:any) {
-        if (event.target.files.length > 0) {
-          this.selectedFile = <File>event.target.files[0];
-          console.log(this.selectedFile);
-        }
-      }
+   onFileSelect(event:any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0] as File;
+      console.log(file);
+      this.selectedFile = file.name;
+      this.formData.append('image', file);
+      console.log(this.formData);
+    }
+  }
 
       registerUser(){
 
@@ -135,6 +130,7 @@ export class RegisterComponent implements OnInit{
           address: this.RegisterationForm.value.address,
           password: this.RegisterationForm.value.password,
           password_confirmation: this.RegisterationForm.value.password,
+          avatar:this.formData
          }
 
          console.log(JSON.stringify(userModel));

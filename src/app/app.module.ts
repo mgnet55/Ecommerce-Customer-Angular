@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { AccountManagementComponent } from './components/account-management/account-management.component';
+import { FilesModule } from './shared/files/files.module';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AccountManagementComponent } from './components/account-management/acco
     TooltipModule.forRoot(),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FilesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -15,7 +15,8 @@ export class AuthService {
   ) {
     this.httpOptions =  {headers: new HttpHeaders({
       'Content-Type': 'application/json','Accept':'application/json'
-      ,'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+      ,'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
+       'enctype': 'multipart/form-data'
       })};
 
       this.isLoggedSubject = new BehaviorSubject<boolean> (this.loginStatus)
@@ -42,7 +43,7 @@ export class AuthService {
   }
 
   register(data:object):Observable<any>{
-    return this.httpClient.post(`${environment.apiURL}/register`,JSON.stringify(data),this.httpOptions)
+    return this.httpClient.post(`${environment.apiURL}/register`,data,this.httpOptions)
    }
 
    myProfile():Observable<any>{
