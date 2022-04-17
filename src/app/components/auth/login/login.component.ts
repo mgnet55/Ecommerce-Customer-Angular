@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private AuthService:AuthService,
               private fb:FormBuilder,
               private router:Router,
+              private cart:CartService,
               private activatedRoute:ActivatedRoute
               ){
 
@@ -27,10 +29,10 @@ export class LoginComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    this.AuthService.isUserLoggedSubject().subscribe(status=>{
-      this.loginStatus = status;
-      console.log(this.loginStatus)
-    });
+    // this.AuthService.isUserLoggedSubject().subscribe(status=>{
+    //   this.loginStatus = status;
+    //   console.log(this.loginStatus)
+    // });
 
     this.activatedRoute.paramMap.subscribe((paramMap)=>{
       this.errorMessage = (paramMap.get('error'))?this.activatedRoute.snapshot.paramMap.get('error'):0;
@@ -40,9 +42,9 @@ export class LoginComponent implements OnInit {
   login(){
     this.AuthService.login(this.loginFormGroup.value).subscribe(
          data =>{
-        console.log(data)
-        let userToken = data.data.token;
-        localStorage.setItem('userToken',userToken);
+          let userToken = data.data.token;
+          localStorage.setItem('userToken',userToken);
+        this.AuthService.prepareUserData()
         this.router.navigate(['home',data.data.name]);
       },
       error =>{
@@ -52,7 +54,8 @@ export class LoginComponent implements OnInit {
 
   logout(){
     this.AuthService.logout();
-    localStorage.removeItem('userToken');
+    this.AuthService.cartItem=0
+    // localStorage.removeItem('userToken');
   }
 
 }

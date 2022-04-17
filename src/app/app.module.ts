@@ -9,7 +9,7 @@ import { FooterComponent } from './components/layouts/footer/footer.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { MainLayoutComponent } from './components/layouts/main-layout/main-layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ProductComponent } from './components/product/product.component';
@@ -23,6 +23,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { AccountManagementComponent } from './components/account-management/account-management.component';
+import { TokenInterceptorService } from './interceptors/token-interceptor.service';
+import { MatSliderModule } from '@angular/material/slider';
+import { LoadingComponent } from './shared/loading/loading.component';
+import { LoaderInterceptorService } from './interceptors/loader-interceptor.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -40,7 +45,9 @@ import { AccountManagementComponent } from './components/account-management/acco
     CarouselComponent,
     DropdownComponent,
     ProductDetailsComponent,
-    AccountManagementComponent
+    AccountManagementComponent,
+        LoadingComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -51,9 +58,26 @@ import { AccountManagementComponent } from './components/account-management/acco
     TooltipModule.forRoot(),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+    }),
+    MatSliderModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:TokenInterceptorService,
+      multi:true
+    },
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:LoaderInterceptorService,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

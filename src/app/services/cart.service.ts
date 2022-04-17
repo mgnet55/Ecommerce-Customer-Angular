@@ -7,69 +7,39 @@ import { UpdateCart } from '../vm/update-cart';
   providedIn: 'root'
 })
 export class CartService {
-  private httpOptions = {};
-  private itemsNumber:BehaviorSubject<number>
-  private inialvalueItems:number=0
-  constructor(private http:HttpClient) {
-    this.itemsNumber= new BehaviorSubject<number>(this.inialvalueItems);
-    this.httpOptions =  {headers: new HttpHeaders({
-      'Content-Type': 'application/json','Accept':'application/json'
-      ,'Authorization': `Bearer ${localStorage.getItem('userToken')}`
-      })};
-  }
+  
 
+  constructor(private http:HttpClient) {}
+
+  
   getCart()
   {
-    return this.http.get('http://localhost:8000/api/cart',this.httpOptions)
+    return this.http.get('http://localhost:8000/api/cart')
   }
   updateCartItems(data:UpdateCart[])
   {
-
-    let value=this.http.put(`http://localhost:8000/api/cart`,data,this.httpOptions)
-    value.subscribe((data:any)=>{
-        this.itemsNumber.next(data.data.totalQuantity)
-      })
-    return value;
+    return this.http.put(`http://localhost:8000/api/cart`,data)
   }
   getCartInfo()
   {
-    return this.http.get('http://localhost:8000/api/cart/info',this.httpOptions)
+    return this.http.get('http://localhost:8000/api/cart/info')
   }
   setCartInfo(data:any)
   {
-    return this.http.post('http://localhost:8000/api/cart/info',data,this.httpOptions)
+    return this.http.post('http://localhost:8000/api/cart/info',data)
   }
 
   addItemToCart(id:number,data:any)
   {
-    let value=this.http.post(`http://localhost:8000/api/cart/${id}`,data,this.httpOptions)
-    value.subscribe((data:any)=>{
-        this.itemsNumber.next(data.data.totalQuantity)
-
-    })
-    return value;
+    return this.http.post(`http://localhost:8000/api/cart/${id}`,data)
   }
       
   deleteItemFromCart(id:number)
   {
-    let value=this.http.delete(`http://localhost:8000/api/cart/${id}`,this.httpOptions)
-    value.subscribe((data:any)=>{  
-        this.itemsNumber.next(data.data.totalQuantity)
-    })
-    return value;
+    return this.http.delete(`http://localhost:8000/api/cart/${id}`)
   }
   getCartItemsNumber()
   {
-    return this.http.get(`http://localhost:8000/api/cart/items`,this.httpOptions)
-  }
-  inialvalue()
-  {
-    this.http.get(`http://localhost:8000/api/cart/items`,this.httpOptions).subscribe(
-      (data:any)=>this.inialvalue=data
-    )
-  }
-  getItemsNumber()
-  {
-    return this.itemsNumber.asObservable()
+    return this.http.get(`http://localhost:8000/api/cart/items`)
   }
 }

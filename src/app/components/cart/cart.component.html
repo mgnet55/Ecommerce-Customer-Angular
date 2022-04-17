@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85" *ngIf="items">
+	<form class="bg0 p-t-75 p-b-85" *ngIf="items.length>0">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -31,11 +31,11 @@
                 
 									<td class="column-1">
 										<div class="how-itemcart1">
-											<img src="{{item.product.image}}" alt="IMG" class="img-fluid">
+											<img src="{{imagesURL}}/products/{{item.product.image}}" alt="IMG" class="img-fluid">
 										</div>
 									</td>
 									<td class="column-2">{{item.product.name}}</td>
-									<td class="column-3">$ {{item.product.price}}</td>
+									<td class="column-3"> {{item.product.price |currency:'EGP':'code'}}</td>
 									<td class="column-4">
 										<div class="wrap-num-product flex-w m-l-auto m-r-0">
 											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
@@ -49,7 +49,7 @@
 											</div>
 										</div>
 									</td>
-									<td class="column-5">$ {{item.product.price*+quantity.value}}</td>
+									<td class="column-5"> {{item.product.price*+quantity.value |currency:'EGP':'code'}}</td>
                                     <td class="column-6">
                                         <button (click)="removeItem(item.product.id)" class="flex-c-m stext-101 cl2 size-112 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -93,7 +93,7 @@
 
 							<div class="size-209">
 								<span class="mtext-110 cl2">
-									${{totalPrice}}
+									{{totalPrice |currency:'EGP':'code'}}
 								</span>
 							</div>
 						</div>
@@ -150,7 +150,7 @@
 
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2">
-									${{totalPrice}}
+									{{totalPrice |currency:'EGP':'code'}}
 								</span>
 							</div>
 						</div>
@@ -163,7 +163,7 @@
 			</div>
 		</div>
 	</form>
-	<div class="container h-100  d-flex justify-content-center" *ngIf="!cart">
+	<div class="container h-100  d-flex justify-content-center" *ngIf="items.length==0">
 		<h2 class=" text-primary">cart is empty return to shipping</h2>
 	</div>
    
