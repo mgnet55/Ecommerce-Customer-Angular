@@ -11,9 +11,6 @@ export class ProductsService {
   
   constructor(private httpClient:HttpClient
   ) {
-    
-
-
    }
    getAllProducts(page:number=1):Observable<any>{
     return this.httpClient.get(`${environment.apiURL}/products?page=${page}`)
