@@ -11,13 +11,28 @@ export class TokenInterceptorService implements HttpInterceptor{
   constructor(private injctor:Injector) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let auth=this.injctor.get(AuthService)
-    let token=req.clone({
-      setHeaders:{
-        Authorization:`Bearer ${auth.getToken()}`,
-        Accept:'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    return next.handle(token)
+    console.log(req.url);
+    if(req.url == 'http://localhost:8000/api/register')
+    {
+      let token=req.clone({
+        setHeaders:{
+          Authorization:`Bearer ${auth.getToken()}`,
+          Accept:'application/json',
+          // 'Content-Type': 'application/json'
+        }
+      })
+      return next.handle(token)
+    }else{
+
+      let token=req.clone({
+        setHeaders:{
+          Authorization:`Bearer ${auth.getToken()}`,
+          Accept:'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      return next.handle(token)
+
+    }
   }
 }

@@ -6,6 +6,7 @@ import { Governate } from 'src/app/models/governate';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import {FileUploader} from "ng2-file-upload";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,8 @@ export class RegisterComponent implements OnInit{
   constructor(private fb: FormBuilder,
               private authService:AuthService,
               private router:Router,
-              private activatedRoute:ActivatedRoute) {
+              private activatedRoute:ActivatedRoute,
+              private toast:ToastrService) {
 
     this.RegisterationForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -150,8 +152,7 @@ export class RegisterComponent implements OnInit{
           },
           error =>{
             // this.router.navigate(['register',error.error['message']]);
-            console.log(error);
-            console.log(this.formData);
+            this.toast.warning(error.error.message);
           });
       }
 
