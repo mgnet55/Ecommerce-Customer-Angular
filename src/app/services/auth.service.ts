@@ -4,62 +4,64 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { City } from '../models/city';
 import { Governate } from '../models/governate';
+import { User } from '../models/user';
+import { CartService } from './cart.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  isLoggedSubject : BehaviorSubject<boolean>;
+  
   private httpOptions = {};
-  constructor(private httpClient:HttpClient
-  ) {
-    this.httpOptions =  {headers: new HttpHeaders({
-      // 'Content-Type': 'application/json',
-        'Accept':'application/json'
-      // ,'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
-       // 'enctype': 'multipart/form-data'
-      })};
-
-      this.isLoggedSubject = new BehaviorSubject<boolean> (this.loginStatus)
-   }
+  public currentUser:User={} as User
+  public cartItem=0
+  constructor(private httpClient:HttpClient,private cart:CartService
+  ) {}
 
 
   login(data:object):Observable<any>{
-    this.isLoggedSubject.next(true);
-    return this.httpClient.post(`${environment.apiURL}/login`,JSON.stringify(data),this.httpOptions)
+    return this.httpClient.post(`${environment.apiURL}/login`,JSON.stringify(data))
    }
-
-   logout(){
-    this.isLoggedSubject.next(false);
+   prepareUserData() {
+    
+    if (this.loginStatus) {
+      this.myProfile().subscribe((resUser:any) => {
+        this.currentUser.email = resUser.data.email;
+      });
+      this.cart.getCartItemsNumber().subscribe((res:any)=>{
+        this.cartItem=res
+      })
+    }
   }
 
+  logout(){
+    localStorage.removeItem('userToken')
+  }
   get loginStatus(): boolean
   {
     return  (localStorage.getItem('userToken'))? true: false
   }
-
-  isUserLoggedSubject(){
-    return this.isLoggedSubject.asObservable();
-
-  }
-
   register(data:object):Observable<any>{
     return this.httpClient.post(`${environment.apiURL}/register`,data,this.httpOptions)
    }
 
-   myProfile():Observable<any>{
-    return this.httpClient.get(`${environment.apiURL}/myProfile`,this.httpOptions)
+   myProfile():Observable<User>{
+    return this.httpClient.get<User>(`${environment.apiURL}/myProfile`)
    }
 
    cities(cityID:number):Observable<City[]>{
-    return this.httpClient.get<City[]>(`${environment.apiURL}/governorate/${cityID}`,this.httpOptions)
+    return this.httpClient.get<City[]>(`${environment.apiURL}/governorate/${cityID}`)
    }
 
    governates():Observable<Governate[]>{
-    return this.httpClient.get<Governate[]>(`${environment.apiURL}/governorate`,this.httpOptions)
+    return this.httpClient.get<Governate[]>(`${environment.apiURL}/governorate`)
    }
 
    editProfile(data:object):Observable<any>{
-    return this.httpClient.post(`${environment.apiURL}/editprofile`,JSON.stringify(data),this.httpOptions)
+    return this.httpClient.post(`${environment.apiURL}/editprofile`,JSON.stringify(data))
+   }
+   getToken()
+   {
+     return localStorage.getItem('userToken')||''
    }
 }

@@ -46,7 +46,7 @@ export class EditProfileComponent implements OnInit {
         this.governates = res;
         console.log(this.governateID);
 
-        this.authService.myProfile().subscribe((ele)=>{
+        this.authService.myProfile().subscribe((ele:any)=>{
 
           this.EditUsrForm.setValue({
            name: ele.data.name,

@@ -23,11 +23,11 @@
             <li>
               <a href="about.html">About</a>
             </li>
-
+            
             <li>
               <a href="contact.html">Contact</a>
             </li>
-            <li [hidden]="loginStatus == false">
+            <li *ngIf="AuthService.loginStatus && AuthService.currentUser.email!=null">
               <div class="btn-group" dropdown>
                 <a id="button-disabled-item" dropdownToggle type="button" class="dropdown-toggle cl2 hov-cl1 trans-04 p-l-22 p-r-11"
                         aria-controls="dropdown-disabled-item">
@@ -55,9 +55,10 @@
           </div>
 
           <div style="color: black;"
-            class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart">
+            class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+            [attr.data-notify]="AuthService.cartItem">
 
-          <a routerLink="/cart" > <i class="zmdi zmdi-shopping-cart"></i> {{cartItems}}</a>
+          <a routerLink="/cart" > <i class="zmdi zmdi-shopping-cart"></i></a>
           </div>
           <a
             href="#"
@@ -67,11 +68,11 @@
             <i class="zmdi zmdi-favorite-outline"></i>
           </a>
           <a routerLink="/login"
-          class="cl2 hov-cl1 trans-04 p-l-22 p-r-11" style="font-size: 1.2rem;" [hidden]="loginStatus == true">Login</a>
+          class="cl2 hov-cl1 trans-04 p-l-22 p-r-11" style="font-size: 1.2rem;" *ngIf="!AuthService.loginStatus || (AuthService.currentUser.email==null)">Login</a>
           <button (click)="logout()"
-          class="cl2 hov-cl1 trans-04 p-l-22 p-r-11" style="font-size: 1.2rem;" [hidden]="loginStatus == false">Logout</button>
+          class="cl2 hov-cl1 trans-04 p-l-22 p-r-11" style="font-size: 1.2rem;" *ngIf="AuthService.loginStatus && (AuthService.currentUser.email!=null)">Logout</button>
           <a routerLink="/register"
-          class="cl2 hov-cl1 trans-04 p-l-22 p-r-11" style="font-size: 1.2rem;" [hidden]="loginStatus == true">Register</a>
+          class="cl2 hov-cl1 trans-04 p-l-22 p-r-11" style="font-size: 1.2rem;" *ngIf="!AuthService.loginStatus || (AuthService.currentUser.email==null)">Register</a>
         </div>
       </nav>
     </div>
