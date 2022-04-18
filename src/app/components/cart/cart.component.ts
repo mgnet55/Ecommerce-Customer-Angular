@@ -9,6 +9,7 @@ import { Checkout } from 'src/app/vm/checkout';
 import { UpdateCart } from 'src/app/vm/update-cart';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { CartInfo } from 'src/app/vm/cart-info';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -23,13 +24,13 @@ export class CartComponent implements OnInit {
   success: boolean = false
   imagesURL:string = environment.images
   failure: boolean = false
-
+  error:any
   // governate ------------------------
   governates: Governate[] = [];
   cities: City[] = [];
   governateID: number = 0;
   // -------------------------
-
+  cartInfo:CartInfo={} as CartInfo
   constructor(private cartService: CartService,
     private checkout: CheckoutService,
     private authService: AuthService,
@@ -62,7 +63,7 @@ export class CartComponent implements OnInit {
     //  this.governateID = event.target.value
 
 
-    this.authService.cities(+this.governateID).subscribe(res => {
+    this.authService.cities(+event.target.value).subscribe(res => {
       this.cities = res;
       // console.log(this.cities)
     })
@@ -103,7 +104,27 @@ export class CartComponent implements OnInit {
       }
     )
   }
-
+ setInfo(event:any)
+ {
+    if(event.name==='city')
+    {
+      this.cartInfo.city_id=event.value
+    }
+    else
+    {
+      this.cartInfo.street=event.value
+    }
+ }
+ setcart()
+ {
+    this.cartService.setCartInfo(this.cartInfo).subscribe(
+     (res:any)=>{
+       this.cart=res.data
+       this.toast.success(res.message)},
+     (err)=>{this.error=err.error.errors
+           }
+   )
+ }
   makePayment(amount: number) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_51Klg7rF1z6T6MzALDH7c25SCyL57wz4XXDDukwbaJ4rlhgJdlxfJRd87MSWCch2xnYf6yyRE6jtnLGVnvNmU7LGr00HvzaiQdT',
@@ -115,6 +136,7 @@ export class CartComponent implements OnInit {
     });
     const paymentstripe = (token: Checkout) => {
       this.checkout.checkout(token).subscribe((data: any) => {
+        this.toast.success('شكرا على اختيارك لنا')
         this.router.navigate(['/orders'])
       },
         err => console.log('faild'));
