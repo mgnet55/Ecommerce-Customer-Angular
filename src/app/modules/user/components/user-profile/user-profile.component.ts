@@ -20,15 +20,7 @@ export class UserProfileComponent implements OnInit {
     this.authService.myProfile().subscribe((res:any)=>{
       console.log(res.data);
       this.user = res.data;
-      let userModel = {
-        name: res.data.name,
-        email: res.data.email,
-        phone: res.data.phone,
-        address: res.data.address,
-        city:res.data.city.name,
-        governate:res.data.city.governate.name
-       }
-       this.profileData.push(userModel);
+      
     },error=>{
         //  this.Router.navigate(['/login','You Should Login'])
     })

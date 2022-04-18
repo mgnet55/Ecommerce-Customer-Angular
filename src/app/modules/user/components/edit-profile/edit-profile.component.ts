@@ -52,7 +52,7 @@ export class EditProfileComponent implements OnInit {
            name: ele.data.name,
            email:ele.data.email,
            phone: ele.data.phone,
-           city:ele.data.city_id,
+           city:ele.data.city.id,
            governate:2,
            address:ele.data.address,
           });

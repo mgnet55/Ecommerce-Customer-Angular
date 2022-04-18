@@ -16,8 +16,7 @@ export class AuthService {
   public currentUser:User={} as User
   public cartItem=0
   constructor(private httpClient:HttpClient,private cart:CartService
-  ) {
-   }
+  ) {}
 
 
   login(data:object):Observable<any>{
@@ -43,7 +42,7 @@ export class AuthService {
     return  (localStorage.getItem('userToken'))? true: false
   }
   register(data:object):Observable<any>{
-    return this.httpClient.post(`${environment.apiURL}/register`,JSON.stringify(data))
+    return this.httpClient.post(`${environment.apiURL}/register`,data,this.httpOptions)
    }
 
    myProfile():Observable<User>{

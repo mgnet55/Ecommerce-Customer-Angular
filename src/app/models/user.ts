@@ -3,6 +3,11 @@ export interface User {
   email: string,
   phone: string,
   address: string,
+  location: {
+    "city": string,
+    "governorate": string,
+    "address": string
+}
   city: {
     id: number,
     name: string,

@@ -23,11 +23,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { AccountManagementComponent } from './components/account-management/account-management.component';
+import { FilesModule } from './shared/files/files.module';
 import { TokenInterceptorService } from './interceptors/token-interceptor.service';
 import { MatSliderModule } from '@angular/material/slider';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { LoaderInterceptorService } from './interceptors/loader-interceptor.service';
 import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { ToastrModule } from 'ngx-toastr';
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
+    FilesModule
+
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-center',
@@ -77,6 +81,7 @@ import { ToastrModule } from 'ngx-toastr';
       useClass:LoaderInterceptorService,
       multi:true
     }
+
   ],
   bootstrap: [AppComponent]
 })
