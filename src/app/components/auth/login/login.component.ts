@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -19,8 +20,8 @@ export class LoginComponent implements OnInit {
               private fb:FormBuilder,
               private router:Router,
               private cart:CartService,
-              private activatedRoute:ActivatedRoute
-              ){
+              private activatedRoute:ActivatedRoute,
+              private toast:ToastrService){
 
     this.loginFormGroup = this.fb.group({
       email: ['',[Validators.required,Validators.minLength(3)]],
@@ -48,7 +49,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['home',data.data.name]);
       },
       error =>{
-        this.router.navigate(['login','Invalid Email or Password']);
+        // this.router.navigate(['login','Invalid Email or Password']);
+        this.toast.error('Invalid Email or Password');
+        console.log(error)
       });
   }
 
