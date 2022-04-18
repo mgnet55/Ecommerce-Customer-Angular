@@ -49,7 +49,7 @@ import { ToastrModule } from 'ngx-toastr';
     ProductDetailsComponent,
     AccountManagementComponent,
         LoadingComponent,
-   
+
   ],
   imports: [
     BrowserModule,
@@ -61,8 +61,7 @@ import { ToastrModule } from 'ngx-toastr';
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
-    FilesModule
-
+    FilesModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-center',
