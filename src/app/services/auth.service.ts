@@ -14,9 +14,10 @@ export class AuthService {
   constructor(private httpClient:HttpClient
   ) {
     this.httpOptions =  {headers: new HttpHeaders({
-      'Content-Type': 'application/json','Accept':'application/json'
-      ,'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
-       'enctype': 'multipart/form-data'
+      // 'Content-Type': 'application/json',
+        'Accept':'application/json'
+      // ,'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
+       // 'enctype': 'multipart/form-data'
       })};
 
       this.isLoggedSubject = new BehaviorSubject<boolean> (this.loginStatus)

@@ -115,7 +115,7 @@ export class RegisterComponent implements OnInit{
       const file = event.target.files[0] as File;
       console.log(file);
       this.selectedFile = file.name;
-      this.formData.append('image', file);
+      this.formData.append('avatar', file);
       console.log(this.formData);
     }
   }
@@ -132,10 +132,16 @@ export class RegisterComponent implements OnInit{
           password_confirmation: this.RegisterationForm.value.password,
           avatar:this.formData
          }
+         this.formData.append('name',this.name?.value);
+        this.formData.append('email',this.email?.value);
+        this.formData.append('phone',this.phone?.value);
+        this.formData.append('city_id',this.city?.value);
+        this.formData.append('address',this.address?.value);
+        this.formData.append('password',this.password?.value);
+        this.formData.append('password_confirmation',this.confirmPassword?.value);
+         // console.log(JSON.stringify(userModel));
 
-         console.log(JSON.stringify(userModel));
-
-        this.authService.register(userModel).subscribe(
+        this.authService.register(this.formData).subscribe(
           data =>{
             console.log(data)
             let userToken = data.data.token;
@@ -143,7 +149,9 @@ export class RegisterComponent implements OnInit{
             this.router.navigate(['home',data.data.name]);
           },
           error =>{
-            this.router.navigate(['register',error.error['message']]);
+            // this.router.navigate(['register',error.error['message']]);
+            console.log(error);
+            console.log(this.formData);
           });
       }
 
