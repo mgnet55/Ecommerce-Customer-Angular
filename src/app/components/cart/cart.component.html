@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85" *ngIf="items.length>0">
+	<form class="bg0 p-t-75 p-b-85" *ngIf="items?.length>0">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -99,9 +99,11 @@
 						</div>
             <!-- Governate--------------------------------------- -->
             <div class=" bor12 p-t-15 p-b-30">
+				
               <div class="col">
                 <label for="cat" class="form-label">Governate</label>
-                <select class="form-control" name="governate" id="governate" [(ngModel)]="governateID" (change)="onChange($event)">
+                <select class="form-control" name="governate" id="governate" (change)="onChange($event)">
+					<option value="all"	>Select Your Governate</option>
                     <option *ngFor="let governate of governates" [value]="governate.id">
                         {{governate.name}}
                     </option>
@@ -110,13 +112,21 @@
               <br>
               <div class="col">
                 <label for="cat" class="form-label">City</label>
-                <select class="form-control" name="city" id="city">
-                    <option *ngFor="let city of cities" [value]="city.id">
+                <select class="form-control" name="city" id="city" [class.is-invalid]="error?.city_id" (change)="setInfo($event.target)">
+					<option value="all" disabled selected>Select Your City</option>
+                    <option *ngFor="let city of cities" [(ngModel)]="cartInfo.city_id" [value]="city.id">
                         {{city.name}}
                     </option>
                 </select>
+				
               </div>
+			  <div class="col mt-3">
+				  <label for="street" class="form-label" >Street</label>
+				  <input type="text" name="street" #street class="form-control" (change)="setInfo($event.target)" [class.is-invalid]="error?.street" [placeholder]="error?.street?error.street:'Your Street'">
+			  </div>
             </div>
+		
+			
             <!-- ---------------------------------------------------------------- -->
 						<div class="flex-w flex-t bor12 p-t-15 p-b-30">
 							<div class="size-208 w-full-ssm">
@@ -132,9 +142,9 @@
 
 								<div class="p-t-15">
 									<div class="flex-w">
-										<div class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
+										<button (click)="setcart()" class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
 											Update Totals
-										</div>
+										</button>
 									</div>
 
 								</div>
@@ -163,7 +173,7 @@
 			</div>
 		</div>
 	</form>
-	<div class="container h-100  d-flex justify-content-center" *ngIf="items.length==0">
-		<h2 class=" text-primary">cart is empty return to shipping</h2>
+	<div class="container h-100  d-flex justify-content-center" *ngIf="items?.length<1">
+		<h2 class=" text-primary"><a routerLink="/products">cart is empty return to shipping</a>	</h2>
 	</div>
    
