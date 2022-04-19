@@ -32,7 +32,7 @@ export class ProductComponent implements OnInit {
       this.cartService.addItemToCart(id, this.quantity).subscribe(
         (data: any) => {
           this.authService.cartItem = data.data.totalQuantity
-
+          this.toast.success(data.message);
         },error=>{
           this.toast.warning(error.error.message);
         })
