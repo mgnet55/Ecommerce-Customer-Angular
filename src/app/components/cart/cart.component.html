@@ -26,9 +26,9 @@
 									<th class="column-4">Quantity</th>
 									<th class="column-5">Total</th>
 								</tr>
-                
+
 								<tr *ngFor="let item of items" class="table_row">
-                
+
 									<td class="column-1">
 										<div class="how-itemcart1">
 											<img src="{{imagesURL}}/products/{{item.product.image}}" alt="IMG" class="img-fluid">
@@ -99,7 +99,7 @@
 						</div>
             <!-- Governate--------------------------------------- -->
             <div class=" bor12 p-t-15 p-b-30">
-				
+
               <div class="col">
                 <label for="cat" class="form-label">Governate</label>
                 <select class="form-control" name="governate" id="governate" (change)="onChange($event)">
@@ -118,15 +118,15 @@
                         {{city.name}}
                     </option>
                 </select>
-				
+
               </div>
 			  <div class="col mt-3">
 				  <label for="street" class="form-label" >Street</label>
 				  <input type="text" name="street" #street class="form-control" (change)="setInfo($event.target)" [class.is-invalid]="error?.street" [placeholder]="error?.street?error.street:'Your Street'">
 			  </div>
             </div>
-		
-			
+
+
             <!-- ---------------------------------------------------------------- -->
 						<div class="flex-w flex-t bor12 p-t-15 p-b-30">
 							<div class="size-208 w-full-ssm">
@@ -176,4 +176,4 @@
 	<div class="container h-100  d-flex justify-content-center" *ngIf="items?.length<1">
 		<h2 class=" text-primary"><a routerLink="/products">cart is empty return to shipping</a>	</h2>
 	</div>
-   
+

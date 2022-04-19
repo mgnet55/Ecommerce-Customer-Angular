@@ -8,5 +8,5 @@ export interface VmCardProduct {
   category_id:number
   description:string
   available:number
-
+  quantity:number
 }

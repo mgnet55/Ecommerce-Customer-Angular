@@ -152,7 +152,7 @@ export class RegisterComponent implements OnInit{
           },
           error =>{
             // this.router.navigate(['register',error.error['message']]);
-            this.toast.warning(error.error.message);
+            this.toast.error(error.error.message);
           });
       }
 

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Toast, ToastrService } from 'ngx-toastr';
 import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
+import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { CartAdding } from 'src/app/vm/cart-adding';
 
 @Component({
   selector: 'app-product-details',
@@ -13,8 +17,14 @@ export class ProductDetailsComponent implements OnInit {
   prodID : number = 0;
   apiUrl = 'http://localhost:8000';
   products : VmCardProduct[] = []
+  quantity:CartAdding = {} as CartAdding;
   constructor(private activatedRoute:ActivatedRoute,
-              private productService:ProductsService) { }
+              private productService:ProductsService,
+              private authService:AuthService,
+              private cartService:CartService,
+              private ToastrService:ToastrService,
+
+              ) { }
 
   ngOnInit(): void {
 
@@ -30,4 +40,21 @@ export class ProductDetailsComponent implements OnInit {
 
   }
 
+  onChange(event:any){
+      this.quantity.quantity = event.target.value
+  }
+
+  addToCart(id:number){
+    if (this.authService.currentUser.email != '') {
+      this.cartService.addItemToCart(id, this.quantity).subscribe(
+        (data: any) => {
+          this.authService.cartItem = data.data.totalQuantity
+
+        },error=>{
+          this.ToastrService.warning(error.error.message);
+        })
+    } else {
+      this.ToastrService.warning('You Should Login!');
+    }
+  }
 }
