@@ -90,6 +90,9 @@ export class CartComponent implements OnInit {
         this.totalPrice = data.data.totalPrice
         this.authService.cartItem=data.data.totalQuantity
         this.toast.success(data.message)
+      },
+      err=>{
+        this.toast.warning(err.error.message)
       })
   }
 
