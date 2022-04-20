@@ -47,9 +47,7 @@ export class CartComponent implements OnInit {
       }
     )
     this.invokeStripe()
-
     // Governates ------------------
-
     this.authService.governates().subscribe(res => {
       console.log(res);
       this.governates = res;
@@ -129,6 +127,7 @@ export class CartComponent implements OnInit {
    )
  }
   makePayment(amount: number) {
+    console.log('dddd')
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_51Klg7rF1z6T6MzALDH7c25SCyL57wz4XXDDukwbaJ4rlhgJdlxfJRd87MSWCch2xnYf6yyRE6jtnLGVnvNmU7LGr00HvzaiQdT',
       locale: 'auto',

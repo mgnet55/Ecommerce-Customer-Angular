@@ -29,6 +29,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { LoaderInterceptorService } from './interceptors/loader-interceptor.service';
 import { ToastrModule } from 'ngx-toastr';
+import { ErrorInterceptorService } from './interceptors/error-interceptor.service';
 
 
 @NgModule({
@@ -78,6 +79,10 @@ import { ToastrModule } from 'ngx-toastr';
     {
       provide:HTTP_INTERCEPTORS,
       useClass:LoaderInterceptorService,
+      multi:true
+    },{
+      provide:HTTP_INTERCEPTORS,
+      useClass:ErrorInterceptorService,
       multi:true
     }
 
