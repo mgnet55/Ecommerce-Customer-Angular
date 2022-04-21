@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { CartAdding } from 'src/app/vm/cart-adding';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-details',
@@ -15,7 +16,7 @@ import { CartAdding } from 'src/app/vm/cart-adding';
 export class ProductDetailsComponent implements OnInit {
 
   prodID : number = 0;
-  apiUrl = 'http://localhost:8000';
+  apiUrl = environment.apiURL
   products : VmCardProduct[] = []
   quantity:CartAdding = {quantity:1} as CartAdding;
   constructor(private activatedRoute:ActivatedRoute,
