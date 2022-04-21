@@ -138,14 +138,15 @@ export class CartComponent implements OnInit {
     });
     const paymentstripe = (token: Checkout) => {
       this.checkout.checkout(token).subscribe((data: any) => {
-        this.toast.success('شكرا على اختيارك لنا')
+        this.toast.success(data.message)
+        this.authService.cartItem=0
         this.router.navigate(['/orders'])
       },
         err => console.log('faild'));
     };
     paymentHandler.open({
-      name: 'على الله الحكايه',
-      description: 'اوعى تدخل رقم الفيزا احنا اصلا حرميه وبنحاول نغفلك',
+      name: 'ITI SHOPE',
+      description: 'feel free to enter your card data',
       amount: amount * 100
     });
   }

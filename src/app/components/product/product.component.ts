@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
@@ -28,18 +29,15 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(id: number) {
-    if (this.authService.currentUser.email != '') {
       this.cartService.addItemToCart(id, this.quantity).subscribe(
         (data: any) => {
+          console.log(data)
           this.authService.cartItem = data.data.totalQuantity
           this.toast.success(data.message);
-        },error=>{
-          this.toast.warning(error.error.message);
+        },(err:any)=>{
+          err.status==401?this.toast.warning('Please Login First'):this.toast.warning(err.error.message);
+          
         })
-    } else {
-      this.toast.warning('You Should Login!');
-    }
-
   }
 }
 

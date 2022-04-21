@@ -7,11 +7,12 @@
       <div class="col-md-6 col-lg-7 p-b-30">
         <div class="p-l-25 p-r-30 p-lr-0-lg">
           <div class="wrap-slick3 flex-sb flex-w">
-            <div class="wrap-slick3-dots"><ul class="slick3-dots" role="tablist" style=""><li class="slick-active" role="presentation"></li></ul></div>
+            <div class="wrap-slick3-dots"><ul class="slick3-dots" role="tablist" ><li class="slick-active" role="presentation"></li></ul></div>
             <div class="slick3 gallery-lb slick-initialized slick-slider slick-dotted">
-              <div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 990px;"><div class="item-slick3 slick-slide slick-current slick-active" data-thumb="images/product-detail-01.jpg" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide10" aria-describedby="slick-slide-control10" style="width: 330px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
+              <div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 990px;">
+                <div class="item-slick3 slick-slide slick-current slick-active" data-thumb="images/product-detail-01.jpg" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide10" aria-describedby="slick-slide-control10" style="width: 330px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
                 <div class="wrap-pic-w pos-relative">
-                  <img src="{{apiUrl}}/products/{{products[0].image}}" alt="IMG-PRODUCT">
+                  <img src="{{apiUrl}}/products/{{products[0]?.image}}" alt="IMG-PRODUCT">
                 </div>
               </div>
               </div>
@@ -24,15 +25,15 @@
       <div class="col-md-6 col-lg-5 p-b-30">
         <div class="p-r-50 p-t-5 p-lr-0-lg">
           <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-            {{products[0].name}}
+            {{products[0]?.name}}
           </h4>
 
           <span class="mtext-106 cl2">
-            {{products[0].price | currency:'EGP':'code'}}
+            {{products[0]?.price | currency:'EGP':'code'}}
           </span>
 
           <p class="stext-102 cl3 p-t-23">
-            {{products[0].description}}
+            {{products[0]?.description}}
           </p>
 
           <!--  -->
@@ -49,7 +50,7 @@
                     <i class="fs-16 zmdi zmdi-minus"></i>
                   </div>
 
-                  <input min="1" max="{{products[0].quantity}}" (change)="onChange($event)" class="mtext-104 cl3 txt-center num-product" value="1" type="number" name="num-product">
+                  <input min="1" max="{{products[0]?.quantity}}" (change)="onChange($event)" class="mtext-104 cl3 txt-center num-product" value="1" type="number" name="num-product">
 
                   <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                     <i class="fs-16 zmdi zmdi-plus"></i>
