@@ -35,8 +35,8 @@ export class ProductComponent implements OnInit {
           this.authService.cartItem = data.data.totalQuantity
           this.toast.success(data.message);
         },(err:any)=>{
-          console.log(err.status,'dddd')
-          this.toast.warning(err.statusText);
+          err.status==401?this.toast.warning('Please Login First'):this.toast.warning(err.error.message);
+          
         })
   }
 }

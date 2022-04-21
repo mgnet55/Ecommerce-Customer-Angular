@@ -10,9 +10,6 @@ import { CartService } from './cart.service';
   providedIn: 'root'
 })
 export class AuthService {
-
-  
-  private httpOptions = {};
   public currentUser:User={} as User
   public cartItem=0
   constructor(private httpClient:HttpClient,private cart:CartService
@@ -20,7 +17,7 @@ export class AuthService {
 
 
   login(data:object):Observable<any>{
-    return this.httpClient.post(`${environment.apiURL}/login`,JSON.stringify(data))
+    return this.httpClient.post(`${environment.apiCustomerURL}/login`,JSON.stringify(data))
    }
    prepareUserData() {
     
@@ -42,7 +39,7 @@ export class AuthService {
     return  (localStorage.getItem('userToken'))? true: false
   }
   register(data:object):Observable<any>{
-    return this.httpClient.post(`${environment.apiURL}/register`,data,this.httpOptions)
+    return this.httpClient.post(`${environment.apiURL}/register`,data)
    }
 
    myProfile():Observable<User>{

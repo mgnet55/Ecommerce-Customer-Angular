@@ -19,8 +19,9 @@ export class ErrorInterceptorService implements HttpInterceptor {
           localStorage.removeItem('userToken')
           router.navigate(['login'])
         }
+        console.log(err)
         return throwError(
-          ()=>new Error(err.message))
+          ()=>err)
         })
     )  
   }

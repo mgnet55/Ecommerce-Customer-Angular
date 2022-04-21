@@ -15,32 +15,32 @@ export class CartService {
   
   getCart()
   {
-    return this.http.get(`${environment.apiURLCustomer}/cart`)
+    return this.http.get(`${environment.apiCustomerURL}/cart`)
   }
   updateCartItems(data:UpdateCart[])
   {
-    return this.http.put(`${environment.apiURLCustomer}/cart`,data)
+    return this.http.put(`${environment.apiCustomerURL}/cart`,data)
   }
   getCartInfo()
   {
-    return this.http.get(`${environment.apiURLCustomer}/cart/info`)
+    return this.http.get(`${environment.apiCustomerURL}/cart/info`)
   }
   setCartInfo(data:any)
   {
-    return this.http.post(`${environment.apiURLCustomer}/info`,data)
+    return this.http.post(`${environment.apiCustomerURL}/info`,data)
   }
 
   addItemToCart(id:number,data:any)
   {
-    return this.http.post(`${environment.apiURLCustomer}/cart/${id}`,data)
+    return this.http.post(`${environment.apiCustomerURL}/cart/${id}`,data)
   }
       
   deleteItemFromCart(id:number)
   {
-    return this.http.delete(`${environment.apiURLCustomer}/cart/${id}`)
+    return this.http.delete(`${environment.apiCustomerURL}/cart/${id}`)
   }
   getCartItemsNumber()
   {
-    return this.http.get(`${environment.apiURLCustomer}/cart/items`)
+    return this.http.get(`${environment.apiCustomerURL}/cart/items`)
   }
 }
