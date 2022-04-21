@@ -1,6 +1,7 @@
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { UpdateCart } from '../vm/update-cart';
 
 @Injectable({
@@ -14,32 +15,32 @@ export class CartService {
   
   getCart()
   {
-    return this.http.get('http://localhost:8000/api/cart')
+    return this.http.get(`${environment.apiURLCustomer}/cart`)
   }
   updateCartItems(data:UpdateCart[])
   {
-    return this.http.put(`http://localhost:8000/api/cart`,data)
+    return this.http.put(`${environment.apiURLCustomer}/cart`,data)
   }
   getCartInfo()
   {
-    return this.http.get('http://localhost:8000/api/cart/info')
+    return this.http.get(`${environment.apiURLCustomer}/cart/info`)
   }
   setCartInfo(data:any)
   {
-    return this.http.post('http://localhost:8000/api/cart/info',data)
+    return this.http.post(`${environment.apiURLCustomer}/info`,data)
   }
 
   addItemToCart(id:number,data:any)
   {
-    return this.http.post(`http://localhost:8000/api/cart/${id}`,data)
+    return this.http.post(`${environment.apiURLCustomer}/cart/${id}`,data)
   }
       
   deleteItemFromCart(id:number)
   {
-    return this.http.delete(`http://localhost:8000/api/cart/${id}`)
+    return this.http.delete(`${environment.apiURLCustomer}/cart/${id}`)
   }
   getCartItemsNumber()
   {
-    return this.http.get(`http://localhost:8000/api/cart/items`)
+    return this.http.get(`${environment.apiURLCustomer}/cart/items`)
   }
 }
