@@ -14,32 +14,32 @@ export class CartService {
   
   getCart()
   {
-    return this.http.get('http://localhost:8000/api/cart')
+    return this.http.get('http://localhost:8000/api/customer/cart')
   }
   updateCartItems(data:UpdateCart[])
   {
-    return this.http.put(`http://localhost:8000/api/cart`,data)
+    return this.http.put(`http://localhost:8000/api/customer/cart`,data)
   }
   getCartInfo()
   {
-    return this.http.get('http://localhost:8000/api/cart/info')
+    return this.http.get('http://localhost:8000/api/customer/cart/info')
   }
   setCartInfo(data:any)
   {
-    return this.http.post('http://localhost:8000/api/cart/info',data)
+    return this.http.post('http://localhost:8000/api/customer/cart/info',data)
   }
 
   addItemToCart(id:number,data:any)
   {
-    return this.http.post(`http://localhost:8000/api/cart/${id}`,data)
+    return this.http.post(`http://localhost:8000/api/customer/cart/${id}`,data)
   }
       
   deleteItemFromCart(id:number)
   {
-    return this.http.delete(`http://localhost:8000/api/cart/${id}`)
+    return this.http.delete(`http://localhost:8000/api/customer/cart/${id}`)
   }
   getCartItemsNumber()
   {
-    return this.http.get(`http://localhost:8000/api/cart/items`)
+    return this.http.get(`http://localhost:8000/api/customer/cart/items`)
   }
 }
