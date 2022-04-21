@@ -6,6 +6,7 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FilesModule } from 'src/app/shared/files/files.module';
 
 
 const routes: Routes =[
@@ -27,6 +28,7 @@ const routes: Routes =[
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FilesModule,
   ]
 })
 export class UserModule { }

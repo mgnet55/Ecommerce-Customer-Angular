@@ -1,6 +1,7 @@
 import { Component,OnInit} from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { FileUploader } from 'ng2-file-upload';
 import { City } from 'src/app/models/city';
 import { Governate } from 'src/app/models/governate';
 import { User } from 'src/app/models/user';
@@ -12,6 +13,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
+  public  uploader : FileUploader = new FileUploader({});
+  formData : FormData = new FormData()
+  selectedFile :string | null= null;
+
 
   EditUsrForm: FormGroup;
   governates : Governate[] = [];
@@ -96,10 +101,6 @@ export class EditProfileComponent implements OnInit {
         return this.EditUsrForm.get('phone');
       }
 
-      // get file() {
-      //   return this.RegisterationForm.get('avatar');
-      // }
-
       get city() {
         return this.EditUsrForm.get('city');
       }
@@ -134,21 +135,38 @@ export class EditProfileComponent implements OnInit {
 
 
 
+      // Image upload
+
+      onFileSelect(event:any) {
+        if (event.target.files.length > 0) {
+          const file = event.target.files[0] as File;
+          console.log(file);
+          this.selectedFile = file.name;
+          this.formData.append('avatar', file);
+          console.log(this.formData);
+        }
+      }
+
       updateUser(){
 
-        let userModel = {
-          name: this.EditUsrForm.value.name,
-          email: this.EditUsrForm.value.email,
-          phone: this.EditUsrForm.value.phone,
-          city_id: this.EditUsrForm.value.city,
-          address: this.EditUsrForm.value.address,
-          // password: this.EditUsrForm.value.password,
-          // password_confirmation: this.EditUsrForm.value.password,
-         }
+        // let userModel = {
+        //   name: this.EditUsrForm.value.name,
+        //   email: this.EditUsrForm.value.email,
+        //   phone: this.EditUsrForm.value.phone,
+        //   city_id: this.EditUsrForm.value.city,
+        //   address: this.EditUsrForm.value.address,
+        //   // password: this.EditUsrForm.value.password,
+        //   // password_confirmation: this.EditUsrForm.value.password,
+        //  }
 
-         console.log(JSON.stringify(userModel));
+        this.formData.append('name',this.name?.value);
+        this.formData.append('email',this.email?.value);
+        this.formData.append('phone',this.phone?.value);
+        this.formData.append('city_id',this.city?.value);
+        this.formData.append('address',this.address?.value);
 
-        this.authService.editProfile(userModel).subscribe(
+
+        this.authService.editProfile(this.formData).subscribe(
           data =>{
             // console.log(data)
             this.router.navigate(['user/profile']);

@@ -20,7 +20,7 @@ export class AuthService {
     return this.httpClient.post(`${environment.apiCustomerURL}/login`,JSON.stringify(data))
    }
    prepareUserData() {
-    
+
     if (this.loginStatus) {
       this.myProfile().subscribe((resUser:any) => {
         this.currentUser.email = resUser.data.email;
@@ -55,7 +55,7 @@ export class AuthService {
    }
 
    editProfile(data:object):Observable<any>{
-    return this.httpClient.post(`${environment.apiURL}/editprofile`,JSON.stringify(data))
+    return this.httpClient.post(`${environment.apiURL}/editprofile`,data)
    }
    getToken()
    {
