@@ -30,6 +30,8 @@ import { LoadingComponent } from './shared/loading/loading.component';
 import { LoaderInterceptorService } from './interceptors/loader-interceptor.service';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptorService } from './interceptors/error-interceptor.service';
+import { OrderComponent } from './components/order/order.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 
 @NgModule({
@@ -50,6 +52,8 @@ import { ErrorInterceptorService } from './interceptors/error-interceptor.servic
     ProductDetailsComponent,
     AccountManagementComponent,
         LoadingComponent,
+        OrderComponent,
+        OrderDetailsComponent,
 
   ],
   imports: [

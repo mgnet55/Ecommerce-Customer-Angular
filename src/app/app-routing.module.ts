@@ -9,6 +9,8 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { AuthGuard } from './guards/auth.guard';
+import { OrderComponent } from './components/order/order.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,9 @@ const routes: Routes = [
       { path: 'register/:error', component: RegisterComponent },
       { path: 'product/:ID', component: ProductDetailsComponent },
 
+
+      { path: 'myorders', component:OrderComponent,canActivate:[AuthGuard]},
+      { path: 'myorders/:ID', component:OrderDetailsComponent,canActivate:[AuthGuard]},
     ]
   },
   { path: '**', component: NotFoundComponent }

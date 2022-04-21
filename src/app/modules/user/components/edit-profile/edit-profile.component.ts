@@ -17,7 +17,6 @@ export class EditProfileComponent implements OnInit {
   formData : FormData = new FormData()
   selectedFile :string | null= null;
 
-
   EditUsrForm: FormGroup;
   governates : Governate[] = [];
   cities : City[]= [];
@@ -131,9 +130,6 @@ export class EditProfileComponent implements OnInit {
           return (passControl?.value==confirmPassControl?.value)? null : valErr;
         }
       }
-
-
-
 
       // Image upload
 
