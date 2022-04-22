@@ -37,10 +37,18 @@ export class ProductsComponent implements OnInit {
   }
 
   selectCategory(id: number) {
+    if(id==0)
+    {
+      this.productsService.getAllProducts().subscribe((res: any) => {
+        this.setPagaination(res.data)
+        this.selectedCategory=id
+      }) 
+    }else{
     this.productsService.getProductsByCategory(id).subscribe((res: any) => {
       this.setPagaination(res.data)
       this.selectedCategory=id
     })
+  }
     
   }
 
