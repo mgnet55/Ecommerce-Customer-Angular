@@ -1,47 +1,39 @@
 <br>
 <br>
 <div class="container">
-  <div class="d-flex justify-content-center row">
-      <div class="col-12">
-          <div *ngIf="orders" class="rounded">
-              <div class="table-responsive table-borderless">
-                  <table class="table">
-                    <tr class="table_head">
-                      <th class="column-1">Order ID</th>
-                      <th class="column-2">Created</th>
-                      <th class="column-2">Status</th>
-                      <th class="column-4">Total</th>
-                      <th class="column-3">Notes</th>
-                      <th class="column-5">Details</th>
-                    </tr>
-                      <tbody class="table-body">
+    <div class="row">
+        <div class="col-lg-10 col-xl-10 m-lr-auto m-b-50">
+            <div class="m-l-25 m-r--38 m-lr-0-xl">
+                <div class="wrap-table-shopping-cart">
+                    <table class="table-shopping-cart">
+                        <tr class="table_head">
+                            <th class="column-1">Number</th>
+                            <th class="column-1">Products</th>
+                            <th class="column-1">Totla price</th>
+                            <th class="column-1">Address</th>
+                            <th class="column-1">Date</th>
+                            <th class="column-1">Status</th>
+                            <th class="column-1">Details</th>
+                        </tr>
 
-                          <tr class="" *ngFor="let order of orders | paginate: {itemsPerPage: itemsPerPage,currentPage: page,totalItems: totalItems}">
-                              <td>{{order.id}}</td>
-                              <td>{{order.created_at | date}}</td>
-                              <td><span class="badge badge-info">{{order.status}}</span></td>
-                              <td>{{order.total.toFixed(2)}} EGP</td>
-                              <td>{{order.notes | slice:0:80}}...</td>
-                              <td>
-                                <a routerLink="{{order.id}}"
-                                class="flex-c-m stext-103 cl1 size-102 bg2 bor2 hov-btn3 p-lr-15 trans-04"
-                                style="font-size: 1rem;font-weight: 600;text-decoration: none;">Details</a>
-                              </td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-            <pagination-controls
-              class="pagination mt-3"
-              (pageChange)="getPage(page = $event)"
-
-            ></pagination-controls>
-          </div>
-        <div *ngIf="!orders" class="rounded">
-          You don't have any orders yet.
+                        <tr class="table_row " *ngFor="let order of orders">
+                            <td class="column-2 ">{{order.id}}</td>
+                            <td class="column-2">{{order.order_items?.length}}</td>
+                            <td class="column-2">{{order.total|currency:'EGP'}}</td>
+                            <td class="column-2">{{order.street}}</td>
+                            <td class="column-2">{{order.created_at}}</td>
+                            <td class="column-2" [class.text-success]="order.status=='Done'"
+                             [class.text-danger]="order.status=='On way'"
+                             [class.text-muted]="order.status=='Processing'">
+                             ◉ {{order.status}}</td>
+                             <td class="column-2">
+                                 <a class="btn btn-primary btn-sm " routerLink="{{order.id}}"> details </a>
+                                 <!-- <button type="button" class="btn btn-primary" (click)="getOrderDetails(order.id)">Details</button> -->
+                                </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
-
-        </div>
-  </div>
+    </div>
 </div>
-
