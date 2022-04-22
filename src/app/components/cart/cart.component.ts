@@ -27,7 +27,7 @@ export class CartComponent implements OnInit {
   error:any
   // governate ------------------------
   governates: Governate[] = [];
-  cities: City[] = [];
+  cities: City[] =[];
   governateID: number = 0;
   // -------------------------
   cartInfo:CartInfo={} as CartInfo
@@ -58,13 +58,7 @@ export class CartComponent implements OnInit {
   }
   // City selection Function ----------------
   onChange(event: any) {
-    //  this.governateID = event.target.value
-
-
-    this.authService.cities(+event.target.value).subscribe(res => {
-      this.cities = res;
-      // console.log(this.cities)
-    })
+    this.cities=this.governates[event.target.value].cities;
   }
   // -----------------------------------------------
 
@@ -93,7 +87,6 @@ export class CartComponent implements OnInit {
         this.toast.warning(err.error.message)
       })
   }
-
   removeItem(id: number) {
     this.cartService.deleteItemFromCart(id).subscribe(
       (data: any) => {

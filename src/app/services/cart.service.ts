@@ -27,7 +27,7 @@ export class CartService {
   }
   setCartInfo(data:any)
   {
-    return this.http.post(`${environment.apiCustomerURL}/info`,data)
+    return this.http.post(`${environment.apiCustomerURL}/cart/info`,data)
   }
 
   addItemToCart(id:number,data:any)

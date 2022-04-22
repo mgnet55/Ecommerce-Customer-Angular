@@ -59,14 +59,7 @@ export class RegisterComponent implements OnInit{
 
    onChange(event:any)
    {
-     console.log(this.governateID);
-
-     this.authService.cities(+this.governateID).subscribe(res=>{
-      console.log(res);
-      this.cities = res;
-      // console.log(this.cities)
-    })
-
+      this.cities = this.governates[event.target.value].cities;
    }
       // Errors Handling---------------
 
