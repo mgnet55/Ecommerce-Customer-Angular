@@ -1,11 +1,5 @@
 
-<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('assets/images/pexels-artem-beliaikin-1078973.jpg');">
-  <h2 class="ltext-105 cl0 txt-center" style="font-size: 3rem">
-    Shpping For Fun!
-  </h2>
-</section>
-<br>
-<br>
+{{order|json}}
 <div class="container">
   <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg" >
     <a href="myorders" class="stext-109 cl8 hov-cl1 trans-04" style="font-size: 1rem;">
@@ -27,7 +21,7 @@
     Order ID : {{orderID}}
   </div>
   <div class="card-header" style="background: none; font-weight: 600; font-size: 1rem; padding: 0 1rem"class="stext-109 cl8 hov-cl1 trans-04">
-    {{orderDetails.length}} Items
+    {{order}} Items
   </div>
     <hr>
     <div class="card-header" style="background: none; font-weight: 600; font-size: 1.2rem; padding: 0 1rem; "class="stext-109 cl8 hov-cl1 trans-04">
@@ -35,18 +29,18 @@
     </div>
 </div>
    <br>
-  <div class="card mb-3" style="width: 70%;" *ngFor="let order of orderDetails">
+  <div class="card mb-3" style="width: 70%;" *ngFor="let orderitem of order?.order_items">
     <div class="row g-0">
       <div class="col-md-2">
-        <img src="assets/images/product-02.jpg" class="img-fluid rounded-start" alt="...">
+        <img src="{{images}}/products/{{orderitem.image}}" onerror="this.onerror=null;this.src='/assets/images/default-product.webp'" class="img-fluid rounded-start" alt="...">
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <p class="btn btn-dark">on {{order.created_at | date}}</p>
+          <p class="btn btn-dark">on {{orderitem.created_at | date}}</p>
           <div class="-df -d-co -oh -plm">
-            <a  style="background: none; font-size: 1.1rem; padding: 0 1rem"class="stext-109 cl8 hov-cl1 trans-04">{{order.name}}</a>
-            <p><span style="color: #717fe0; font-weight: 600; padding: 0 1rem">QTY:</span> {{order.quantity}}</p>
-            <p style="background: none; font-size: 1rem; padding: 0 1rem"class="stext-109 cl8 hov-cl1 trans-04"><span style="color: #717fe0; font-weight: 600;">Price:</span><span class="-m -ltr -tal"> {{order.price | currency}}</span></p></div>
+            <a  style="background: none; font-size: 1.1rem; padding: 0 1rem"class="stext-109 cl8 hov-cl1 trans-04">{{orderitem.name}}</a>
+            <p><span style="color: #717fe0; font-weight: 600; padding: 0 1rem">QTY:</span> {{orderitem.quantity}}</p>
+            <p style="background: none; font-size: 1rem; padding: 0 1rem"class="stext-109 cl8 hov-cl1 trans-04"><span style="color: #717fe0; font-weight: 600;">Price:</span><span class="-m -ltr -tal"> {{orderitem.price | currency}}</span></p></div>
         </div>
       </div>
     </div>

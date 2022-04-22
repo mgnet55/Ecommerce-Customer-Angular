@@ -1,8 +1,9 @@
-import { CategoriesService } from './../../services/categories.service';
-import { Component, OnInit } from '@angular/core';
-import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
-import { ProductsService } from 'src/app/services/products.service';
-import { Category } from 'src/app/models/category';
+import {CategoriesService} from 'src/app/services/categories.service';
+import {Component, OnInit} from '@angular/core';
+import {VmCardProduct} from 'src/app/models/view_models/VmCardProduct';
+import {ProductsService} from 'src/app/services/products.service';
+import {Category} from 'src/app/models/category';
+import {environment} from "src/environments/environment";
 
 @Component({
   selector: 'app-products',
@@ -11,34 +12,23 @@ import { Category } from 'src/app/models/category';
 })
 export class ProductsComponent implements OnInit {
   categories: Category[];
-  selectedCategory: number;
-  searchBy: string = '';
   products: VmCardProduct[];
-  currentPage: number = 1
-  lastPage: number = 1
+  page = 1;
+  itemsPerPage = 30;
+  totalItems: any;
+  selectedCategory = 0
 
   constructor(private productsService: ProductsService, private CategoriesService: CategoriesService) {
-    this.products = []
-    this.categories = []
-    this.selectedCategory = 0
+    this.products = [];
+    this.categories = [];
   }
 
   ngOnInit(): void {
-
+    this.productsService.getAllProducts().subscribe((res: any) => {
+      this.setPagination(res.data)
+    })
     this.CategoriesService.getAllCategories().subscribe(response => {
       this.categories = response.data
-    })
-
-    this.getAllProducts()
-
-  }
-
-  getAllProducts() {
-    this.productsService.getAllProducts(this.currentPage).subscribe(response => {
-      this.products = response.data.data
-      this.currentPage = response.data.current_page
-      this.lastPage = response.data.last_page
-    
     })
   }
 
@@ -47,25 +37,38 @@ export class ProductsComponent implements OnInit {
   }
 
   selectCategory(id: number) {
-    this.selectedCategory = id
-    this.productsService.getProductsByCategory(id, this.currentPage).subscribe(response => {
-      this.products = response.data.data
-      this.currentPage = response.data.current_page
-      this.lastPage = response.data.last_page
+    if (id == 0) {
+      this.productsService.getAllProducts().subscribe((res: any) => {
+        this.setPagination(res.data)
+        this.selectedCategory = id
+      })
+    } else {
+      this.productsService.getProductsByCategory(id).subscribe((res: any) => {
+        this.setPagination(res.data)
+        this.selectedCategory = id
+      })
+    }
+
+  }
+
+  searchProducts(search: any) {
+    this.productsService.serachProducts(search).subscribe((res: any) => {
+      this.setPagination(res.data)
     })
   }
 
-  searchProducts() {
-    if (this.searchBy) {
-      this.selectedCategory = 0
-      this.productsService.serachProducts(this.searchBy, this.currentPage).subscribe(response => {
-        this.products = response.data.data
-        this.currentPage = response.data.current_page
-        this.lastPage = response.data.last_page
+  getPage(page: any) {
 
-      })
-    }
-    else this.getAllProducts();
+    this.productsService.getAllProducts(+page).subscribe((res: any) => {
+      this.setPagination(res.data)
+    })
+
+  }
+
+  setPagination(data: any) {
+    this.products = data.data;
+    this.totalItems = data.total
+    this.itemsPerPage = data.per_page
   }
 
 }

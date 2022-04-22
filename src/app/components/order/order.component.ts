@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Order } from 'src/app/models/order';
-import { OrderService } from 'src/app/services/order.service';
+import {Component, OnInit} from '@angular/core';
+import {Order} from 'src/app/models/order';
+import {OrderService} from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-order',
@@ -9,17 +9,26 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class OrderComponent implements OnInit {
 
-  orders :Order[]= []
+  orders: Order[] = []
+  page = 1;
+  itemsPerPage = 30;
+  totalItems: any;
 
-  constructor(private orderService:OrderService) { }
-
-  ngOnInit(): void {
-
-    this.orderService.myOrders().subscribe(data=>{
-      this.orders = data;
-      console.log(this.orders)
-    })
+  constructor(private orderService: OrderService) {
   }
 
-  
+  ngOnInit(): void {
+    this.getPage(this.page)
+  }
+
+  getPage(page: any) {
+    this.orderService.myOrders(+page).subscribe(res => {
+      this.orders = res.data.data;
+      this.itemsPerPage = res.data.per_page;
+      this.totalItems = res.data.total;
+      this.page = res.data.current_page
+
+    })
+
+  }
 }
