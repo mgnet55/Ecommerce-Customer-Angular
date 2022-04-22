@@ -6,14 +6,15 @@
 
           <!-- item blog -->
           <div class="row isotope-grid" style="position: relative;">
-            <app-product class="col-sm-6 col-md-6 col-lg-3 p-b-35 isotope-item" *ngFor="let product of products" [product]="product"></app-product>
+
+            <app-product class="col-sm-6 col-md-6 col-lg-3 p-b-35 isotope-item" *ngFor="let product of products| paginate: {itemsPerPage: itemsPerPage,currentPage: page,totalItems: totalItems}" [product]="product"></app-product>
           </div>
           <!-- Pagination -->
-          <div class="flex-c-m flex-w w-full p-t-10 m-lr--7">
-            <a [routerLink]="['./']" [queryParams]="{ page:currentPage-1 }" class="flex-c-m how-pagination1 trans-04 m-all-7">&lt;</a>
-            <button class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">{{currentPage}}</button>
-            <a [routerLink]="['./']" [queryParams]="{ page:currentPage+1 }" class="flex-c-m how-pagination1 trans-04 m-all-7">&gt;</a>
-          </div>
+          <pagination-controls
+            class="pagination mt-3"
+            (pageChange)="getPage(page = $event)"
+
+          ></pagination-controls>
         </div>
       </div>
 
@@ -32,7 +33,7 @@
             </h4>
 
             <ul>
-              <li class="bor18"><button (click)="getAllProducts()" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4 a-none">All</button></li>
+              <li class="bor18"><button (click)="selectCategory(0)" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4 a-none">All</button></li>
               <li *ngFor="let category of categories" class="bor18">
                 <button (click)="selectCategory(category.id)" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4 a-none">{{category.name}}</button>
               </li>

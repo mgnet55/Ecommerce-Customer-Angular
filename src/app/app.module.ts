@@ -32,6 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptorService } from './interceptors/error-interceptor.service';
 import { OrderComponent } from './components/order/order.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
+import {NgxPaginationModule} from "ngx-pagination";
 
 
 @NgModule({
@@ -72,7 +73,9 @@ import { OrderDetailsComponent } from './components/order-details/order-details.
       positionClass: 'toast-top-center',
       preventDuplicates: true,
     }),
-    MatSliderModule
+    MatSliderModule,
+    NgxPaginationModule,
+
   ],
   providers: [
     {

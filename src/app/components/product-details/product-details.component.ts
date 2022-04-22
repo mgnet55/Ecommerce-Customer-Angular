@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 export class ProductDetailsComponent implements OnInit {
 
   prodID : number = 0;
-  apiUrl = environment.apiURL
+  images = environment.images
   products : VmCardProduct[] = []
   quantity:CartAdding = {quantity:1} as CartAdding;
   constructor(private activatedRoute:ActivatedRoute,
