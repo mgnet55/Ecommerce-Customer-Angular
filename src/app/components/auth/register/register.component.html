@@ -62,7 +62,8 @@
       <div class="form-row">
         <div class="col">
           <label for="cat" class="form-label">Governate</label>
-          <select class="form-control" formControlName="governate" name="governate" id="governate" [(ngModel)]="governateID" (change)="onChange($event)">
+          <select class="form-control" formControlName="governate" name="governate" id="governate"  [(ngModel)]="governateID" (change)="onChange($event)">
+            <option value="all"	selected disabled>Select Your Governate</option>
               <option *ngFor="let governate of governates" [value]="governate.id">
                   {{governate.name}}
               </option>
@@ -72,6 +73,7 @@
       <div class="col">
         <label for="cat" class="form-label">City</label>
         <select class="form-control" formControlName="city" name="city" id="city">
+          <option value="all" selected disabled>Select Your City</option>
             <option *ngFor="let city of cities" [value]="city.id">
                 {{city.name}}
             </option>

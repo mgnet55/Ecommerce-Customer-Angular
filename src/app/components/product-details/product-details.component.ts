@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { CartAdding } from 'src/app/vm/cart-adding';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-details',
@@ -15,9 +16,9 @@ import { CartAdding } from 'src/app/vm/cart-adding';
 export class ProductDetailsComponent implements OnInit {
 
   prodID : number = 0;
-  apiUrl = 'http://localhost:8000';
+  imagesURL = environment.images
   products : VmCardProduct[] = []
-  quantity:CartAdding = {} as CartAdding;
+  quantity:CartAdding = {quantity:1} as CartAdding;
   constructor(private activatedRoute:ActivatedRoute,
               private productService:ProductsService,
               private authService:AuthService,
@@ -49,7 +50,7 @@ export class ProductDetailsComponent implements OnInit {
       this.cartService.addItemToCart(id, this.quantity).subscribe(
         (data: any) => {
           this.authService.cartItem = data.data.totalQuantity
-
+          this.ToastrService.success(data.message)
         },error=>{
           this.ToastrService.warning(error.error.message);
         })

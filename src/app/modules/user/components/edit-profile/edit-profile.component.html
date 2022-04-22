@@ -46,21 +46,15 @@
         </div>
       </div>
 
-      <!-- <div class="mb-3">
+      <div class="mb-3">
         <label for="file">Profile Image</label>
         <input
-            formControlName="file"
             id="file"
             type="file"
             class="form-control"
-            accept="image/x-png,image/jpg,image/jpeg"
-            (change)="onFileChange($event)">
-            <div class="alert alert-warning" [hidden]="file?.valid || file?.untouched">
-              <small *ngIf="file?.errors?.['required']">
-                Profile Image is required
-              </small>
-            </div>
-    </div> -->
+            ng2FileSelect [uploader]="uploader"
+            (change)="onFileSelect($event)">
+    </div>
 
       <!--  -->
 

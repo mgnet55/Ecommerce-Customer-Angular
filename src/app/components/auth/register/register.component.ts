@@ -59,14 +59,7 @@ export class RegisterComponent implements OnInit{
 
    onChange(event:any)
    {
-     console.log(this.governateID);
-
-     this.authService.cities(+this.governateID).subscribe(res=>{
-      console.log(res);
-      this.cities = res;
-      // console.log(this.cities)
-    })
-
+      this.cities = this.governates[event.target.value].cities;
    }
       // Errors Handling---------------
 
@@ -124,16 +117,16 @@ export class RegisterComponent implements OnInit{
 
       registerUser(){
 
-        let userModel = {
-          name: this.RegisterationForm.value.name,
-          email: this.RegisterationForm.value.email,
-          phone: this.RegisterationForm.value.phone,
-          city_id: this.RegisterationForm.value.city,
-          address: this.RegisterationForm.value.address,
-          password: this.RegisterationForm.value.password,
-          password_confirmation: this.RegisterationForm.value.password,
-          avatar:this.formData
-         }
+        // let userModel = {
+        //   name: this.RegisterationForm.value.name,
+        //   email: this.RegisterationForm.value.email,
+        //   phone: this.RegisterationForm.value.phone,
+        //   city_id: this.RegisterationForm.value.city,
+        //   address: this.RegisterationForm.value.address,
+        //   password: this.RegisterationForm.value.password,
+        //   password_confirmation: this.RegisterationForm.value.password,
+        //   avatar:this.formData
+        //  }
          this.formData.append('name',this.name?.value);
         this.formData.append('email',this.email?.value);
         this.formData.append('phone',this.phone?.value);

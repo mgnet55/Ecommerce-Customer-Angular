@@ -29,6 +29,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { LoaderInterceptorService } from './interceptors/loader-interceptor.service';
 import { ToastrModule } from 'ngx-toastr';
+import { ErrorInterceptorService } from './interceptors/error-interceptor.service';
+import { OrderComponent } from './components/order/order.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 
 @NgModule({
@@ -49,6 +52,8 @@ import { ToastrModule } from 'ngx-toastr';
     ProductDetailsComponent,
     AccountManagementComponent,
         LoadingComponent,
+        OrderComponent,
+        OrderDetailsComponent,
 
   ],
   imports: [
@@ -78,6 +83,10 @@ import { ToastrModule } from 'ngx-toastr';
     {
       provide:HTTP_INTERCEPTORS,
       useClass:LoaderInterceptorService,
+      multi:true
+    },{
+      provide:HTTP_INTERCEPTORS,
+      useClass:ErrorInterceptorService,
       multi:true
     }
 

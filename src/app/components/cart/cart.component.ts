@@ -27,7 +27,7 @@ export class CartComponent implements OnInit {
   error:any
   // governate ------------------------
   governates: Governate[] = [];
-  cities: City[] = [];
+  cities: City[] =[];
   governateID: number = 0;
   // -------------------------
   cartInfo:CartInfo={} as CartInfo
@@ -47,9 +47,7 @@ export class CartComponent implements OnInit {
       }
     )
     this.invokeStripe()
-
     // Governates ------------------
-
     this.authService.governates().subscribe(res => {
       console.log(res);
       this.governates = res;
@@ -60,13 +58,7 @@ export class CartComponent implements OnInit {
   }
   // City selection Function ----------------
   onChange(event: any) {
-    //  this.governateID = event.target.value
-
-
-    this.authService.cities(+event.target.value).subscribe(res => {
-      this.cities = res;
-      // console.log(this.cities)
-    })
+    this.cities=this.governates[event.target.value].cities;
   }
   // -----------------------------------------------
 
@@ -95,7 +87,6 @@ export class CartComponent implements OnInit {
         this.toast.warning(err.error.message)
       })
   }
-
   removeItem(id: number) {
     this.cartService.deleteItemFromCart(id).subscribe(
       (data: any) => {
@@ -129,6 +120,7 @@ export class CartComponent implements OnInit {
    )
  }
   makePayment(amount: number) {
+    console.log('dddd')
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: 'pk_test_51Klg7rF1z6T6MzALDH7c25SCyL57wz4XXDDukwbaJ4rlhgJdlxfJRd87MSWCch2xnYf6yyRE6jtnLGVnvNmU7LGr00HvzaiQdT',
       locale: 'auto',
@@ -139,14 +131,15 @@ export class CartComponent implements OnInit {
     });
     const paymentstripe = (token: Checkout) => {
       this.checkout.checkout(token).subscribe((data: any) => {
-        this.toast.success('شكرا على اختيارك لنا')
+        this.toast.success(data.message)
+        this.authService.cartItem=0
         this.router.navigate(['/orders'])
       },
         err => console.log('faild'));
     };
     paymentHandler.open({
-      name: 'على الله الحكايه',
-      description: 'اوعى تدخل رقم الفيزا احنا اصلا حرميه وبنحاول نغفلك',
+      name: 'ITI SHOPE',
+      description: 'feel free to enter your card data',
       amount: amount * 100
     });
   }
