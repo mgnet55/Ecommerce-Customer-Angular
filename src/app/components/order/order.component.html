@@ -3,7 +3,7 @@
 <div class="container">
   <div class="d-flex justify-content-center row">
       <div class="col-12">
-          <div class="rounded">
+          <div *ngIf="orders" class="rounded">
               <div class="table-responsive table-borderless">
                   <table class="table">
                     <tr class="table_head">
@@ -16,7 +16,7 @@
                     </tr>
                       <tbody class="table-body">
 
-                          <tr class="" *ngFor="let order of orders">
+                          <tr class="" *ngFor="let order of orders | paginate: {itemsPerPage: itemsPerPage,currentPage: page,totalItems: totalItems}">
                               <td>{{order.id}}</td>
                               <td>{{order.created_at | date}}</td>
                               <td><span class="badge badge-info">{{order.status}}</span></td>
@@ -31,8 +31,17 @@
                       </tbody>
                   </table>
               </div>
+            <pagination-controls
+              class="pagination mt-3"
+              (pageChange)="getPage(page = $event)"
+
+            ></pagination-controls>
           </div>
-      </div>
+        <div *ngIf="!orders" class="rounded">
+          You don't have any orders yet.
+        </div>
+
+        </div>
   </div>
 </div>
 

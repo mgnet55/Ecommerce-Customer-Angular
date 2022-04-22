@@ -11,8 +11,8 @@ export class OrderService {
   constructor(private httpClient:HttpClient) { }
 
 
-  myOrders():Observable<any>{
-    return this.httpClient.get<any>(`${environment.apiCustomerURL}/orders`);
+  myOrders(page:number):Observable<any>{
+    return this.httpClient.get<any>(`${environment.apiCustomerURL}/orders?page=${page}`);
   }
 
   orderDetails(ID:number):Observable<any>{
