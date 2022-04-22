@@ -1,76 +1,42 @@
-import {CategoriesService} from './../../services/categories.service';
-import {Component, OnInit} from '@angular/core';
-import {VmCardProduct} from 'src/app/models/view_models/VmCardProduct';
-import {ProductsService} from 'src/app/services/products.service';
-import {Category} from 'src/app/models/category';
-import {environment} from "src/environments/environment";
+import { Component, Input, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
+import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
+import { CartAdding } from 'src/app/vm/cart-adding';
+import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.css']
 })
-export class ProductsComponent implements OnInit {
-  categories: Category[];
-  products: VmCardProduct[];
-  page = 1;
-  itemsPerPage = 30;
-  totalItems: any;
-  imageURL = environment.images
-  selectedCategory=0
-  constructor(private productsService: ProductsService, private CategoriesService: CategoriesService) {
-    this.products=[];
-    this.categories=[];
+export class ProductComponent implements OnInit {
+
+  @Input()
+  product!: VmCardProduct;
+  imagesURL: string = environment.images
+
+  quantity: CartAdding = { quantity: 1 }
+  constructor(private cartService: CartService,
+                      private authService: AuthService,
+                      private toast:ToastrService) {
   }
 
   ngOnInit(): void {
-    this.productsService.getAllProducts().subscribe((res: any) => {
-      this.setPagaination(res.data)
-    })
-    this.CategoriesService.getAllCategories().subscribe(response => {
-      this.categories = response.data
-    })
-  }
-
-  productTrackBy(index: any, product: VmCardProduct) {
-    return product.id;
-  }
-
-  selectCategory(id: number) {
-    if(id==0)
-    {
-      this.productsService.getAllProducts().subscribe((res: any) => {
-        this.setPagaination(res.data)
-        this.selectedCategory=id
-      })
-    }else{
-      this.productsService.getProductsByCategory(id).subscribe((res: any) => {
-        this.setPagaination(res.data)
-        this.selectedCategory=id
-      })
-    }
 
   }
 
-  searchProducts(search:any) {
-    this.productsService.serachProducts(search).subscribe((res: any) =>{
-      this.setPagaination(res.data)
-    })
+  addToCart(id: number) {
+      this.cartService.addItemToCart(id, this.quantity).subscribe(
+        (data: any) => {
+          this.authService.cartItem = data.data.totalQuantity
+          this.toast.success(data.message);
+        },(err:any)=>{
+          err.status==401?this.toast.warning('Please Login First'):this.toast.warning(err.error.message);
+
+        })
   }
-
-  getPage(page: any) {
-
-    this.productsService.getAllProducts(+page).subscribe((res: any) => {
-      this.setPagaination(res.data)
-    })
-
-  }
-
-  setPagaination(data:any)
-  {
-    this.products=data.data;
-    this.totalItems=data.total
-    this.itemsPerPage=data.per_page
-  }
-
 }
+
+

@@ -2,7 +2,7 @@
   <!-- Block2 -->
   <div class="block2">
     <div class="block2-pic hov-img0">
-      <span *ngIf="product.discount>0" class="label1" [attr.data-label1]="'SALE'+(product.discount|percent)"  style="position: absolute;right: 10%;top:2.5%"></span>
+      <p *ngIf="product.discount>0" class="label1" [attr.data-label1]="'SALE&nbsp;'+(product.discount|percent)"  style="position: absolute;right: 10%;top:2.5%"></p>
       <img src="{{imagesURL}}/products/{{product.image}}" onerror="this.src='/assets/images/default-product.webp'" alt="IMG-PRODUCT">
       <a href="/product/{{product.id}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
         More details
@@ -16,7 +16,7 @@
       </div>
       <div class="block2-txt-child1">
         <ng-container  >
-        <span *ngIf="product.price != product.salePrice" class="text-danger stext-105 cl3 text-decoration-line-through">{{product.price.toFixed(2)}} EGP</span>
+        <span *ngIf="product.discount" class="text-danger stext-105 cl3 text-decoration-line-through">{{product.price.toFixed(2)}} EGP</span>
           <br>
         </ng-container>
         <span class="stext-105 cl3">{{product.salePrice.toFixed(2)}} EGP</span>
