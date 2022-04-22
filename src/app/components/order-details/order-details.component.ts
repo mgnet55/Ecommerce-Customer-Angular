@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Order } from 'src/app/models/order';
+import { OrderItems } from 'src/app/models/order-items';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class OrderDetailsComponent implements OnInit {
 
-  order = {}
+  orderDetails: OrderItems[] = []
   orderID : number = 0
   constructor(private orderService:OrderService,
     private activatedRoute: ActivatedRoute) { }
@@ -21,7 +23,8 @@ export class OrderDetailsComponent implements OnInit {
 
       console.log(this.orderID)
         this.orderService.orderDetails(this.orderID).subscribe(data=>{
-          this.order = data;
+          this.orderDetails = data;
+          console.log(this.orderDetails)
         },err=>{
           console.log(err)
         })
