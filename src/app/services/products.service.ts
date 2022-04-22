@@ -16,13 +16,13 @@ export class ProductsService {
     return this.httpClient.get(`${environment.apiURL}/products?page=${page}`)
    }
 
-   getProductsByCategory(id:number,page:number=1):Observable<any>{
-    return this.httpClient.get(`${environment.apiURL}/products/category/${id}&page=${page}`)
+   getProductsByCategory(id:number):Observable<any>{
+    return this.httpClient.get(`${environment.apiURL}/products/category/${id}`)
 
    }
 
-   serachProducts(query:string,page:number=1):Observable<any>{
-    return this.httpClient.get(`${environment.apiURL}/products?search=${query}&page=${page}`)
+   serachProducts(query:string):Observable<any>{
+    return this.httpClient.get(`${environment.apiURL}/products?search=${query}`)
 
    }
 

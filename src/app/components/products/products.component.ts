@@ -12,22 +12,21 @@ import {environment} from "src/environments/environment";
 })
 export class ProductsComponent implements OnInit {
   categories: Category[];
-  selectedCategory: number;
-  searchBy: string = '';
   products: VmCardProduct[];
   page = 1;
   itemsPerPage = 30;
   totalItems: any;
   imageURL = environment.images
-
+  selectedCategory=0
   constructor(private productsService: ProductsService, private CategoriesService: CategoriesService) {
-    this.selectedCategory = 0
     this.products=[];
     this.categories=[];
   }
 
   ngOnInit(): void {
-    this.getPage(this.page);
+    this.productsService.getAllProducts().subscribe((res: any) => {
+      this.setPagaination(res.data)
+    })
     this.CategoriesService.getAllCategories().subscribe(response => {
       this.categories = response.data
     })
@@ -38,44 +37,32 @@ export class ProductsComponent implements OnInit {
   }
 
   selectCategory(id: number) {
-    this.selectedCategory = id
-    this.searchBy=''
-    this.page=1
-    this.getPage(1);
+    this.productsService.getProductsByCategory(id).subscribe((res: any) => {
+      this.setPagaination(res.data)
+      this.selectedCategory=id
+    })
+    
   }
 
-  searchProducts() {
-    this.selectedCategory=0
-    this.page=1
-    this.getPage(1);
+  searchProducts(search:any) {
+    this.productsService.serachProducts(search).subscribe((res: any) =>{
+        this.setPagaination(res.data)
+    })
   }
-// //
-// // }
-
 
   getPage(page: any) {
-    if (this.searchBy){
-      this.productsService.serachProducts(this.searchBy,+page).subscribe((res: any) => {
-        this.products = res.data.data;
-        this.totalItems = res.data.total;
-        this.itemsPerPage = res.data.per_page;
+      
+        this.productsService.getAllProducts(+page).subscribe((res: any) => {
+        this.setPagaination(res.data)
       })
-    }
-    if (this.selectedCategory) {
-      this.productsService.getProductsByCategory(this.selectedCategory,+page).subscribe((res: any) => {
-        this.products = res.data.data;
-        this.totalItems = res.data.total;
-        this.itemsPerPage = res.data.per_page;
-      })
-    }
-     else {
-      this.productsService.getAllProducts(+page).subscribe((res: any) => {
-        this.products = res.data.data;
-        this.totalItems = res.data.total;
-        this.itemsPerPage = res.data.per_page;
-      })
-    }
 
+  }
+
+  setPagaination(data:any)
+  {
+    this.products=data.data;
+    this.totalItems=data.total
+    this.itemsPerPage=data.per_page
   }
 
 }
