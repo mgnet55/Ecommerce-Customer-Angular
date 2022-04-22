@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class="row">
-        {{order.id}}
+        {{order?.id}}
     </div>
     <div class="row">
         <div class="col-lg-10 col-xl-10 m-lr-auto m-b-50">
@@ -16,7 +16,7 @@
                             <th class="column-1">Totla price</th>
                         </tr>
 
-                        <tr class="table_row " *ngFor="let item of order.order_items">
+                        <tr class="table_row " *ngFor="let item of order?.order_items">
                             <td class="column-2 ">{{item.name}}</td>
                             <td class="column-2">{{item.quantity}}</td>
                             <td class="column-2">{{item.price|currency:'EGP'}}</td>
