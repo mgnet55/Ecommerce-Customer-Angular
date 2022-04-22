@@ -10,7 +10,6 @@
                             <th class="column-1">Number</th>
                             <th class="column-1">Products</th>
                             <th class="column-1">Totla price</th>
-                            <th class="column-1">Address</th>
                             <th class="column-1">Date</th>
                             <th class="column-1">Status</th>
                             <th class="column-1">Details</th>
@@ -20,7 +19,6 @@
                             <td class="column-2 ">{{order.id}}</td>
                             <td class="column-2">{{order.order_items?.length}}</td>
                             <td class="column-2">{{order.total|currency:'EGP'}}</td>
-                            <td class="column-2">{{order.street}}</td>
                             <td class="column-2">{{order.created_at}}</td>
                             <td class="column-2" [class.text-success]="order.status=='Done'"
                              [class.text-danger]="order.status=='On way'"
