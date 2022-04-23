@@ -26,7 +26,7 @@ export class AuthService {
         this.currentUser.email = resUser.data.email;
       });
       this.cart.getCartItemsNumber().subscribe((res:any)=>{
-        this.cartItem=res
+        this.cartItem=res.data
       })
     }
   }

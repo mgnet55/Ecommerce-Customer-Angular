@@ -133,7 +133,7 @@ export class CartComponent implements OnInit {
       this.checkout.checkout(token).subscribe((data: any) => {
         this.toast.success(data.message)
         this.authService.cartItem=0
-        this.router.navigate(['/orders'])
+        this.router.navigate(['/myorders'])
       },
         err => console.log('faild'));
     };
