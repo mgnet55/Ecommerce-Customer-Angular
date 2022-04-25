@@ -31,12 +31,12 @@
 
 									<td class="column-1">
 										<div class="how-itemcart1">
-											<img src="{{imagesURL}}/products/{{item.product.image}}" alt="IMG" class="img-fluid">
+											<img src="{{imagesURL}}/products/{{item.product.image}}" onerror="this.src='/assets/images/default-product.webp'" alt="IMG" class="img-fluid">
 										</div>
 									</td>
 									<td class="column-2">{{item.product.name}}</td>
 									<td class="column-3">
-										<span *ngIf="item.product.discount!=0" class="text-danger stext-105 cl3 text-decoration-line-through">{{item.product.price.toFixed(2)}} EGP</span> 
+										<span *ngIf="item.product.discount!=0" class="text-danger stext-105 cl3 text-decoration-line-through">{{item.product.price.toFixed(2)}} EGP</span>
 										{{item.product.discount>0?(item.product.price*item.product.discount |currency:'EGP':'code'):(item.product.price | currency:'EGP':'code')}}
 									</td>
 									<td class="column-4">

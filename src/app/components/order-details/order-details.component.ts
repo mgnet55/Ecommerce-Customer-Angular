@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OrderItems } from 'src/app/models/order-items';
 import { OrderService } from 'src/app/services/order.service';
-import {environment} from "src/environments/environment.prod";
+import {environment} from "src/environments/environment";
 import {Order} from "../../models/order";
 
 @Component({

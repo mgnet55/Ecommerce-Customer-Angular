@@ -1,37 +1,39 @@
-<br>
-<br>
+<section class="bg-img1 txt-center p-lr-15 p-tb-20 mb-4"
+         style="background-image: url('/assets/images/orders-bg.webp');">
+  <h2 class="ltext-101 cl0 txt-center text-capitalize">MY ORDERS</h2>
+</section>
 <div class="container">
-    <div class="row">
-        <div class="col-lg-10 col-xl-10 m-lr-auto m-b-50">
-            <div class="m-l-25 m-r--38 m-lr-0-xl">
-                <div class="wrap-table-shopping-cart">
-                    <table class="table-shopping-cart">
-                        <tr class="table_head">
-                            <th class="column-1">Number</th>
-                            <th class="column-1">Products</th>
-                            <th class="column-1">Totla price</th>
-                            <th class="column-1">Date</th>
-                            <th class="column-1">Status</th>
-                            <th class="column-1">Details</th>
-                        </tr>
+  <div class="row">
+    <div class="col-lg-10 col-xl-10 m-lr-auto m-b-50">
+      <div class="m-l-25 m-r--38 m-lr-0-xl">
+        <div class="wrap-table-shopping-cart">
+          <table class="table-shopping-cart">
+            <tr class="table_head">
+              <th class="column-1">ID</th>
+              <th class="column-1">Number Of Products</th>
+              <th class="column-1">total price</th>
+              <th class="column-4 text-center">Date</th>
+              <th class="column-1">Status</th>
+              <th class="column-1">Details</th>
+            </tr>
 
-                        <tr class="table_row " *ngFor="let order of orders">
-                            <td class="column-2 ">{{order.id}}</td>
-                            <td class="column-2">{{order.order_items?.length}}</td>
-                            <td class="column-2">{{order.total|currency:'EGP'}}</td>
-                            <td class="column-2">{{order.created_at}}</td>
-                            <td class="column-2" [class.text-success]="order.status=='Done'"
-                             [class.text-danger]="order.status=='On way'"
-                             [class.text-muted]="order.status=='Processing'">
-                             ◉ {{order.status}}</td>
-                             <td class="column-2">
-                                 <a class="btn btn-primary btn-sm " routerLink="{{order.id}}"> details </a>
-                                 <!-- <button type="button" class="btn btn-primary" (click)="getOrderDetails(order.id)">Details</button> -->
-                                </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+            <tr class="table_row " *ngFor="let order of orders">
+              <td class="column-1 ">{{order.id}}</td>
+              <td class="column-1">{{order.order_items?.length}}</td>
+              <td class="column-1">{{order.total.toFixed(1)}} EGP</td>
+              <td class="column-4">{{order.created_at | date:'EEE, MMMM d, y, h:mm a'}}</td>
+              <td class="column-1" [class.text-success]="order.status=='Done'"
+                  [class.text-danger]="order.status=='On way'"
+                  [class.text-muted]="order.status=='Processing'">
+                ◉ {{order.status}}</td>
+              <td class="column-1">
+                <a class="btn btn-primary btn-sm " routerLink="{{order.id}}"> DETAILS </a>
+                <!-- <button type="button" class="btn btn-primary" (click)="getOrderDetails(order.id)">Details</button> -->
+              </td>
+            </tr>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
 </div>

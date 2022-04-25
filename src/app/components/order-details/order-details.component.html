@@ -1,31 +1,56 @@
+<section class="bg-img1 txt-center p-lr-15 p-tb-20 mb-4"
+         style="background-image: url('/assets/images/orders-bg.webp');">
+  <p class="cl0 text-center">Order #{{order?.id}}</p>
+  <ng-container *ngIf="order?.status == 'Processing';else onWay">
+    <span class="badge badge-info">PROCESSING</span>
+  </ng-container>
+  <ng-template #onWay>
+    <ng-container *ngIf="order?.status == 'On way';else delivered">
+      <span class="badge badge-primary">ON WAY</span>
+    </ng-container>
+  </ng-template>
+  <ng-template #delivered>
+    <span class="badge badge-success">DELIVERED</span>
+  </ng-template>
+  <h2 class="ltext-101 cl0 text-center">TOTAL : {{order?.total?.toFixed(1)}} EGP</h2>
+  <p class="cl0 text-center">CREATED AT : {{order?.created_at | date:'EEE, MMMM d, y, h:mm a'}}</p>
+  <p class="cl0 text-center">NOTES : {{order?.notes}}</p>
+
+</section>
 
 <div class="container">
-    <div class="row">
-        {{order?.id}}
-    </div>
-    <div class="row">
-        <div class="col-lg-10 col-xl-10 m-lr-auto m-b-50">
-            <div class="m-l-25 m-r--38 m-lr-0-xl">
-                <div class="wrap-table-shopping-cart">
-                    <table class="table-shopping-cart">
-                        <tr class="table_head">
-                            <th class="column-1">Product name</th>
-                            <th class="column-1">Quantity</th>
-                            <th class="column-1">price</th>
-                            <th class="column-1">discount</th>
-                            <th class="column-1">Totla price</th>
-                        </tr>
+  <div class="row">
+    <div class="col-lg-10 col-xl-10 m-lr-auto m-b-50">
+      <div class="m-l-25 m-r--38 m-lr-0-xl">
+        <div class="wrap-table-shopping-cart">
+          <table class="table-shopping-cart">
+            <tr class="table_head">
+              <th class="column-1">Product</th>
+              <th class="column-2"></th>
+              <th class="column-1">Quantity</th>
+              <th class="column-1">price</th>
+              <th class="column-1">discount</th>
+              <th class="column-1">Sale Price</th>
+              <th class="column-1">Total price</th>
+            </tr>
 
-                        <tr class="table_row " *ngFor="let item of order?.order_items">
-                            <td class="column-2 ">{{item.name}}</td>
-                            <td class="column-2">{{item.quantity}}</td>
-                            <td class="column-2">{{item.price|currency:'EGP'}}</td>
-                            <td class="column-2">{{item.discount}}</td>
-                            <td class="column-2">{{item.total}}</td>
-                        </tr>
-                    </table>
+            <tr class="table_row " *ngFor="let item of order?.order_items">
+              <td class="column-1">
+                <div class="header-cart-item-img">
+                  <img src="{{images}}/products/{{item.image}}" onerror="this.src='/assets/images/default-product.webp'"
+                       alt="IMG">
                 </div>
-            </div>
+              </td>
+              <td class="column-2">{{item.name}}</td>
+              <td class="column-1">{{item.quantity}}</td>
+              <td class="column-1">{{item.price.toFixed(1)}} EGP</td>
+              <td class="column-1">{{item.discount | percent}}</td>
+              <td class="column-1">{{item.sale_price.toFixed(1)}} EGP</td>
+              <td class="column-1">{{item.total.toFixed(1)}} EGP</td>
+            </tr>
+          </table>
         </div>
+      </div>
     </div>
+  </div>
 </div>
