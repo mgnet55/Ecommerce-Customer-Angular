@@ -71,7 +71,7 @@
       </div>
 
       <div class="col">
-        <label for="cat" class="form-label">City</label>
+        <label for="city" class="form-label">City</label>
         <select class="form-control" formControlName="city" name="city" id="city">
           <option value="all" selected disabled>Select Your City</option>
           <option *ngFor="let city of cities" [value]="city.id">

@@ -39,7 +39,7 @@ export class AuthService {
     return  (localStorage.getItem('userToken'))? true: false
   }
   register(data:object):Observable<any>{
-    return this.httpClient.post(`${environment.apiURL}/register`,data)
+    return this.httpClient.post(`${environment.apiCustomerURL}/register`,data)
    }
 
    myProfile():Observable<User>{
