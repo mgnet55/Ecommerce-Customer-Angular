@@ -31,11 +31,14 @@ export class CartComponent implements OnInit {
   governateID: number = 0;
   // -------------------------
   cartInfo:CartInfo={} as CartInfo
+ 
   constructor(private cartService: CartService,
     private checkout: CheckoutService,
     private authService: AuthService,
     private router:Router,
     private toast:ToastrService) { }
+ 
+  
 
   ngOnInit(): void {
     this.cartService.getCart().subscribe(
@@ -43,16 +46,12 @@ export class CartComponent implements OnInit {
         this.cart = data.data.cart;
         this.items = data.data.items
         this.totalPrice = data.data.totalPrice
-        console.log(this.items,'dd')
       }
     )
     this.invokeStripe()
     // Governates ------------------
     this.authService.governates().subscribe(res => {
-      console.log(res);
       this.governates = res;
-      console.log(this.governateID);
-
     })
 
   }

@@ -11,13 +11,10 @@ export class MainLayoutComponent implements OnInit {
   loginStatus:boolean
   constructor(private AuthService:AuthService) {
     this.loginStatus = this.AuthService.loginStatus;
-    console.log(this.loginStatus);
    }
 
   ngOnInit(): void {
-    // this.AuthService.isUserLoggedSubject().subscribe(status=>{
-    //   this.loginStatus = status
-    // })
+   
   }
 
 }

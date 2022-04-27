@@ -13,16 +13,14 @@ export class ErrorInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let router = this.injector.get(Router)
     return next.handle(req).pipe(
-      catchError((err:HttpErrorResponse)=>{
-        if(err.status==401||err.status==403)
-        {
+      catchError((err: HttpErrorResponse) => {
+        if (err.status == 401 || err.status == 403) {
           localStorage.removeItem('userToken')
           router.navigate(['login'])
         }
-        console.log(err)
         return throwError(
-          ()=>err)
-        })
-    )  
+          () => err)
+      })
+    )
   }
 }

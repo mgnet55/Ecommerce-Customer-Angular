@@ -51,14 +51,7 @@ export class LoginComponent implements OnInit {
       error =>{
         // this.router.navigate(['login','Invalid Email or Password']);
         this.toast.error('Invalid Email or Password');
-        console.log(error)
+       
       });
   }
-
-  logout(){
-    this.AuthService.logout();
-    this.AuthService.cartItem=0
-    // localStorage.removeItem('userToken');
-  }
-
 }

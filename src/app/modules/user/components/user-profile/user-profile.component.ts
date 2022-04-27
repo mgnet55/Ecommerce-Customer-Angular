@@ -20,11 +20,11 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
 
     this.authService.myProfile().subscribe((res:any)=>{
-      console.log(res.data);
+     
       this.user = res.data;
 
     },error=>{
-        //  this.Router.navigate(['/login','You Should Login'])
+        
     })
   }
 
