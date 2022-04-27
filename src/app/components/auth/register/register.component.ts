@@ -141,7 +141,7 @@ export class RegisterComponent implements OnInit{
             console.log(data)
             let userToken = data.data.token;
             localStorage.setItem('userToken',userToken);
-            this.router.navigate(['home',data.data.name]);
+            this.router.navigate(['home']);
           },
           error =>{
             // this.router.navigate(['register',error.error['message']]);

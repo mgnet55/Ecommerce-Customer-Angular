@@ -13,7 +13,7 @@ export class TokenInterceptorService implements HttpInterceptor{
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let auth=this.injctor.get(AuthService)
     console.log(req.url);
-    if(req.url == `${environment.apiURL}/register` || req.url ==  `${environment.apiURL}/editprofile`)
+    if(req.url == `${environment.apiCustomerURL}/register` || req.url ==  `${environment.apiCustomerURL}/editprofile`)
     {
       let token=req.clone({
         setHeaders:{
