@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     localStorage.removeItem('userToken');
+    this.AuthService.cartItem=0
     this.Router.navigate(['home']);
   }
 
