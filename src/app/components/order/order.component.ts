@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import {Order} from 'src/app/models/order';
 import {OrderService} from 'src/app/services/order.service';
 
@@ -14,7 +15,10 @@ export class OrderComponent implements OnInit {
   itemsPerPage = 30;
   totalItems: any;
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService,
+    private titleService: Title) {
+    this.titleService.setTitle('My Orders')
+      
   }
 
   ngOnInit(): void {

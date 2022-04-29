@@ -1,5 +1,6 @@
 import { Component,OnInit} from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FileUploader } from 'ng2-file-upload';
 import { City } from 'src/app/models/city';
@@ -26,18 +27,18 @@ export class EditProfileComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private authService:AuthService,
               private router:Router,
-              private activatedRoute:ActivatedRoute) {
-
+              private activatedRoute:ActivatedRoute,
+              private titleService: Title) {
+                this.titleService.setTitle('Edit-Profile')
     this.EditUsrForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required]],
       phone: ['', [Validators.required]],
-      // file: ['', [Validators.required]],
+      
       city: ['',[Validators.required]],
       governate: ['',[Validators.required]],
       address: ['',[Validators.required]],
-      // password: ['', [Validators.required, Validators.minLength(8)]],
-      // confirmPassword: ['', [Validators.required]],
+      
     },
     {validators: this.passwordMatch()}
     );

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { OrderService } from 'src/app/services/order.service';
 import {environment} from "src/environments/environment";
@@ -15,7 +16,11 @@ export class OrderDetailsComponent implements OnInit {
   order: Order | undefined
   orderID : number = 0
   constructor(private orderService:OrderService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title) {
+      this.titleService.setTitle('Order-Detalis')
+      
+     }
 
   ngOnInit(): void {
 

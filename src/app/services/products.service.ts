@@ -30,4 +30,8 @@ export class ProductsService {
     return this.httpClient.get(`${environment.apiURL}/products/${ID}`)
 
    }
+   getStatistic()
+   {
+    return this.httpClient.get(`${environment.apiURL}/product/statistic`)
+   }
 }

@@ -10,6 +10,7 @@ import { UpdateCart } from 'src/app/vm/update-cart';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { CartInfo } from 'src/app/vm/cart-info';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -36,7 +37,10 @@ export class CartComponent implements OnInit {
     private checkout: CheckoutService,
     private authService: AuthService,
     private router:Router,
-    private toast:ToastrService) { }
+    private toast:ToastrService,
+    private titleService: Title) {
+      this.titleService.setTitle('Cart')
+     }
  
   
 
@@ -50,8 +54,8 @@ export class CartComponent implements OnInit {
     )
     this.invokeStripe()
     // Governates ------------------
-    this.authService.governates().subscribe(res => {
-      this.governates = res;
+    this.authService.governates().subscribe((res:any) => {
+      this.governates = res.data;
     })
 
   }

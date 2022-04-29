@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { FileUploader } from "ng2-file-upload";
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -21,18 +22,23 @@ export class RegisterComponent implements OnInit {
   governates: Governate[] = [];
   cities: City[] = [];
   governateID: number = 0;
+  errors:any
   errorMessage: number | string | null = 0
+  isFormSubmitted=false
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private toast: ToastrService) {
-
+    private toast: ToastrService,
+    private titleService: Title) {
+      this.titleService.setTitle('Register')
+      
     this.RegisterationForm = this.fb.group({
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
+      name: ['', [Validators.required,Validators.minLength(3)]],
+      email: ['', [Validators.required,Validators.email]],
+      phone: ['', [Validators.required,Validators.minLength(11),Validators.maxLength(11)]],
       city: ['', [Validators.required]],
+      image: ['', [Validators.required]],
       governate: ['', [Validators.required]],
       address: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -43,8 +49,8 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.governates().subscribe(res => {
-      this.governates = res;
+    this.authService.governates().subscribe((res:any) => {
+      this.governates = res.data;
     })
 
     this.activatedRoute.paramMap.subscribe((paramMap) => {
@@ -59,6 +65,9 @@ export class RegisterComponent implements OnInit {
 
   get name() {
     return this.RegisterationForm.get('name');
+  }
+  get image() {
+    return this.RegisterationForm.get('image');
   }
 
   get email() {
@@ -109,8 +118,10 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
-
-    this.formData.append('name', this.name?.value);
+    this.isFormSubmitted=true
+    if(this.RegisterationForm.valid)
+    {
+      this.formData.append('name', this.name?.value);
     this.formData.append('email', this.email?.value);
     this.formData.append('phone', this.phone?.value);
     this.formData.append('city_id', this.city?.value);
@@ -125,9 +136,11 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['home']);
       },
       error => {
-
+        this.errors=error.error.errors
         this.toast.error(error.error.message);
       });
+    }
+    
   }
 
 
