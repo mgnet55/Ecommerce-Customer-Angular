@@ -39,6 +39,7 @@ export class RegisterComponent implements OnInit {
       phone: ['', [Validators.required,Validators.minLength(11),Validators.maxLength(11)]],
       city: ['', [Validators.required]],
       image: ['', [Validators.required]],
+      imageSource:['',[Validators.required]],
       governate: ['', [Validators.required]],
       address: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -65,6 +66,9 @@ export class RegisterComponent implements OnInit {
 
   get name() {
     return this.RegisterationForm.get('name');
+  }
+  get imageSource() {
+    return this.RegisterationForm.get('imageSource');
   }
   get image() {
     return this.RegisterationForm.get('image');
@@ -109,12 +113,18 @@ export class RegisterComponent implements OnInit {
   }
 
   onFileSelect(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0] as File;
-      this.selectedFile = file.name;
-      this.formData.append('avatar', file);
-
-    }
+    const file = event.target.files[0];
+  let fileType = event.target.files[0].type;
+  if (fileType.match(/image\/*/)) {
+    let reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (event: any) => {
+      this.RegisterationForm.patchValue({
+        imageSource: file
+      });
+    };
+    this.formData.append('avatar', file);
+  } 
   }
 
   registerUser() {

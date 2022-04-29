@@ -65,13 +65,16 @@
         ng2FileSelect [uploader]="uploader"
         (change)="onFileSelect($event)"
         formControlName="image"
-        [ngClass]="{'is-invalid': (isFormSubmitted && image?.['errors'])||errors?.image}"
+        [ngClass]="{'is-invalid': ( (isFormSubmitted &&imageSource?.['errors']))||errors?.image}"
         >
         <div *ngIf="isFormSubmitted && image?.['errors']?.['required'] " class="invalid-feedback">
           Image is required
         </div>
+        <div *ngIf="isFormSubmitted && imageSource?.['errors']?.['required'] &&image?.valid " class="invalid-feedback">
+          Please Select Valid Image
+        </div>
         <div *ngIf="errors?.image" class="invalid-feedback">
-          {{errors?.phone}}
+          {{errors?.image}}
         </div>
     </div>
 
