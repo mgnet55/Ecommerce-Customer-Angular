@@ -9,12 +9,14 @@
     <img src="assets/images/slide-01.jpg" alt="first slide" style="display: block; width: 100%;">
   </slide>
   <slide style="position: relative;">
-    <h1 style="position: absolute; left: 20%; top: 30%;font-family: 'Dancing Script', cursive;font-size: 5rem;">New Arrivals</h1>
+    <h1 style="position: absolute; left: 20%; top: 30%;font-family: 'Dancing Script', cursive;font-size: 5rem;">New
+      Arrivals</h1>
     <h5 style="position: absolute; left: 20%; top: 45%;">This Summer is Exclusive!</h5>
     <img src="assets/images/slide-03.jpg" alt="second slide" style="display: block; width: 100%;">
   </slide>
   <slide style="position: relative;">
-    <h1 style="position: absolute; left: 10%; top: 30%;font-family: 'Dancing Script', cursive;font-size: 5rem;">incredible Prices!</h1>
+    <h1 style="position: absolute; left: 10%; top: 30%;font-family: 'Dancing Script', cursive;font-size: 5rem;">
+      incredible Prices!</h1>
     <img src="assets/images/slide-02.jpg" alt="third slide" style="display: block; width: 100%;">
   </slide>
   <slide>
@@ -26,13 +28,174 @@
     <img src="assets/images/slide-04.jpg" alt="third slide" style="display: block; width: 100%;">
   </slide>
 </carousel>
- <br>
-<div class="container text-center">
-
+<br>
+<div class="container" *ngIf="flashSale">
   <h2 style="font-size: 3rem ; font-family: 'Dancing Script', cursive;
-  text-align: center; margin-top: 2rem; margin-bottom: 4rem;">Our Latest Products</h2>
-  <div class="row isotope-grid" style="position: relative;">
-    <app-product class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item" *ngFor="let product of products" [product]="product"></app-product>
-  </div>
+ text-align: center; margin-top: 2rem; margin-bottom: 4rem;">Flash Sale Up To 90% </h2>
+  <carousel #sale [itemsPerSlide]="itemsPerSlide" [isAnimated]="true" [singleSlideOffset]="singleSlideOffset"
+    [noWrap]="!noWrap" [interval]="1000" [startFromIndex]="1">
 
+    <slide *ngFor="let product of flashSale; let index=index">
+      <div class="block2 mx-2 border  ">
+        <div class="block2-pic hov-img0">
+          <p *ngIf="product.discount>0" class="label1" [attr.data-label1]="'SALE&nbsp;'+(product.discount|percent)"
+            style="position: absolute;right: 10%;top:2.5%"></p>
+          <img src="{{imagesURL}}/products/{{product.image}}" onerror="this.src='/assets/images/default-product.webp'"
+            alt="IMG-PRODUCT">
+          <a routerLink="/product/{{product.id}}"
+            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+            More details
+          </a>
+
+        </div>
+
+        <div class="block2-txt flex-w flex-t p-t-14 p-3">
+          <div class="block2-txt-child1 flex-col-l ">
+            <a href="/product/{{product.id}}"
+              class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">{{product.name}}</a>
+          </div>
+          <div class="block2-txt-child1">
+            <ng-container>
+              <span *ngIf="product.discount"
+                class="text-danger stext-105 cl3 text-decoration-line-through">{{product.price.toFixed(2)}} EGP</span>
+              <br>
+            </ng-container>
+            <span class="stext-105 cl3">{{product.salePrice.toFixed(2)}} EGP</span>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-caption">
+
+      </div>
+    </slide>
+  </carousel>
 </div>
+<div class="container" *ngIf="bestsale">
+  <h2 style="font-size: 3rem ; font-family: 'Dancing Script', cursive;
+ text-align: center; margin-top: 2rem; margin-bottom: 4rem;">Best Sale </h2>
+  <carousel #sale [itemsPerSlide]="itemsPerSlide" [isAnimated]="true" [singleSlideOffset]="singleSlideOffset"
+    [noWrap]="!noWrap" [interval]="1000" [startFromIndex]="1">
+
+    <slide *ngFor="let product of bestsale; let index=index">
+      <div class="block2 mx-2 border  ">
+        <div class="block2-pic hov-img0">
+          <p *ngIf="product.discount>0" class="label1" [attr.data-label1]="'SALE&nbsp;'+(product.discount|percent)"
+            style="position: absolute;right: 10%;top:2.5%"></p>
+          <img src="{{imagesURL}}/products/{{product.image}}" onerror="this.src='/assets/images/default-product.webp'"
+            alt="IMG-PRODUCT">
+          <a routerLink="/product/{{product.id}}"
+            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+            More details
+          </a>
+
+        </div>
+
+        <div class="block2-txt flex-w flex-t p-t-14 p-3">
+          <div class="block2-txt-child1 flex-col-l ">
+            <a href="/product/{{product.id}}"
+              class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">{{product.name}}</a>
+          </div>
+          <div class="block2-txt-child1">
+            <ng-container>
+              <span *ngIf="product.discount"
+                class="text-danger stext-105 cl3 text-decoration-line-through">{{product.price.toFixed(2)}} EGP</span>
+              <br>
+            </ng-container>
+            <span class="stext-105 cl3">{{product.salePrice.toFixed(2)}} EGP</span>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-caption">
+
+      </div>
+    </slide>
+  </carousel>
+</div>
+<div class="container" *ngIf="saleUp50">
+<h2 style="font-size: 3rem ; font-family: 'Dancing Script', cursive;
+ text-align: center; margin-top: 2rem; margin-bottom: 4rem;">Sale Up To 50%</h2>
+<carousel #sale [itemsPerSlide]="itemsPerSlide" [isAnimated]="true" [singleSlideOffset]="singleSlideOffset"
+  [noWrap]="!noWrap" [interval]="1000" [startFromIndex]="1">
+  
+    <slide *ngFor="let product of saleUp50; let index=index">
+      <div class="block2 mx-2 border  ">
+        <div class="block2-pic hov-img0">
+          <p *ngIf="product.discount>0" class="label1" [attr.data-label1]="'SALE&nbsp;'+(product.discount|percent)"
+            style="position: absolute;right: 10%;top:2.5%"></p>
+          <img src="{{imagesURL}}/products/{{product.image}}" onerror="this.src='/assets/images/default-product.webp'"
+            alt="IMG-PRODUCT">
+          <a routerLink="/product/{{product.id}}"
+            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+            More details
+          </a>
+
+        </div>
+
+        <div class="block2-txt flex-w flex-t p-t-14 p-3">
+          <div class="block2-txt-child1 flex-col-l ">
+            <a href="/product/{{product.id}}"
+              class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">{{product.name}}</a>
+          </div>
+          <div class="block2-txt-child1">
+            <ng-container>
+              <span *ngIf="product.discount"
+                class="text-danger stext-105 cl3 text-decoration-line-through">{{product.price.toFixed(2)}} EGP</span>
+              <br>
+            </ng-container>
+            <span class="stext-105 cl3">{{product.salePrice.toFixed(2)}} EGP</span>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-caption">
+
+      </div>
+    </slide>
+  
+</carousel>
+</div>
+<br>
+
+<div class="container" *ngIf="latestProduct">
+  <h2 style="font-size: 3rem ; font-family: 'Dancing Script', cursive;
+ text-align: center; margin-top: 2rem; margin-bottom: 4rem;">Our Latest Products </h2>
+  <carousel #sale [itemsPerSlide]="itemsPerSlide" [isAnimated]="true" [singleSlideOffset]="singleSlideOffset"
+    [noWrap]="!noWrap" [interval]="1000" [startFromIndex]="1">
+
+    <slide *ngFor="let product of latestProduct; let index=index">
+      <div class="block2 mx-2 border  ">
+        <div class="block2-pic hov-img0">
+          <p *ngIf="product.discount>0" class="label1" [attr.data-label1]="'SALE&nbsp;'+(product.discount|percent)"
+            style="position: absolute;right: 10%;top:2.5%"></p>
+          <img src="{{imagesURL}}/products/{{product.image}}" onerror="this.src='/assets/images/default-product.webp'"
+            alt="IMG-PRODUCT">
+          <a routerLink="/product/{{product.id}}"
+            class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+            More details
+          </a>
+
+        </div>
+
+        <div class="block2-txt flex-w flex-t p-t-14 p-3">
+          <div class="block2-txt-child1 flex-col-l ">
+            <a href="/product/{{product.id}}"
+              class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">{{product.name}}</a>
+          </div>
+          <div class="block2-txt-child1">
+            <ng-container>
+              <span *ngIf="product.discount"
+                class="text-danger stext-105 cl3 text-decoration-line-through">{{product.price.toFixed(2)}} EGP</span>
+              <br>
+            </ng-container>
+            <span class="stext-105 cl3">{{product.salePrice.toFixed(2)}} EGP</span>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-caption">
+
+      </div>
+    </slide>
+  </carousel>
+</div>
+<br><br><br><br><br><br>
+
+

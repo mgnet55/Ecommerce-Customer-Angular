@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -25,7 +25,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { AccountManagementComponent } from './components/account-management/account-management.component';
 import { FilesModule } from './shared/files/files.module';
 import { TokenInterceptorService } from './interceptors/token-interceptor.service';
-import { MatSliderModule } from '@angular/material/slider';
+
 import { LoadingComponent } from './shared/loading/loading.component';
 import { LoaderInterceptorService } from './interceptors/loader-interceptor.service';
 import { ToastrModule } from 'ngx-toastr';
@@ -77,9 +77,8 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
       positionClass: 'toast-top-center',
       preventDuplicates: true,
     }),
-    MatSliderModule,
     NgxPaginationModule,
-
+    ModalModule.forRoot()
   ],
   providers: [
     {

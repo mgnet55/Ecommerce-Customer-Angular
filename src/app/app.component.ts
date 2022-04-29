@@ -9,7 +9,7 @@ import { LoaderService } from './services/loader.service';
 })
 export class AppComponent implements OnInit{
   title = 'customer';
-  loaderState=false
+  loaderState=false;
   constructor(private auth:AuthService,private loader:LoaderService){
     this.auth.prepareUserData()
   }

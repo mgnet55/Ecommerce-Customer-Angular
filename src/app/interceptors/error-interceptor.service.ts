@@ -14,9 +14,13 @@ export class ErrorInterceptorService implements HttpInterceptor {
     let router = this.injector.get(Router)
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status == 401 || err.status == 403) {
+        if (err.status == 403) {
           localStorage.removeItem('userToken')
           router.navigate(['login'])
+        }
+        if(err.status == 401)
+        {
+          
         }
         return throwError(
           () => err)

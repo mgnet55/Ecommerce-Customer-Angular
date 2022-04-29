@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,7 +16,11 @@ export class UserProfileComponent implements OnInit {
   profileData:User[] = []
  user : User = {} as User;
   constructor(private authService:AuthService,
-              private Router:Router) { }
+              private Router:Router,
+              private titleService: Title) { 
+                this.titleService.setTitle('Edit-Profile')
+      
+              }
 
   ngOnInit(): void {
 

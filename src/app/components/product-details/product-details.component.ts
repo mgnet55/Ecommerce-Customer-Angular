@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { VmCardProduct } from 'src/app/models/view_models/VmCardProduct';
@@ -25,8 +26,12 @@ export class ProductDetailsComponent implements OnInit {
               private authService:AuthService,
               private cartService:CartService,
               private ToastrService:ToastrService,
+              private titleService: Title
 
-              ) { }
+              ) { 
+                this.titleService.setTitle('Product-Details')
+      
+              }
 
   ngOnInit(): void {
 

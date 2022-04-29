@@ -4,6 +4,7 @@ import {VmCardProduct} from 'src/app/models/view_models/VmCardProduct';
 import {ProductsService} from 'src/app/services/products.service';
 import {Category} from 'src/app/models/category';
 import {environment} from "src/environments/environment";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-products',
@@ -18,7 +19,10 @@ export class ProductsComponent implements OnInit {
   totalItems: any;
   selectedCategory = 0
 
-  constructor(private productsService: ProductsService, private CategoriesService: CategoriesService) {
+  constructor(private productsService: ProductsService, private CategoriesService: CategoriesService,
+    private titleService: Title) {
+    this.titleService.setTitle('Shop')
+      
     this.products = [];
     this.categories = [];
   }

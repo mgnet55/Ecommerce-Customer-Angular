@@ -1,10 +1,10 @@
-
 <!-- New Header -->
 <nav class="navbar navbar-expand-lg navbar-light" style="padding-top: 1.5rem; padding-bottom: 1.5rem;">
   <div class="container-fluid">
     <a href="#" class="logo">
       <img src="assets/images/icons/logo-01.png" alt="IMG-LOGO" />
-    </a>    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    </a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
@@ -25,32 +25,33 @@
       </ul>
       <span class="navbar-text">
         <div class="wrap-icon-header flex-w flex-r-m">
-          <li class="nav-item" *ngIf="AuthService.loginStatus && AuthService.currentUser.email!=null">
-          <div class="btn-group" dropdown>
-            <a id="button-disabled-item" dropdownToggle type="button" class="dropdown-toggle nav-link"
-               aria-controls="dropdown-disabled-item">
-              My Account<span class="caret"></span>
-          </a>
-            <ul id="dropdown-disabled-item" *dropdownMenu class="dropdown-menu"
-                role="menu" aria-labelledby="button-disabled-item">
-              <li role="menuitem"><a class="dropdown-item" routerLink="/user/profile">My Profile</a>
-              </li>
-              <li role="menuitem"><a class="dropdown-item"routerLink="myorders">My Orders</a></li>
-            </ul>
-          </div>
-        </li>
+          
           <div style="color: #333; margin-right: 0.5rem; padding-left: 0;"
             class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
             [attr.data-notify]="AuthService.cartItem">
-          <a routerLink="/cart" style="color: #333;"> <i class="zmdi zmdi-shopping-cart"></i></a>
+            <button (click)="cart(loginModal)" style="color: #333;"> <i class="zmdi zmdi-shopping-cart"></i></button>
           </div>
-          <a routerLink="/login"
-          class="flex-c-m stext-103 cl1 size-102 bg2 bor2 hov-btn3 p-lr-15 trans-04" style="font-size: 1rem; margin-right: 0.5rem;" *ngIf="!AuthService.loginStatus || (AuthService.currentUser.email==null)">Login</a>
-          <button (click)="logout()"
-          class="flex-c-m stext-103 cl1 size-102 bg2 bor2 hov-btn3 p-lr-15 trans-04" style="font-size: 1rem;   font-size: 1.2em;
-          font-weight: 600;" *ngIf="AuthService.loginStatus && (AuthService.currentUser.email!=null)">Logout</button>
-          <a routerLink="/register"
-          class="flex-c-m stext-103 cl1 size-102 bg2 bor2 hov-btn3 p-lr-15 trans-04" style="font-size: 1rem;" *ngIf="!AuthService.loginStatus || (AuthService.currentUser.email==null)">Register</a>
+          <li class="nav-item" *ngIf="AuthService.loginStatus && AuthService.currentUser.email!=null">
+            <div class="btn-group" dropdown>
+              <a id="button-disabled-item" dropdownToggle type="button" class="dropdown-toggle nav-link"
+                aria-controls="dropdown-disabled-item">
+                My Account<span class="caret"></span>
+              </a>
+              <ul id="dropdown-disabled-item" *dropdownMenu class="dropdown-menu" role="menu"
+                aria-labelledby="button-disabled-item">
+                <li role="menuitem"><a class="dropdown-item" routerLink="/user/profile">My Profile</a>
+                </li>
+                <li role="menuitem"><a class="dropdown-item" routerLink="myorders">My Orders</a></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="logout()" >Logout</a></li>
+              </ul>
+            </div>
+          </li>
+          <button class="flex-c-m stext-103 cl1 size-102 bg2 bor2 hov-btn3 p-lr-15 trans-04"
+            style="font-size: 1rem; margin-right: 0.5rem;" (click)="openModal(loginModal)"
+            *ngIf="!AuthService.loginStatus || (AuthService.currentUser.email==null)">Login</button>
+          <a routerLink="/register" class="flex-c-m stext-103 cl1 size-102 bg2 bor2 hov-btn3 p-lr-15 trans-04"
+            style="font-size: 1rem;"
+            *ngIf="!AuthService.loginStatus || (AuthService.currentUser.email==null)">Register</a>
         </div>
       </span>
     </div>
@@ -58,5 +59,53 @@
 </nav>
 
 
+<ng-template #loginModal>
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close close pull-right text-dark" aria-label="Close" (click)="modalRef?.hide()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <h1 class="fw-light">Welcom Back !</h1>
+          <h1 class="fw-bold ">Login To Your Account</h1>
+          <p>Don't have account? <a routerLink="/register" (click)="modalRef?.hide()" class="text-primary">Register</a> </p>
+        </div>
+        <form (ngSubmit)="login()" [formGroup]="formData">
+          <div class="row p-4 ">
+            <label for="email" class="col-sm-3 col-form-label fs-6 fw-light text-muted">Email</label>
+            <div class="col-sm-9 col-lg-12">
+              <input type="text" class="login__input w-100" id="email" formControlName="email"
+                [ngClass]="{'n_valid is-invalid': (isFormSubmitted && email?.['errors'])||errors?.email}">
 
+              <div *ngIf="isFormSubmitted &&email?.['errors']?.['required'] " class="invalid-feedback">
+                Must enter Email
+              </div>
+              <div *ngIf="isFormSubmitted &&email?.['errors']?.['email'] " class="invalid-feedback">
+                Enter valid Email
+              </div>
+              <div *ngIf="errors?.email" class="invalid-feedback">
+                {{errors?.email}}
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3 px-4">
+            <label for="password" class="col-sm-3 col-form-label fs-6 fw-light text-muted">Password</label>
+            <div class="col-sm-9 col-lg-12">
+              <input type="password" class=" login__input w-100" id="password" formControlName="password"
+                [ngClass]="{'n_valid is-invalid': (isFormSubmitted && password?.['errors'])||errors?.password}">
 
+              <div *ngIf="isFormSubmitted &&password?.['errors']?.['required'] " class="invalid-feedback">
+                Must enter Password
+              </div>
+              <div *ngIf="errors?.password" class="invalid-feedback">
+                {{errors?.password}}
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mt-5 ">
+            <button class="flex-c-m stext-103 cl1 size-102 bg2 bor2 hov-btn3 p-lr-15 trans-04 mb-3" type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+    </ng-template>

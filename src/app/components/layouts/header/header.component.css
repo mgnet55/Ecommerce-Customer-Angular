@@ -1,3 +1,29 @@
 a{
   font-size: 1.2em;
 }
+.login__input {
+	border: none;
+	border-bottom: 2px solid #cbbdbe;
+	background: none;
+	padding: 10px;
+	padding-left: 24px;
+	font-weight: 700;
+	width: 75%;
+	transition: .2s;
+  height: 30px;
+}
+.register__input {
+	border: none;
+	border-bottom: 2px solid #cbbdbe;
+	background: none;
+	padding: 10px;
+	padding-left: 24px;
+	font-weight: 700;
+	width: 75%;
+	transition: .2s;
+  height: 15px;
+}
+.n_valid {
+  border-color: #e02f3b;
+}
+

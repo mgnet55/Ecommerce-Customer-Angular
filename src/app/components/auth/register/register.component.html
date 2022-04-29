@@ -13,36 +13,46 @@
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
       <input type="text" formControlName="name" class="form-control" id="name" name="name"
-             [class.is-invalid]="name?.invalid" [class.is-valid]="name?.valid">
-      <div class="alert alert-warning" [hidden]="name?.valid || name?.untouched">
-        <small *ngIf="name?.errors?.['required']">
-          Full Name is required
-        </small>
-
+      [ngClass]="{'is-invalid': (isFormSubmitted && name?.['errors'])||errors?.name}">
+      <div *ngIf="isFormSubmitted &&name?.['errors']?.['required'] " class="invalid-feedback">
+        Name is required
+      </div>
+      <div *ngIf="isFormSubmitted &&name?.['errors']?.['minlength'] " class="invalid-feedback">
+        Minimum Lenght of name 3 
+      </div>
+      <div *ngIf="errors?.email" class="invalid-feedback">
+        {{errors?.email}}
       </div>
     </div>
 
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
-      <input type="email" formControlName="email" class="form-control" id="email" name="email" required>
-      <div class="alert alert-warning" [hidden]="email?.valid || email?.untouched">
-        <small *ngIf="email?.errors?.['required']">
-          Email is required
-        </small>
-        <small *ngIf="email?.errors?.['existEmail']">
-          Entered Email is used before, <b>{{email?.errors?.['existEmail'].value}}</b> can't be used
-        </small>
+      <input type="email" formControlName="email" class="form-control" id="email" name="email" 
+      [ngClass]="{'is-invalid': (isFormSubmitted && email?.['errors'])||errors?.email}">
+      <div *ngIf="isFormSubmitted && email?.['errors']?.['required'] " class="invalid-feedback">
+        Email is required
+      </div>
+      <div *ngIf="isFormSubmitted && email?.['errors']?.['email'] " class="invalid-feedback">
+        Entir valid Email
+      </div>
+      <div *ngIf="errors?.email" class="invalid-feedback">
+        {{errors?.email}}
       </div>
     </div>
 
 
     <div class="mb-3">
       <label for="phone" class="form-label">Phone Number</label>
-      <input type="text" formControlName="phone" class="form-control" id="phone" name="phone">
-      <div class="alert alert-warning" [hidden]="phone?.untouched || phone?.valid">
-        <small *ngIf="phone?.errors?.['required']">
-          Phone Number is required.
-        </small>
+      <input type="text" formControlName="phone" class="form-control" id="phone" name="phone"
+      [ngClass]="{'is-invalid': (isFormSubmitted && phone?.['errors'])||errors?.phone}">
+      <div *ngIf="isFormSubmitted && phone?.['errors']?.['required'] " class="invalid-feedback">
+        Phone is required
+      </div>
+      <div *ngIf="isFormSubmitted && phone?.['errors']?.['minlength'] " class="invalid-feedback">
+        Entir valid Phone
+      </div>
+      <div *ngIf="errors?.phone" class="invalid-feedback">
+        {{errors?.phone}}
       </div>
     </div>
 
@@ -53,7 +63,16 @@
         type="file"
         class="form-control"
         ng2FileSelect [uploader]="uploader"
-        (change)="onFileSelect($event)">
+        (change)="onFileSelect($event)"
+        formControlName="image"
+        [ngClass]="{'is-invalid': (isFormSubmitted && image?.['errors'])||errors?.image}"
+        >
+        <div *ngIf="isFormSubmitted && image?.['errors']?.['required'] " class="invalid-feedback">
+          Image is required
+        </div>
+        <div *ngIf="errors?.image" class="invalid-feedback">
+          {{errors?.phone}}
+        </div>
     </div>
 
     <!--  -->
@@ -62,7 +81,8 @@
       <div class="col">
         <label for="cat" class="form-label">Governate</label>
         <select class="form-control" formControlName="governate" name="governate" id="governate"
-                [(ngModel)]="governateID" (change)="onChange($event)">
+                [(ngModel)]="governateID" (change)="onChange($event)"
+                >
           <option value="all" selected disabled>Select Your Governate</option>
           <option *ngFor="let governate of governates" [value]="governate.id">
             {{governate.name}}
@@ -72,16 +92,19 @@
 
       <div class="col">
         <label for="city" class="form-label">City</label>
-        <select class="form-control" formControlName="city" name="city" id="city">
+        <select class="form-control" formControlName="city" name="city" id="city"
+        [ngClass]="{'is-invalid': (isFormSubmitted && city?.['errors'])||errors?.city}"
+        >
           <option value="all" selected disabled>Select Your City</option>
           <option *ngFor="let city of cities" [value]="city.id">
             {{city.name}}
           </option>
         </select>
-        <div class="alert alert-warning" [hidden]="city?.valid || city?.untouched">
-          <small *ngIf="city?.errors?.['required']">
-            City is required
-          </small>
+        <div *ngIf="isFormSubmitted && city?.['errors']?.['required'] " class="invalid-feedback">
+          City is required
+        </div>
+        <div *ngIf="errors?.city" class="invalid-feedback">
+          {{errors?.phone}}
         </div>
       </div>
     </div>
@@ -89,34 +112,39 @@
     <!--  -->
     <div class="mb-3">
       <label for="address" class="form-label">Address</label>
-      <input type="text" formControlName="address" class="form-control" id="address" name="address">
-      <div class="alert alert-warning" [hidden]="address?.valid || address?.untouched">
-        <small *ngIf="address?.errors?.['required']">
-          address is required
-        </small>
+      <input type="text" formControlName="address" class="form-control" id="address" name="address"
+      [ngClass]="{'is-invalid': (isFormSubmitted && address?.['errors'])||errors?.address}">
+      <div *ngIf="isFormSubmitted && address?.['errors']?.['required'] " class="invalid-feedback">
+        Address is required
+      </div>
+      <div *ngIf="errors?.address" class="invalid-feedback">
+        {{errors?.phone}}
       </div>
     </div>
     <div class="form-row">
       <div class="col">
         <label for="uPass" class="form-label">Password</label>
-        <input type="password" formControlName="password" class="form-control" id="uPass" name="userPass">
-        <div class="alert alert-warning" [hidden]="password?.valid || password?.untouched">
-          <small *ngIf="password?.errors?.['required']">
-            Password is required
-          </small>
-          <small *ngIf="password?.errors?.['minlength']">
-            Password must be 8 letters at least.
-          </small>
+        <input type="password" formControlName="password" class="form-control" id="uPass" name="userPass"
+        [ngClass]="{'is-invalid': (isFormSubmitted && password?.['errors'])||errors?.password}">
+        <div *ngIf="isFormSubmitted && password?.['errors']?.['required'] " class="invalid-feedback">
+          Password is required
+        </div>
+        <div *ngIf="isFormSubmitted && password?.['errors']?.['minlength'] " class="invalid-feedback">
+          Minimum legnth of Password 8 character
+        </div>
+        <div *ngIf="errors?.password" class="invalid-feedback">
+          {{errors?.phone}}
         </div>
       </div>
 
       <div class="col">
         <label for="uCPass" class="form-label">Confirm Password</label>
-        <input type="password" formControlName="confirmPassword" class="form-control" id="uCPass" name="usercpass">
-        <div class="alert alert-warning" *ngIf="confirmPassword?.errors?.['required'] && confirmPassword?.touched">
+        <input type="password" formControlName="confirmPassword" class="form-control" id="uCPass" name="usercpass"
+        [ngClass]="{'is-invalid': isFormSubmitted && (confirmPassword?.errors||RegisterationForm?.errors?.['UnmatchedPassword'])}"> 
+        <div *ngIf="isFormSubmitted && confirmPassword?.errors?.['required']" class="invalid-feedback">
           Confirm Password is required
         </div>
-        <div small class="alert alert-warning" *ngIf="RegisterationForm?.errors?.['UnmatchedPassword']">
+        <div *ngIf="isFormSubmitted && RegisterationForm?.errors?.['UnmatchedPassword']" class="invalid-feedback">
           Confirm password must match password.
         </div>
       </div>
@@ -124,7 +152,7 @@
     <br>
 
     <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer"
-            [disabled]="RegisterationForm.invalid" type="submit">
+             type="submit">
       Submit
     </button>
   </form>

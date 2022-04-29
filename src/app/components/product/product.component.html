@@ -2,9 +2,12 @@
   <!-- Block2 -->
   <div class="block2">
     <div class="block2-pic hov-img0">
-      <p *ngIf="product.discount>0" class="label1" [attr.data-label1]="'SALE&nbsp;'+(product.discount|percent)"  style="position: absolute;right: 10%;top:2.5%"></p>
-      <img src="{{imagesURL}}/products/{{product.image}}" onerror="this.src='/assets/images/default-product.webp'" alt="IMG-PRODUCT">
-      <a href="/product/{{product.id}}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+      <p *ngIf="product.discount>0" class="label1" [attr.data-label1]="'SALE&nbsp;'+(product.discount|percent)"
+        style="position: absolute;right: 10%;top:2.5%"></p>
+      <img src="{{imagesURL}}/products/{{product.image}}" onerror="this.src='/assets/images/default-product.webp'"
+        alt="IMG-PRODUCT">
+      <a routerLink="/product/{{product.id}}"
+        class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
         More details
       </a>
 
@@ -12,18 +15,20 @@
 
     <div class="block2-txt flex-w flex-t p-t-14">
       <div class="block2-txt-child1 flex-col-l ">
-        <a href="/product/{{product.id}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">{{product.name}}</a>
+        <a routerLink="/product/{{product.id}}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">{{product.name}}</a>
       </div>
       <div class="block2-txt-child1">
-        <ng-container  >
-        <span *ngIf="product.discount" class="text-danger stext-105 cl3 text-decoration-line-through">{{product.price.toFixed(2)}} EGP</span>
+        <ng-container>
+          <span *ngIf="product.discount"
+            class="text-danger stext-105 cl3 text-decoration-line-through">{{product.price.toFixed(2)}} EGP</span>
           <br>
         </ng-container>
         <span class="stext-105 cl3">{{product.salePrice.toFixed(2)}} EGP</span>
       </div>
     </div>
     <div class="flex-c-m p-t-15">
-      <button class="flex-c-m stext-103 cl2 size-102 bg2 bor2 hov-btn3 p-lr-15 trans-04" (click)="addToCart(product.id)"><i class="zmdi zmdi-shopping-cart"></i></button>
+      <button class="flex-c-m stext-103 cl2 size-102 bg2 bor2 hov-btn3 p-lr-15 trans-04"
+        (click)="addToCart(product.id)"><i class="zmdi zmdi-shopping-cart"></i></button>
     </div>
   </div>
 
