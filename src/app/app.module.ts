@@ -33,6 +33,8 @@ import { ErrorInterceptorService } from './interceptors/error-interceptor.servic
 import { OrderComponent } from './components/order/order.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import {NgxPaginationModule} from "ngx-pagination";
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 
 
 @NgModule({
@@ -55,6 +57,8 @@ import {NgxPaginationModule} from "ngx-pagination";
         LoadingComponent,
         OrderComponent,
         OrderDetailsComponent,
+        AboutUsComponent,
+        ContactUsComponent,
 
   ],
   imports: [

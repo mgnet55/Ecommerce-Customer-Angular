@@ -11,12 +11,16 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { AuthGuard } from './guards/auth.guard';
 import { OrderComponent } from './components/order/order.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 
 const routes: Routes = [
   {
     path: '', component: MainLayoutComponent, children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
+      { path: 'about', component: AboutUsComponent },
+      { path: 'contact', component: ContactUsComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'cart', component: CartComponent,canActivate:[AuthGuard]},
       { path: 'home/:username', component: HomeComponent },
